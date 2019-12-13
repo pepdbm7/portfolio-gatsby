@@ -1,21 +1,34 @@
 import React from "react"
 import { Link } from "gatsby"
+import { Helmet } from "react-helmet"
 
+//components:
 import Layout from "../components/layout"
 import Image from "../components/image"
 import SEO from "../components/seo"
+import Hero from "../components/hero"
+import About from "../components/about"
 
-const IndexPage = () => (
-  <Layout>
-    <SEO title="Home" />
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
-    <div style={{ maxWidth: `300px`, marginBottom: `1.45rem` }}>
-      <Image />
-    </div>
-    <Link to="/page-2/">Go to page 2</Link>
-  </Layout>
-)
+import data from "../data"
+
+const IndexPage = () => {
+  const { hero, about, skills, work, contact } = data
+
+  return (
+    <Layout>
+      <Helmet>
+        <title>Pep del Baño | Portfolio</title>
+        <meta
+          name="description"
+          content="Passionate Full Stack Javascript Web Developer based in Barcelona"
+        />
+      </Helmet>
+
+      <SEO title="Home" />
+      <Hero data={hero} />
+      <About data={about} />
+    </Layout>
+  )
+}
 
 export default IndexPage
