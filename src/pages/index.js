@@ -8,6 +8,9 @@ import Image from "../components/image"
 import SEO from "../components/seo"
 import Hero from "../components/hero"
 import About from "../components/about"
+import Skills from "../components/skills"
+import Work from "../components/work"
+import Contact from "../components/contact"
 
 import data from "../data"
 
@@ -27,6 +30,9 @@ const IndexPage = () => {
       <SEO title="Home" />
       <Hero data={hero} />
       <About data={about} />
+      <Skills data={skills} />
+      <Work data={work} />
+      <Contact data={contact} />
     </Layout>
   )
 }
