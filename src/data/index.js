@@ -94,7 +94,8 @@ const data = {
   contact: {
     id: "contact",
     title: "Contact Me",
-    description: "blablabla",
+    description:
+      "Do you have any ambitious project in mind? Let's build it together! ...or ask me something else you feel like",
   },
   footer: "© 2019 PepDev",
 }

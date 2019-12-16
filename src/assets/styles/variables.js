@@ -1,4 +1,7 @@
 export default {
+  //Gutter
+  gutter: "15",
+
   // Colors
 
   primary: "#ea2c13",

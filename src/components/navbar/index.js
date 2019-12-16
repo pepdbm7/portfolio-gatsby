@@ -172,9 +172,7 @@ const NavBar = ({ data }) => {
         autoAlpha: 0,
       })
     }
-
-    setWidth(size.width)
-  }, [viewNavItems, size])
+  }, [viewNavItems])
 
   useEffect(() => {
     setIsTop(true)
@@ -215,8 +213,8 @@ const NavBar = ({ data }) => {
                   data.map((section, i) => (
                     <a
                       key={i}
-                      href={section.anchor}
                       onClick={handleBurgerClick}
+                      href={section.anchor}
                       className="navItem"
                     >
                       {section.name}

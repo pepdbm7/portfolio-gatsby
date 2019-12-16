@@ -34,6 +34,38 @@ const Title = styled(a.h2)`
   }
 `
 
+const Intro = styled.p`
+  width: fit-content;
+  margin: 20px auto;
+`
+
+const ContactForm = styled.form`
+  margin: 10px auto;
+
+  input,
+  textarea,
+  button {
+    padding: 15px 8px;
+    border: 1px solid blue;
+    margin: 8px 0;
+  }
+  #name {
+    margin: 8px 5px 8px 0;
+  }
+
+  button {
+    background: darkblue;
+    color: white;
+    font-weight: 700;
+
+    transition: 0.4s ease;
+
+    &:hover {
+      background: blue;
+    }
+  }
+`
+
 const Contact = ({ data: { id, title, description } }) => {
   const { format } = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 2,
@@ -71,37 +103,32 @@ const Contact = ({ data: { id, title, description } }) => {
           </Column>
 
           <Column xs={12}>
-            <p>{description}</p>
+            <Intro>{description}</Intro>
           </Column>
 
-          <form>
-            Aqui va un formulario de netlify!
+          <ContactForm action="POST" data-netlify="true">
             <Wrapper>
               <Row>
-                <Column xs="12" sm={8} align="center" direction="column">
-                  <input
-                    placeholder="Name"
-                    style={{ border: "1px solid black", margin: "5px auto" }}
-                  />
-                  <input
-                    placeholder="Email"
-                    style={{ border: "1px solid black", margin: "5px auto" }}
-                  />
-                  <input
-                    placeholder="Subject"
-                    style={{ border: "1px solid black", margin: "5px auto" }}
-                  />
-                  <input
+                <Column xs={12} sm={8}>
+                  <input name="name" id="name" placeholder="Name" />
+                  <input name="email" id="email" placeholder="Email" />
+                </Column>
+              </Row>
+              <Row>
+                <Column xs={12} align="center" direction="column">
+                  <input name="subject" id="subject" placeholder="Subject" />
+                  <textarea
+                    name="message"
+                    id="message"
                     placeholder="Message"
-                    style={{ border: "1px solid black", margin: "5px auto" }}
+                    rows="7"
                   />
+                  <div data-netlify-recaptcha="true" />
                   <button type="submit">Send</button>
                 </Column>
               </Row>
             </Wrapper>
-          </form>
-
-          <Column xs={12}></Column>
+          </ContactForm>
         </Row>
       </Wrapper>
     </Container>
