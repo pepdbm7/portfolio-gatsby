@@ -14,6 +14,9 @@ import variables from "../../assets/styles/variables"
 //styles:
 import { breakpoints } from "../../assets/styles/breakpoints"
 
+//components:
+import ProjectCard from "./projectCard"
+
 const Container = styled.section`
   background: white;
   position: relative;
@@ -35,14 +38,6 @@ const Title = styled(a.h2)`
 `
 
 const ProjectsContainer = styled.div``
-
-const ProjectCard = styled.div``
-
-const ProjectTitle = styled.h2``
-
-const ProjectSubtitle = styled.h3``
-
-const ProjectDescription = styled.div``
 
 const Point = styled.p``
 
@@ -86,15 +81,7 @@ const Work = ({ data: { id, title, projects } }) => {
           <Column xs={12}>
             <ProjectsContainer>
               {projects.map((project, id) => (
-                <ProjectCard id={id}>
-                  <ProjectTitle>{project.title}</ProjectTitle>
-                  <ProjectSubtitle>{project.subtitle}</ProjectSubtitle>
-                  <ProjectDescription>
-                    {project.description.map((point, id) => (
-                      <Point id={id}>{point}</Point>
-                    ))}
-                  </ProjectDescription>
-                </ProjectCard>
+                <ProjectCard id={id} project={project} />
               ))}
             </ProjectsContainer>
           </Column>

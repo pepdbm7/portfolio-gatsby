@@ -4,12 +4,12 @@ export default {
 
   // Colors
 
-  primary: "#ea2c13",
-  primaryDark: "#7b1508",
-  primaryLight: "#ff7968",
+  primary: "royalblue",
+  primaryDark: "darkblue",
+  primaryLight: "cornflowerblue",
 
-  secondary: "#141414",
-  secondaryDark: "#2d2d2d",
+  secondary: "#2d2d2d",
+  secondaryDark: "#141414",
   secondaryLight: "#888888",
 
   //Sombras

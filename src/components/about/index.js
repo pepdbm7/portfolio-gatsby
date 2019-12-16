@@ -41,7 +41,7 @@ const DownloadButtonContainer = styled(a.a)`
   background: ${variables.primary};
   color: white;
   margin: 40px auto 40px;
-  border-radius: 3px;
+  border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
   line-height: 24px;
@@ -49,7 +49,7 @@ const DownloadButtonContainer = styled(a.a)`
   display: flex;
   flex-wrap: nowrap;
 
-  transition: 0.2s;
+  transition: 0.25s;
 
   @media screen and (max-width: ${breakpoints.phone}px) {
     font-size: 14px;
@@ -74,7 +74,7 @@ const LeftButton = styled.div`
 `
 
 const DonwloadIconBox = styled.div`
-  border-left: 1px solid #ff7968;
+  border-left: 1px solid whitesmoke;
   display: flex;
   align-items: center;
   justify-content: center;

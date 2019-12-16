@@ -18,10 +18,11 @@ const Container = styled.section`
   background: white;
   position: relative;
   z-index: 0;
+  color: white;
+  background: ${variables.secondary};
 `
 
 const Title = styled(a.h2)`
-  color: black;
   text-align: center;
   width: 100%;
   margin: 100px auto 60px;
@@ -37,6 +38,7 @@ const Title = styled(a.h2)`
 const Intro = styled.p`
   width: fit-content;
   margin: 20px auto;
+  width: 85%;
 `
 
 const ContactForm = styled.form`
@@ -46,22 +48,31 @@ const ContactForm = styled.form`
   textarea,
   button {
     padding: 15px 8px;
-    border: 1px solid blue;
     margin: 8px 0;
+    border: 1px solid royalblue;
+    background: white;
   }
   #name {
     margin: 8px 5px 8px 0;
   }
 
   button {
-    background: darkblue;
-    color: white;
+    color: royalblue;
+    font-size: 16px;
     font-weight: 700;
+    line-height: 24px;
+    padding: 12px 30px;
+    border-radius: 30px;
+    user-select: none;
+    outline: 0;
+    width: fit-content;
+    margin: 8px auto;
 
-    transition: 0.4s ease;
+    transition: 0.25s all ease;
 
     &:hover {
-      background: blue;
+      background: royalblue;
+      color: white;
     }
   }
 `
@@ -106,11 +117,20 @@ const Contact = ({ data: { id, title, description } }) => {
             <Intro>{description}</Intro>
           </Column>
 
-          <ContactForm action="POST" data-netlify="true">
+          <ContactForm
+            name="contact"
+            method="post"
+            data-netlify="true"
+            data-netlify-honeypot="bot-field"
+          >
+            {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
+            <input type="hidden" name="form-name" value="contact" />
             <Wrapper>
               <Row>
-                <Column xs={12} sm={8}>
-                  <input name="name" id="name" placeholder="Name" />
+                <Column xs={12} align="center" direction="column" sm={6}>
+                  <input name="name" id="name" placeholder="Name" required />
+                </Column>
+                <Column xs={12} align="center" direction="column" sm={6}>
                   <input name="email" id="email" placeholder="Email" />
                 </Column>
               </Row>
@@ -118,6 +138,7 @@ const Contact = ({ data: { id, title, description } }) => {
                 <Column xs={12} align="center" direction="column">
                   <input name="subject" id="subject" placeholder="Subject" />
                   <textarea
+                    required
                     name="message"
                     id="message"
                     placeholder="Message"

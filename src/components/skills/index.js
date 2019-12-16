@@ -18,10 +18,11 @@ const Container = styled.section`
   background: white;
   position: relative;
   z-index: 0;
+  color: white;
+  background: ${variables.secondary};
 `
 
 const Title = styled(a.h2)`
-  color: black;
   text-align: center;
   width: 100%;
   margin: 100px auto 60px;

@@ -1,3 +1,8 @@
+import PlanbeImg from "../images/planbe_screenshot.png"
+import MeetupImg from "../images/meetup_screenshot.png"
+import GnomeFinderImg from "../images/gnomefinder_screenshot.png"
+import PinterHooksImg from "../images/pinterhooks.png"
+
 const data = {
   navbar: [
     {
@@ -43,6 +48,7 @@ const data = {
     title: "Work",
     projects: [
       {
+        image: PlanbeImg,
         title: "PlanBe",
         subtitle: "E-commerce with MERN Stack",
         description: [
@@ -53,8 +59,10 @@ const data = {
           "View of the orders history",
           "Editable all user's profile fields",
         ],
+        demoUrl: "",
       },
       {
+        image: MeetupImg,
         title: "MeetUp",
         subtitle: "Social Network with MEVN Stack",
         description: [
@@ -65,8 +73,10 @@ const data = {
           "Filter events by assistance",
           "See user profile",
         ],
+        demoUrl: "",
       },
       {
+        image: GnomeFinderImg,
         title: "Gnome Finder",
         subtitle: "Front End React project",
         description: [
@@ -77,8 +87,10 @@ const data = {
           "Apply up to 4 filters simultaneously",
           "Responsive and smooth style",
         ],
+        demoUrl: "",
       },
       {
+        image: PinterHooksImg,
         title: "PinterHooks",
         subtitle: "React and Redux app",
         description: [
@@ -88,6 +100,7 @@ const data = {
           "Used Pixabay API",
           "Includes pagination",
         ],
+        demoUrl: "",
       },
     ],
   },
@@ -95,9 +108,9 @@ const data = {
     id: "contact",
     title: "Contact Me",
     description:
-      "Do you have any ambitious project in mind? Let's build it together! ...or ask me something else you feel like",
+      "Do you have any ambitious project in mind? Let's build it together! ...or ask me whatever you feel like",
   },
-  footer: "© 2019 PepDev",
+  footer: "2019 PepDev",
 }
 
 export default data

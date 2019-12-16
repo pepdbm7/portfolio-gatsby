@@ -168,11 +168,13 @@ const NavBar = ({ data }) => {
         ease: Back.easeOut,
       })
     } else {
-      TweenMax.to("#menu, .navItem", 0.3, {
+      TweenMax.to("#menu, .navItem", 0, {
         autoAlpha: 0,
       })
     }
-  }, [viewNavItems])
+
+    setWidth(size.width)
+  }, [viewNavItems, size])
 
   useEffect(() => {
     setIsTop(true)

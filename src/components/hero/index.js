@@ -139,8 +139,6 @@ const HeroLinkDown = styled.a`
     position: absolute;
     width: 15px;
     height: 10px;
-    left: 36px;
-    bottom: 20px;
     background-repeat: no-repeat;
     background-image: url(${arrowDown});
     animation: flip-flop 0.8s infinite;

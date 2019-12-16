@@ -27,6 +27,7 @@ const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     overflow: inherit;
+    text-align: center;
     
     &.scrollDisabled {
       overflow: hidden;
@@ -39,7 +40,7 @@ const Layout = ({ children }) => {
   const { navbar, footer } = data
 
   return (
-    <>
+    <React.Fragment>
       <GlobalStyle />
 
       <NavBar data={navbar} />
@@ -47,7 +48,7 @@ const Layout = ({ children }) => {
       {children}
 
       <Footer data={footer} />
-    </>
+    </React.Fragment>
   )
 }
 
