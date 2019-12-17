@@ -20,6 +20,7 @@ const Container = styled.section`
   z-index: 0;
   color: white;
   background: ${variables.secondary};
+  padding: 0 0 100px;
 `
 
 const Title = styled(a.h2)`

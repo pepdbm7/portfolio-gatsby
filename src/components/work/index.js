@@ -21,6 +21,7 @@ const Container = styled.section`
   background: white;
   position: relative;
   z-index: 0;
+  padding: 0 0 100px;
 `
 
 const Title = styled(a.h2)`
@@ -36,10 +37,6 @@ const Title = styled(a.h2)`
     margin: 180px auto 80px;
   }
 `
-
-const ProjectsContainer = styled.div``
-
-const Point = styled.p``
 
 const Work = ({ data: { id, title, projects } }) => {
   const { format } = new Intl.NumberFormat("en-US", {
@@ -78,13 +75,9 @@ const Work = ({ data: { id, title, projects } }) => {
           </Column>
         </Row>
         <Row>
-          <Column xs={12}>
-            <ProjectsContainer>
-              {projects.map((project, id) => (
-                <ProjectCard id={id} project={project} />
-              ))}
-            </ProjectsContainer>
-          </Column>
+          {projects.map((project, id) => (
+            <ProjectCard id={id} project={project} />
+          ))}
         </Row>
         <Row>
           <Column xs={12}></Column>

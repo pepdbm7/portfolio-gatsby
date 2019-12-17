@@ -21,6 +21,7 @@ const Container = styled.section`
   background: white;
   position: relative;
   z-index: 0;
+  padding: 0 0 100px;
 `
 
 const Title = styled(a.h2)`

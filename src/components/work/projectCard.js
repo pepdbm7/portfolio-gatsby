@@ -56,7 +56,7 @@ const ProjectCardContainer = styled(a.div)`
   width: 100%;
   box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.1);
   margin: 0 auto;
-  padding: 20px;
+  padding: 30px 20px 100px;
   overflow: hidden;
   position: relative;
   ::before {
@@ -91,6 +91,7 @@ const ProjectCardContainer = styled(a.div)`
   }
 
   a {
+    margin: auto auto 0;
     text-decoration: none;
     color: royalblue;
     font-size: 16px;
@@ -101,7 +102,6 @@ const ProjectCardContainer = styled(a.div)`
     user-select: none;
     outline: 0;
     width: fit-content;
-    margin: 8px auto;
     background: white;
     color: royalblue;
     border: 1px solid royalblue;
@@ -184,7 +184,7 @@ const ProjectCard = ({ project, id }) => {
   })
 
   return (
-    <Column xs={12} sm={8} align="center" md={4}>
+    <Column xs={12} sm={6} align="center">
       <DecorationLayyer id={id} ref={ref} style={cardsProps}>
         <ProjectCardContainer id={id}>
           <CardHeader>
