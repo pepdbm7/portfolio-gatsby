@@ -76,7 +76,7 @@ const Work = ({ data: { id, title, projects } }) => {
         </Row>
         <Row>
           {projects.map((project, id) => (
-            <ProjectCard id={id} project={project} />
+            <ProjectCard key={id} id={id} project={project} />
           ))}
         </Row>
         <Row>

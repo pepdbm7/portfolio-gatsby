@@ -14,6 +14,9 @@ import variables from "../../assets/styles/variables"
 import arrowDown from "../../images/arrow_down.svg"
 import arrowDownDrop from "../../images/arrow_drop_down.svg"
 
+//components:
+import HeroParallax from "./HeroParallax"
+
 const HomeContainer = styled.section`
   display: flex;
   flex-direction: column;
@@ -235,6 +238,7 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
               {title1} <span>{title2}</span>
             </HomeTitle>
             <HomeSubtitle>{subtitle}</HomeSubtitle>
+            <HeroParallax />
           </HomeHeader>
         </HeroContent>
 

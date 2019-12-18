@@ -107,12 +107,11 @@ const ProjectCardContainer = styled(a.div)`
     border: 1px solid royalblue;
 
     transition: 0.25s all ease;
-    box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.5);
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.5);
 
     &:hover {
       background: royalblue;
       color: white;
-      border: 1px solid white;
     }
   }
 `
@@ -197,7 +196,9 @@ const ProjectCard = ({ project, id }) => {
           <ProjectDescription>
             <ul>
               {project.description.map((point, id) => (
-                <DescriptionPoint id={id}>{point}</DescriptionPoint>
+                <DescriptionPoint key={id} id={id}>
+                  {point}
+                </DescriptionPoint>
               ))}
             </ul>
           </ProjectDescription>
