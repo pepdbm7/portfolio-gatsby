@@ -12,7 +12,7 @@ import Column from "../../utils/grid/column"
 const FooterSection = styled.footer`
   background: black;
   position: relative;
-  z-index: 0;
+  z-index: 10;
 
   color: white;
   font-weight: bold;

@@ -20,6 +20,11 @@ const GlobalStyle = createGlobalStyle`
     -moz-osx-font-smoothing: grayscale;
   }
 
+
+  html {
+    scroll-behavior: smooth;
+  }
+
   body {
     font-family: ${variables.helvetica};
     font-size: 16px;

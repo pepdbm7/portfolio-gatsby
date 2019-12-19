@@ -15,7 +15,7 @@ import arrowDown from "../../images/arrow_down.svg"
 import arrowDownDrop from "../../images/arrow_drop_down.svg"
 
 //components:
-import HeroParallax from "./HeroParallax"
+// import HeroParallax from "./HeroParallax"
 
 const HomeContainer = styled.section`
   display: flex;
@@ -26,7 +26,6 @@ const HomeContainer = styled.section`
   height: 100vh;
   width: 100%;
   position: relative;
-  /* color: white; */
 `
 
 const HomeBackground = styled.div`
@@ -238,11 +237,11 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
               {title1} <span>{title2}</span>
             </HomeTitle>
             <HomeSubtitle>{subtitle}</HomeSubtitle>
-            <HeroParallax />
+            {/*<HeroParallax />*/}
           </HomeHeader>
         </HeroContent>
 
-        <HeroLinkDown to={link}>{linkText}</HeroLinkDown>
+        <HeroLinkDown href={link}>{linkText}</HeroLinkDown>
       </HomeContainer>
     </ScrollContainer>
   )

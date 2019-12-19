@@ -19,8 +19,7 @@ const DecorationLayyer = styled.div`
   margin: 20px auto;
   ::before {
     content: " ";
-    background: ${({ id }) =>
-      id % 2 ? variables.primaryLight : variables.primary};
+    background: ${`radial-gradient(${variables.primary}, transparent)`};
     z-index: 0;
     height: 180px;
     position: absolute;
@@ -43,8 +42,8 @@ const DecorationLayyer = styled.div`
     width: 1000px;
     bottom: 200px;
     right: -630px;
-    opacity: 0.5;
-    background: ${variables.primaryLight};
+    opacity: 0.7;
+    background: ${`radial-gradient(${variables.primaryLight}, transparent)`};
   }
 `
 
@@ -61,17 +60,16 @@ const ProjectCardContainer = styled(a.div)`
   position: relative;
   ::before {
     content: " ";
-    background: ${({ id }) =>
-      id % 2 ? variables.primaryLight : variables.primary};
+    background: ${`radial-gradient(${variables.primary}, transparent)`};
     z-index: 0;
     height: 180px;
     position: absolute;
-    -webkit-transform: rotate(-5deg);
-    -ms-transform: rotate(-5deg);
-    transform: rotate(-5deg);
-    width: 1000px;
-    top: -110px;
-    left: -210px;
+    -webkit-transform: rotate(-6deg);
+    -ms-transform: rotate(-6deg);
+    transform: rotate(-6deg);
+    width: 500px;
+    top: -90px;
+    right: -90px;
   }
 
   ::after {
@@ -80,14 +78,14 @@ const ProjectCardContainer = styled(a.div)`
     z-index: 1;
     height: 180px;
     position: absolute;
-    -webkit-transform: rotate(106deg);
-    -ms-transform: rotate(106deg);
-    transform: rotate(106deg);
-    width: 1000px;
+    -webkit-transform: rotate(99deg);
+    -ms-transform: rotate(99deg);
+    transform: rotate(99deg);
+    width: 1500px;
     top: -210px;
-    left: -470px;
-    opacity: 0.5;
-    background: ${variables.primaryLight};
+    left: -764px;
+    opacity: 0.7;
+    background: ${`radial-gradient(${variables.primaryLight}, transparent)`};
   }
 
   a {

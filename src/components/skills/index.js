@@ -24,6 +24,7 @@ const Container = styled.section`
   color: white;
   background: ${variables.secondary};
   padding: 0 0 100px;
+  min-height: 100vh;
 `
 
 const Title = styled(a.h2)`

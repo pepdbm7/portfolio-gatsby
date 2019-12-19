@@ -34,14 +34,16 @@ const data = {
   },
   about: {
     id: "about",
-    title: "About me",
-    description: "I am bla bla bla",
+    title: "About",
+    description:
+      "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum ",
     button: "Download CV",
   },
   skills: {
     id: "skills",
-    title: "My skills",
-    description: "bla bla bla",
+    title: "Skills",
+    description:
+      "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum ",
   },
   work: {
     id: "work",

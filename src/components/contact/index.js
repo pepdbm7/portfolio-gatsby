@@ -20,6 +20,7 @@ const Container = styled.section`
   z-index: 0;
   color: white;
   background: ${variables.secondary};
+  min-height: 90vh;
 `
 
 const Title = styled(a.h2)`
@@ -42,7 +43,7 @@ const Intro = styled.p`
 `
 
 const ContactForm = styled.form`
-  margin: 10px auto;
+  margin: 10px auto 100px;
 
   input,
   textarea,

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useState, useEffect } from "react"
 import { useSpring, animated as a } from "react-spring"
 import styled from "styled-components"
 
@@ -17,49 +17,69 @@ import { breakpoints } from "../../assets/styles/breakpoints"
 //images:
 import downloadIcon from "../../images/download_icon.svg"
 
-const Container = styled.section`
-  background: white;
-  position: relative;
-  z-index: 0;
-  padding: 0 0 100px;
-`
+//utils:
+import useWindowSize from "../../utils/useWindowSize"
 
-const Title = styled(a.h2)`
-  color: black;
-  text-align: center;
+const Section = styled.section`
+  display: flex;
+  justify-content: center;
   width: 100%;
-  margin: 100px auto 60px;
-  position: relative;
-  z-index: 0;
-  line-height: 39px;
+  padding-bottom: 200px;
+  color: black;
 
-  @media screen and (min-width: ${breakpoints.large}px) {
-    margin: 180px auto 80px;
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    /* padding: 100vh 0 0; */
   }
 `
 
+const Title = styled(a.h2)`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  top: 160px;
+  line-height: 39px;
+`
+const Content = styled.div`
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  min-height: 20vh;
+  margin: 100vh 0;
+`
+
+const Description = styled(a.div)`
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  top: 45%;
+  padding: 0 20%;
+`
+
 const DownloadButtonContainer = styled(a.a)`
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: center;
+  opacity: 1;
   background: ${variables.primary};
   color: white;
   margin: 40px auto 40px;
   border-radius: 30px;
   cursor: pointer;
   text-decoration: none;
-  line-height: 24px;
 
-  display: flex;
-  flex-wrap: nowrap;
+  transition: 0.25s all ease;
+  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
 
-  transition: 0.25s;
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    position: fixed;
+    bottom: 10%;
 
-  @media screen and (max-width: ${breakpoints.phone}px) {
-    font-size: 14px;
-    line-height: 21px;
+    line-height: 24px;
   }
 
-  &:hover,
-  &:focus {
-    background: ${variables.primaryDark};
+  &:hover {
+    opacity: 0.9 !important;
+    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.6);
   }
 `
 
@@ -83,6 +103,23 @@ const DonwloadIconBox = styled.div`
   padding: 20px;
 `
 
+const SectionResponsive = styled.section`
+  display: flex;
+  height: fit-content;
+  padding: 100px 0;
+  color: black;
+  text-align: center;
+  overflow: hidden;
+
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    overflow: inherit;
+  }
+`
+
+const TitleResponsive = styled(a.h2)`
+  margin: 0 auto 60px;
+`
+
 const About = ({ data: { id, title, description, button } }) => {
   const { format } = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 2,
@@ -96,66 +133,142 @@ const About = ({ data: { id, title, description, button } }) => {
     threshold: buildThresholdArray(),
   })
 
-  const [refButton, entryButton] = useIntersect({
-    //threshold es la cantidad de elemento visible para que se dispare el evento
-    threshold: 0.5,
+  const [refContent, entryContent] = useIntersect({
+    threshold: buildThresholdArray(),
   })
 
+  //convertir intersectionRatio en valor con dos decimales
   const ratio = format(entry.intersectionRatio)
-  const ratioButton = format(entryButton.intersectionRatio)
+  const contentRatio = format(entryContent.intersectionRatio)
 
   const titleProps = useSpring({
     from: {
+      display: "none",
       opacity: 0,
-      transform: `translate(0px, 100px)`,
+      transform: `translate(0, 100px)`,
     },
     to: {
-      opacity: ratio > 0.1 ? 1 : 0,
-      transform: ratio > 0.1 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+      display: "flex",
+      opacity: ratio > 0.3 ? 1 : 0,
+      transform: ratio > 0.3 ? `translate(0, 0)` : `translate(0, 100px)`,
+    },
+  })
+
+  const descriptionProps = useSpring({
+    from: {
+      display: "none",
+      opacity: 0,
+      transform: `translate(-130px, 0)`,
+    },
+    to: {
+      display: "flex",
+      opacity: contentRatio > 0.1 ? 1 : 0,
+      transform:
+        contentRatio > 0.1 ? `translate(0, 0)` : `translate(-130px, 0)`,
     },
   })
 
   const buttonProps = useSpring({
+    from: { display: "none", opacity: 0, transform: `translate(130px, 0)` },
+    to: {
+      display: "flex",
+      opacity: contentRatio > 0.15 ? 1 : 0,
+      transform:
+        contentRatio > 0.15 ? `translate(0, 0)` : `translate(130px, 0)`,
+    },
+  })
+
+  const mobileTitleProps = useSpring({
     from: {
       opacity: 0,
     },
     to: {
-      opacity: ratioButton > 0.5 ? 1 : 0,
+      opacity: ratio > 0.1 ? 1 : 0,
+      transform: ratio > 0.1 ? `translate(0, 0)` : `translate(0, 100px)`,
     },
   })
 
-  return (
-    <Container id={id} ref={ref}>
-      <Wrapper>
-        <Row>
-          <Column xs={12}>
-            <Title style={titleProps} className={"headingMedium"}>
-              {title}
-            </Title>
-          </Column>
+  const widthWindow = useWindowSize()
 
-          <Column xs={12}>
-            <p>{description}</p>
-          </Column>
+  const [width, setWidth] = useState(null)
 
-          <Column xs={12}>
-            <DownloadButtonContainer
-              ref={refButton}
-              style={buttonProps}
-              href={"#"}
-              target="_blank"
-              download="cv"
-              rel="noopener noreferrer"
-            >
-              <LeftButton>{button}</LeftButton>
-              <DonwloadIconBox>
-                <img src={downloadIcon} alt="download icon" />
-              </DonwloadIconBox>
-            </DownloadButtonContainer>
-          </Column>
-        </Row>
-      </Wrapper>
-    </Container>
+  useEffect(() => {
+    setWidth(widthWindow.width)
+  }, [widthWindow])
+
+  const isResponsive = width < breakpoints.tablet
+  useEffect(() => {
+    console.log(ratio)
+  }, [ratio])
+
+  return width && typeof width === "number" ? (
+    !isResponsive ? (
+      <Section id={id} ref={ref}>
+        <Title
+          style={titleProps}
+          className={"headingMedium"}
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
+        <Content ref={refContent}>
+          <Description style={descriptionProps}>
+            <p
+              className={"bodyNormal"}
+              dangerouslySetInnerHTML={{ __html: description }}
+            />
+          </Description>
+          <DownloadButtonContainer
+            style={buttonProps}
+            href={"#"}
+            target="_blank"
+            download="cv"
+            rel="noopener noreferrer"
+          >
+            <LeftButton>{button}</LeftButton>
+            <DonwloadIconBox>
+              <img src={downloadIcon} alt="download icon" />
+            </DonwloadIconBox>
+          </DownloadButtonContainer>
+        </Content>
+      </Section>
+    ) : (
+      <SectionResponsive id={id} ref={ref}>
+        <Wrapper>
+          <Row>
+            <Column xs={12} sm={8} align="center">
+              <TitleResponsive
+                style={mobileTitleProps}
+                className={"headingMedium"}
+              >
+                {title}
+              </TitleResponsive>
+            </Column>
+
+            <Column xs={12}>
+              <p style={descriptionProps} className="bodyNormal">
+                {description}
+              </p>
+            </Column>
+
+            <Column xs={12}>
+              <DownloadButtonContainer
+                className="bodySmall"
+                href={"#"}
+                target="_blank"
+                download="cv"
+                rel="noopener noreferrer"
+              >
+                <LeftButton>{button}</LeftButton>
+                <DonwloadIconBox>
+                  <img src={downloadIcon} alt="download icon" />
+                </DonwloadIconBox>
+              </DownloadButtonContainer>
+            </Column>
+          </Row>
+        </Wrapper>
+      </SectionResponsive>
+    )
+  ) : (
+    <div>loading...</div>
   )
 }
 
