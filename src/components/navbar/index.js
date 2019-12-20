@@ -73,6 +73,7 @@ const SectionsLinksBar = styled.div`
   z-index: 1000;
 
   a {
+    position: relative;
     text-decoration: none;
     color: white;
     opacity: 1;
@@ -81,12 +82,24 @@ const SectionsLinksBar = styled.div`
 
     transition: all 0.4s ease;
 
-    &:hover {
-      opacity: 0.8;
-    }
-
     & + a {
       margin-left: 40px;
+    }
+
+    &:after {
+      position: absolute;
+      bottom: -1px;
+      left: 0;
+      content: "";
+      width: 100%;
+      height: 1px;
+      background: #444;
+      transform: scale(0, 1);
+      transform-origin: left top;
+      transition: transform 0.3s;
+    }
+    &:hover:after {
+      transform: scale(1, 1);
     }
   }
 `

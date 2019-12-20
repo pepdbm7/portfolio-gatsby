@@ -20,16 +20,16 @@ import downloadIcon from "../../images/download_icon.svg"
 //utils:
 import useWindowSize from "../../utils/useWindowSize"
 
+//components:
+import Social from "./Social"
+
 const Section = styled.section`
   display: flex;
   justify-content: center;
+  min-height: 100vh;
   width: 100%;
-  padding-bottom: 200px;
+  padding: 0 0 80vh;
   color: black;
-
-  @media screen and (min-width: ${breakpoints.tablet}px) {
-    /* padding: 100vh 0 0; */
-  }
 `
 
 const Title = styled(a.h2)`
@@ -48,11 +48,37 @@ const Content = styled.div`
 `
 
 const Description = styled(a.div)`
-  position: fixed;
   display: flex;
   justify-content: center;
-  top: 45%;
   padding: 0 20%;
+
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    position: fixed;
+    top: 45%;
+  }
+`
+
+const SocialContainer = styled(a.div)`
+  display: flex;
+  justify-content: center;
+
+  img {
+    width: 2em;
+    height: 2em;
+    margin: 0 10px;
+  }
+
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    position: fixed;
+    bottom: 30%;
+
+    a {
+      &:hover {
+        transform: translateY(-5px);
+        color: #ff0000;
+      }
+    }
+  }
 `
 
 const DownloadButtonContainer = styled(a.a)`
@@ -76,11 +102,6 @@ const DownloadButtonContainer = styled(a.a)`
 
     line-height: 24px;
   }
-
-  &:hover {
-    opacity: 0.9 !important;
-    box-shadow: 0px 2px 8px 0px rgba(0, 0, 0, 0.6);
-  }
 `
 
 const LeftButton = styled.div`
@@ -102,6 +123,8 @@ const DonwloadIconBox = styled.div`
 
   padding: 20px;
 `
+
+//Responsive:
 
 const SectionResponsive = styled.section`
   display: flex;
@@ -168,13 +191,27 @@ const About = ({ data: { id, title, description, button } }) => {
     },
   })
 
-  const buttonProps = useSpring({
-    from: { display: "none", opacity: 0, transform: `translate(130px, 0)` },
+  const socialProps = useSpring({
+    from: {
+      display: "none",
+      opacity: 0,
+      transform: `translate(130px, 0)`,
+    },
     to: {
       display: "flex",
-      opacity: contentRatio > 0.15 ? 1 : 0,
+      opacity: contentRatio > 0.19 ? 1 : 0,
       transform:
-        contentRatio > 0.15 ? `translate(0, 0)` : `translate(130px, 0)`,
+        contentRatio > 0.19 ? `translate(0, 0)` : `translate(130px, 0)`,
+    },
+  })
+
+  const buttonProps = useSpring({
+    from: { display: "none", opacity: 0, transform: `translate(0, -100px)` },
+    to: {
+      display: "flex",
+      opacity: contentRatio > 0.3 ? 1 : 0,
+      transform:
+        contentRatio > 0.3 ? `translate(0, 0)` : `translate(0, -100px)`,
     },
   })
 
@@ -197,25 +234,27 @@ const About = ({ data: { id, title, description, button } }) => {
   }, [widthWindow])
 
   const isResponsive = width < breakpoints.tablet
-  useEffect(() => {
-    console.log(ratio)
-  }, [ratio])
 
   return width && typeof width === "number" ? (
     !isResponsive ? (
-      <Section id={id} ref={ref}>
+      <Section ref={ref}>
         <Title
           style={titleProps}
           className={"headingMedium"}
           dangerouslySetInnerHTML={{ __html: title }}
         />
-        <Content ref={refContent}>
+        <Content ref={refContent} id={id}>
           <Description style={descriptionProps}>
             <p
               className={"bodyNormal"}
               dangerouslySetInnerHTML={{ __html: description }}
             />
           </Description>
+
+          <SocialContainer style={socialProps}>
+            <Social />
+          </SocialContainer>
+
           <DownloadButtonContainer
             style={buttonProps}
             href={"#"}
@@ -247,6 +286,10 @@ const About = ({ data: { id, title, description, button } }) => {
               <p style={descriptionProps} className="bodyNormal">
                 {description}
               </p>
+            </Column>
+
+            <Column xs={12}>
+              <Social />
             </Column>
 
             <Column xs={12}>

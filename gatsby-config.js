@@ -1,8 +1,14 @@
 module.exports = {
   siteMetadata: {
     title: `PepDev, Web Developer`,
-    description: `Full Stack Developer | Javascript and Wordpress Expert | Barcelona`,
     author: `Pep del Baño`,
+    description: `Full Stack Developer | Javascript web development and making projects | Barcelona`,
+    social: {
+      twitter: `pepdbm7`,
+      instagram: `pepdbm7`,
+      linkedin: `pepdbm7`,
+      github: `pepdbm7`,
+    },
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
