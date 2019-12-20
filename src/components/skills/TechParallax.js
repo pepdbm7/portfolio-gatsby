@@ -1,5 +1,5 @@
 import React from "react"
-import { useSpring, Parallax, ParallaxLayer, animated as a } from "react-spring"
+import { useSpring, animated as a } from "react-spring"
 import styled from "styled-components"
 
 //Utils
@@ -14,45 +14,94 @@ import variables from "../../assets/styles/variables"
 //styles:
 import { breakpoints } from "../../assets/styles/breakpoints"
 
-const Container = styled.section`
-  background: white;
-  position: relative;
-  z-index: 0;
-  color: white;
-  background: ${variables.secondary};
-  padding: 0 0 100px;
+//images:
+import html from "../../images/html_css.png"
+import JS from "../../images/JavaScript-logo.jpg"
+import react from "../../images/react.png"
+import vue from "../../images/vue.png"
+import Node from "../../images/node.png"
+import mongodb from "../../images/mongodb.png"
+
+const Container = styled.div`
+  /* background: white; */
+  width: 80%;
+  height: 40vh;
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
 `
 
-const Title = styled(a.h2)`
-  text-align: center;
-  width: 100%;
-  margin: 100px auto 60px;
-  position: relative;
-  z-index: 0;
-  line-height: 39px;
-
-  @media screen and (min-width: ${breakpoints.large}px) {
-    margin: 180px auto 80px;
-  }
+const HtmlCss = styled(a.span)`
+  background-image: url(${html});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 150px;
+  height: 50px;
+`
+const Js = styled(a.span)`
+  background-image: url(${JS});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+`
+const ReactImg = styled(a.span)`
+  background-image: url(${react});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 50px;
+  height: 50px;
+`
+const VueImg = styled(a.span)`
+  background-image: url(${vue});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 50px;
 `
 
-class TechParallax extends React.Component {
-  render() {
-    return (
-      <Parallax
-        pages={3}
-        scrolling={false}
-        horizontal
-        ref={ref => (this.parallax = ref)}
-      >
-        <ParallaxLayer offset={0} speed={0.5}>
-          <span onClick={() => this.parallax.scrollTo(1)}>
-            Layers can contain anything
-          </span>
-        </ParallaxLayer>
-      </Parallax>
-    )
-  }
+const NodeImg = styled(a.span)`
+  background-image: url(${Node});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 50px;
+`
+
+const MongoImg = styled(a.span)`
+  background-image: url(${mongodb});
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 60px;
+  height: 50px;
+`
+
+const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2]
+const trans1 = (x, y) => `translate3d(${x / 5}px,${y / 6}px,0)`
+const trans2 = (x, y) => `translate3d(${x / 6}px,${y / 3}px,0)`
+const trans3 = (x, y) => `translate3d(${x / 4}px,${y / 4}px,0)`
+const trans4 = (x, y) => `translate3d(${x / 7}px,${y / 3}px,0)`
+const trans5 = (x, y) => `translate3d(${x / 6}px,${y / 4.5}px,0)`
+const trans6 = (x, y) => `translate3d(${x / 4}px,${y / 1.7}px,0)`
+
+const TechParallax = () => {
+  const [props, set] = useSpring(() => ({
+    xy: [0, 0],
+    config: { mass: 10, tension: 550, friction: 140 },
+  }))
+  return (
+    <Container
+      onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
+    >
+      <HtmlCss style={{ transform: props.xy.interpolate(trans1) }} />
+      <Js style={{ transform: props.xy.interpolate(trans2) }} />
+      <ReactImg style={{ transform: props.xy.interpolate(trans3) }} />
+      <VueImg style={{ transform: props.xy.interpolate(trans4) }} />
+      <NodeImg style={{ transform: props.xy.interpolate(trans5) }} />
+      <MongoImg style={{ transform: props.xy.interpolate(trans6) }} />
+    </Container>
+  )
 }
 
 export default TechParallax

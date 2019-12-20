@@ -15,7 +15,7 @@ import arrowDown from "../../images/arrow_down.svg"
 import arrowDownDrop from "../../images/arrow_drop_down.svg"
 
 //components:
-// import HeroParallax from "./HeroParallax"
+import HeroParallax from "./HeroParallax"
 
 const HomeContainer = styled.section`
   display: flex;

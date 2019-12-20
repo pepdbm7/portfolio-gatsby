@@ -15,7 +15,7 @@ import variables from "../../assets/styles/variables"
 import { breakpoints } from "../../assets/styles/breakpoints"
 
 //components:
-// import TechParallax from "./TechParallax"
+import TechParallax from "./TechParallax"
 
 const Container = styled.section`
   background: white;
@@ -82,6 +82,7 @@ const Skills = ({ data: { id, title, description } }) => {
         </Row>
       </Wrapper>
       {/* <TechParallax /> */}
+      <TechParallax />
     </Container>
   )
 }
