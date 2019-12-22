@@ -20,24 +20,53 @@ import TechParallax from "./TechParallax"
 const Container = styled.section`
   background: white;
   position: relative;
-  z-index: 0;
   color: white;
   background: ${variables.secondary};
   padding: 0 0 100px;
-  min-height: 100vh;
+  min-height: 150vh;
+  z-index: 2;
 `
 
 const Title = styled(a.h2)`
   text-align: center;
   width: 100%;
   margin: 100px auto 60px;
-  position: relative;
   z-index: 0;
   line-height: 39px;
 
   @media screen and (min-width: ${breakpoints.large}px) {
     margin: 180px auto 80px;
   }
+`
+
+const Info = styled(a.div)`
+  padding: 0 20%;
+  z-index: 2;
+
+
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    p {
+      max-width: 600px;
+    }
+`
+
+const Background = styled.div`
+  margin: 10vh auto;
+  position: absolute;
+  left: 50%;
+  margin-left: -40vh;
+  top: 50%;
+  margin-top: -40vh;
+  width: 80vh;
+  height: 80vh;
+  border-radius: 50%;
+
+  background: ${variables.primary};
+  background: radial-gradient(
+    circle,
+    ${variables.primaryDark} 0%,
+    ${variables.primaryLight} 100%
+  );
 `
 
 const Skills = ({ data: { id, title, description } }) => {
@@ -66,8 +95,20 @@ const Skills = ({ data: { id, title, description } }) => {
     },
   })
 
+  const infoProps = useSpring({
+    from: {
+      opacity: 0,
+      transform: `translate(0px, 100px)`,
+    },
+    to: {
+      opacity: ratio > 0.25 ? 1 : 0,
+      transform: ratio > 0.25 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+    },
+  })
+
   return (
     <Container id={id} ref={ref}>
+      <Background />
       <Wrapper>
         <Row>
           <Column xs={12}>
@@ -75,14 +116,18 @@ const Skills = ({ data: { id, title, description } }) => {
               {title}
             </Title>
           </Column>
-
+        </Row>
+        <Row>
           <Column xs={12}>
-            <p>{description}</p>
+            <Info style={infoProps}>{description}</Info>
+          </Column>
+        </Row>
+        <Row>
+          <Column xs={12}>
+            <TechParallax />
           </Column>
         </Row>
       </Wrapper>
-      {/* <TechParallax /> */}
-      <TechParallax />
     </Container>
   )
 }

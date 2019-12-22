@@ -1,4 +1,6 @@
 import React from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import Image from "gatsby-image"
 import { useSpring, animated as a } from "react-spring"
 import styled from "styled-components"
 
@@ -15,130 +17,133 @@ import variables from "../../assets/styles/variables"
 import { breakpoints } from "../../assets/styles/breakpoints"
 
 //images:
-import html from "../../images/html_css.png"
-import JS from "../../images/JavaScript-logo.jpg"
-import react from "../../images/react.png"
-import vue from "../../images/vue.png"
-import Node from "../../images/node.png"
-import mongodb from "../../images/mongodb.png"
-import graphql from "../../images/graphql.png"
-import gatsby from "../../images/gatsby-icon.png"
-import mysql from "../../images/mysql.jpg"
+// import html from "../../images/html_css.png"
+// import JS from "../../images/JavaScript-logo.jpg"
+// import react from "../../images/react.png"
+// import vue from "../../images/vue.png"
+// import Node from "../../images/node.png"
+// import mongodb from "../../images/mongodb.png"
+// import graphqlImg from "../../images/graphql.png"
+// import gatsby from "../../images/gatsby-icon.png"
+// import mysql from "../../images/mysql.jpg"
 
 const Container = styled.div`
-  /* background: white; */
   width: 65%;
-  height: 40vh;
-  margin: 0 auto;
+  height: 50vh;
+  margin: 100px auto;
   display: flex;
   align-items: center;
-  justify-content: space-around;
+  justify-content: center;
+  z-index: 1;
+`
+
+const LogostListContainer = styled.div`
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-start;
   flex-wrap: wrap;
+
+  width: -webkit-fill-available;
+  width: -moz-available;
+  width: fill-available;
+
+  margin: 0 -10px;
+  z-index: 3;
 `
 
-const HtmlCss = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${html});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 150px;
-  height: 50px;
-`
-const Js = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${JS});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 50px;
-  height: 50px;
-`
-const ReactImg = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${react});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 50px;
-  height: 50px;
-`
-const VueImg = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${vue});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 60px;
-  height: 50px;
+const LogoContainer = styled(a.div)`
+  width: 20%;
+  padding: 0 10px;
+  box-sizing: border-box;
+  height: 60px;
+  margin-top: 80px;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  @media ${breakpoints.tablet} {
+    width: 33%;
+    margin-top: 50px;
+  }
+
+  @media ${breakpoints.phone} {
+    width: 45%;
+    margin-top: 40px;
+  }
+
+  .gatsby-image-wrapper,
+  img {
+    width: 60px;
+    height: fit-content;
+    user-select: none;
+    user-drag: none;
+  }
 `
 
-const NodeImg = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${Node});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 60px;
-  height: 50px;
-`
-
-const MongoImg = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${mongodb});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 60px;
-  height: 50px;
-`
-
-const GraphQl = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${graphql});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 60px;
-  height: 50px;
-`
-
-const Gatsby = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${gatsby});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 60px;
-  height: 50px;
-`
-
-const MySql = styled(a.span)`
-  flex-basis: 20%;
-  background-image: url(${mysql});
-  background-size: contain;
-  background-repeat: no-repeat;
-  width: 60px;
-  height: 50px;
+const LogoImage = styled(Image)`
+  width: inherit;
+  height: inherit;
 `
 
 const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2]
-const trans1 = (x, y) => `translate3d(${x / 8}px,${y / 9}px,0)`
-const trans2 = (x, y) => `translate3d(${x / 6}px,${y / 6}px,0)`
-const trans3 = (x, y) => `translate3d(${x / 7}px,${y / 5.5}px,0)`
-const trans4 = (x, y) => `translate3d(${x / 9}px,${y / 7.5}px,0)`
-const trans5 = (x, y) => `translate3d(${x / 7}px,${y / 6}px,0)`
+const trans1 = (x, y) => `translate3d(${x / 15}px,${y / 15}px,0)`
+const trans2 = (x, y) => `translate3d(${x / 10}px,${y / 10}px,0)`
+const trans3 = (x, y) => `translate3d(${x / 11}px,${y / 11}px, 0)`
+const trans4 = (x, y) => `translate3d(${x / 10}px,${y / 9}px,0)`
+const trans5 = (x, y) => `translate3d(${x / 12}px,${y / 10}px,0)`
+const trans6 = (x, y) => `translate3d(${x / 9}px,${y / 12}px,0)`
 
 const TechParallax = () => {
+  const { images } = useStaticQuery(graphql`
+    query {
+      images: allFile(
+        filter: {
+          extension: { regex: "/(jpeg|jpg|gif|png)/" }
+          sourceInstanceName: { eq: "logos" }
+        }
+      ) {
+        edges {
+          node {
+            id
+            name
+            childImageSharp {
+              fluid(maxWidth: 60) {
+                ...GatsbyImageSharpFluid
+              }
+            }
+          }
+        }
+      }
+    }
+  `)
+
   const [props, set] = useSpring(() => ({
     xy: [0, 0],
     config: { mass: 10, tension: 550, friction: 140 },
   }))
+  console.table(images)
+
+  const randomNumber = Math.floor(Math.random() * 10)
+
   return (
     <Container
-      onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
+    // onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
     >
-      <HtmlCss style={{ transform: props.xy.interpolate(trans1) }} />
-      <Js style={{ transform: props.xy.interpolate(trans2) }} />
-      <ReactImg style={{ transform: props.xy.interpolate(trans3) }} />
-      <GraphQl style={{ transform: props.xy.interpolate(trans3) }} />
-      <Gatsby style={{ transform: props.xy.interpolate(trans4) }} />
-      <VueImg style={{ transform: props.xy.interpolate(trans5) }} />
-      <NodeImg style={{ transform: props.xy.interpolate(trans1) }} />
-      <MongoImg style={{ transform: props.xy.interpolate(trans2) }} />
-      <MySql style={{ transform: props.xy.interpolate(trans5) }} />
+      <LogostListContainer>
+        {images.edges &&
+          images.edges.map((image, id) => (
+            <LogoContainer
+              key={`LogoContainer-${id}`}
+              // style={{ transform: props.xy.interpolate(trans1) }}
+            >
+              <LogoImage
+                fluid={image.node.childImageSharp.fluid}
+                alt={image.node.name}
+              />
+            </LogoContainer>
+          ))}
+      </LogostListContainer>
     </Container>
   )
 }

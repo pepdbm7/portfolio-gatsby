@@ -67,7 +67,7 @@ const ProjectCardContainer = styled(a.div)`
     -webkit-transform: rotate(-6deg);
     -ms-transform: rotate(-6deg);
     transform: rotate(-6deg);
-    width: 500px;
+    width: 700px;
     top: -90px;
     right: -90px;
   }
@@ -175,7 +175,7 @@ const ProjectCard = ({ project, id }) => {
       transform: `translate(0px, 100px)`,
     },
     to: {
-      opacity: ratio > 0.5 ? 1 : 0,
+      opacity: ratio > 0.3 ? 1 : 0,
       transform: ratio >= 0.3 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
     },
   })

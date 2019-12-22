@@ -54,7 +54,10 @@ const Description = styled(a.div)`
 
   @media screen and (min-width: ${breakpoints.tablet}px) {
     position: fixed;
-    top: 45%;
+    top: 35%;
+    p {
+      max-width: 600px;
+    }
   }
 `
 

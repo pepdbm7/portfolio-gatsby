@@ -13,6 +13,7 @@ import variables from "../../assets/styles/variables"
 //images:
 import arrowDown from "../../images/arrow_down.svg"
 import arrowDownDrop from "../../images/arrow_drop_down.svg"
+import backgroundBlue from "../../images/bluesmoke.jpg"
 
 //components:
 import HeroParallax from "./HeroParallax"
@@ -49,15 +50,16 @@ const HomeBackground = styled.div`
     height: 100vh;
     width: 100vw;
 
-    background-color: #000;
-    opacity: 0.6;
+    background-color: royalblue;
+    background: url(${backgroundBlue});
+    // opacity: 0.6;
   }
 
   @media screen and (min-width: ${breakpoints.large}px) {
     position: relative;
 
     &:before {
-      opacity: 0.5;
+      // opacity: 0.5;
     }
   }
 
