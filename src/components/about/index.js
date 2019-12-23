@@ -22,6 +22,7 @@ import useWindowSize from "../../utils/useWindowSize"
 
 //components:
 import Social from "./Social"
+import Particles from "./particles"
 
 const Section = styled.section`
   display: flex;
@@ -241,6 +242,7 @@ const About = ({ data: { id, title, description, button } }) => {
   return width && typeof width === "number" ? (
     !isResponsive ? (
       <Section ref={ref}>
+        <Particles />
         <Title
           style={titleProps}
           className={"headingMedium"}

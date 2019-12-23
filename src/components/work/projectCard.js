@@ -9,7 +9,7 @@ import variables from "../../assets/styles/variables"
 import Column from "../../utils/grid/column"
 import useIntersect from "../../utils/useIntersect"
 
-const DecorationLayyer = styled.div`
+const DecorationLayyer = styled(a.div)`
   display: flex;
   margin-bottom: 20px;
   position: relative;
@@ -47,7 +47,7 @@ const DecorationLayyer = styled.div`
   }
 `
 
-const ProjectCardContainer = styled(a.div)`
+const ProjectCardContainer = styled.div`
   display: flex;
   flex-direction: column;
   text-align: center;
@@ -128,9 +128,12 @@ const ProjectTitle = styled.h3`
 `
 
 const ProjectImage = styled.img`
-  width: inherit;
-  height: inherit;
+  width: 80%;
+  height: 80%;
+  overflow: hidden;
   margin: 20px 0 30px;
+  min-height: 170px;
+  height: 25vw;
   /* border-radius: 30px; */
 `
 
@@ -175,7 +178,7 @@ const ProjectCard = ({ project, id }) => {
       transform: `translate(0px, 100px)`,
     },
     to: {
-      opacity: ratio > 0.3 ? 1 : 0,
+      opacity: ratio > 0.5 ? 1 : 0,
       transform: ratio >= 0.3 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
     },
   })

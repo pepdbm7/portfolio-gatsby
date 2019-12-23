@@ -1,9 +1,85 @@
 import React, { useRef } from "react"
-import { Parallax } from "react-spring"
-import "./styles.css"
+import styled from "styled-components"
+import { Parallax } from "react-spring/renderprops-addons"
+
+import backgroundBlue from "../../images/bluesmoke.jpg"
+
+const ParallaxContainer = styled.div`
+  gridcolumn: "span 2";
+  gridrow: "span 2";
+  background: white;
+
+  .container > div > div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .text {
+    pointer-events: none;
+    justify-content: start !important;
+    font-family: "Kanit", sans-serif;
+    line-height: 0px;
+    text-transform: uppercase;
+  }
+
+  .number {
+    font-size: 300px;
+    color: #545864;
+  }
+
+  .number span {
+    display: inline-block;
+    position: relative;
+    transform: translate3d(-35%, 0, 0);
+  }
+
+  .header {
+    display: flex;
+    justify-content: center !important;
+    align-items: center;
+    font-size: 50px;
+    color: white;
+  }
+
+  .stripe {
+    height: 2px;
+    width: auto;
+  }
+
+  .slopeBegin {
+    background-color: #20232f;
+    background: url(${backgroundBlue});
+    clip-path: polygon(20% 0, 70% 0, 50% 100%, 0% 100%);
+  }
+
+  .slopeEnd {
+    clip-path: polygon(70% 0, 100% 0, 80% 100%, 50% 100%);
+  }
+
+  .slopeBegin,
+  .slopeEnd {
+    position: absolute;
+    width: 170%;
+    height: 100%;
+    cursor: pointer;
+  }
+
+  .pink {
+    background: linear-gradient(to right, deeppink 0%, coral 100%);
+  }
+
+  .teal {
+    background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
+  }
+
+  .tomato {
+    background: linear-gradient(to right, tomato 0%, gold 100%);
+  }
+`
 
 const Page = ({ offset, caption, first, second, gradient, onClick }) => (
-  <React.Fragment>
+  <>
     <Parallax.Layer offset={offset} speed={0.2} onClick={onClick}>
       <div className="slopeBegin" />
     </Parallax.Layer>
@@ -24,47 +100,42 @@ const Page = ({ offset, caption, first, second, gradient, onClick }) => (
         <p>{second}</p>
       </span>
     </Parallax.Layer>
-  </React.Fragment>
+  </>
 )
 
 const ParallaxHero = () => {
+  // const { title1, title2, subtitle, link, linkText } = data
   const parallaxRef = useRef(null)
 
   const scroll = to => parallaxRef.current.scrollTo(to)
 
   return (
-    <div
-      style={{
-        gridColumn: "span 2",
-        gridRow: "span 2",
-        background: "#dfdfdf",
-      }}
-    >
+    <ParallaxContainer>
       <Parallax
         className="container"
         ref={parallaxRef}
         pages={3}
-        horizontal
+        // horizontal
         scrolling={false}
       >
         <Page
           offset={0}
           gradient="pink"
-          caption="who we are"
-          first="Lorem ipsum"
-          second="dolor sit"
+          caption="Who am I"
+          first="i am pep dev" //y añadir foto mia
+          // second="dolor sit"
           onClick={() => scroll(1)}
         />
         <Page
-          offset={1}
+          offset={2}
           gradient="teal"
-          caption="what we do"
-          first="consectetur"
+          caption="what I do"
+          first="I create cool websites and web apps"
           second="adipiscing elit"
           onClick={() => scroll(2)}
         />
         <Page
-          offset={2}
+          offset={4}
           gradient="tomato"
           caption="what we want"
           first="Morbi quis"
@@ -72,7 +143,7 @@ const ParallaxHero = () => {
           onClick={() => scroll(0)}
         />
       </Parallax>
-    </div>
+    </ParallaxContainer>
   )
 }
 

@@ -1,7 +1,8 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
-import { useSpring, animated as a } from "react-spring"
+import { useSpring, useTrail, animated as a } from "react-spring"
+
 import styled from "styled-components"
 
 //Utils
@@ -122,25 +123,40 @@ const TechParallax = () => {
     xy: [0, 0],
     config: { mass: 10, tension: 550, friction: 140 },
   }))
-  console.table(images)
 
   const randomNumber = Math.floor(Math.random() * 10)
 
+  const [ref, entry] = useIntersect({
+    threshold: 0.3,
+  })
+
+  const trail = useTrail(images.edges.length, {
+    opacity: entry.intersectionRatio ? 1 : 0,
+    transform: `scale(${entry.intersectionRatio ? 1 : 1.4})`,
+    from: {
+      opacity: 0,
+      transform: `scale(1.4)`,
+    },
+  })
+
   return (
     <Container
-    // onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
+      ref={ref}
+      // onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
     >
       <LogostListContainer>
         {images.edges &&
-          images.edges.map((image, id) => (
+          trail.map((props, index) => (
             <LogoContainer
-              key={`LogoContainer-${id}`}
+              key={`LogoContainer-${images.edges[index].node.id}`}
               // style={{ transform: props.xy.interpolate(trans1) }}
             >
-              <LogoImage
-                fluid={image.node.childImageSharp.fluid}
-                alt={image.node.name}
-              />
+              <a.div style={props}>
+                <LogoImage
+                  fluid={images.edges[index].node.childImageSharp.fluid}
+                  alt={images.edges[index].node.name}
+                />
+              </a.div>
             </LogoContainer>
           ))}
       </LogostListContainer>

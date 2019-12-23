@@ -31,6 +31,7 @@ const data = {
     title2: "project",
     subtitle: "This is a personal project",
     link: "#about",
+    linkText: "More",
   },
   about: {
     id: "about",
