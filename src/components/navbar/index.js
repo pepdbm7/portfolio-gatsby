@@ -6,7 +6,7 @@ import { TweenMax, Back } from "gsap"
 import Wrapper from "../../utils/grid/wrapper"
 import Row from "../../utils/grid/row"
 import Column from "../../utils/grid/column"
-import useWindowSize from "../../utils/useWindowSize"
+import useWindowSize from "../../utils/hooks/useWindowSize"
 
 //Assets
 import variables from "../../assets/styles/variables"
@@ -16,14 +16,14 @@ import logo from "../../images/abstract1.jpg"
 //Components
 import Burger from "./burgerIcon.js"
 
-const Navigator = styled.div`
+const Navigator = styled.nav`
   display: flex;
   flex-direction: column;
   width: 100%;
   background: black;
 `
 
-const NavBarContainer = styled.header`
+const NavBarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -190,9 +190,8 @@ const NavBar = ({ data }) => {
   }, [viewNavItems, size])
 
   useEffect(() => {
-    setIsTop(true)
-
     if (typeof window !== "undefined") {
+      setIsTop(true)
       window.addEventListener("scroll", () => {
         isTopOnScroll()
       })

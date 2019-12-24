@@ -30,6 +30,16 @@ module.exports = {
     `gatsby-transformer-sharp`,
     `gatsby-plugin-sharp`,
     {
+      resolve: `gatsby-plugin-page-progress`,
+      options: {
+        includePaths: [`/`],
+        excludePaths: [],
+        height: 3,
+        prependToBody: true,
+        color: `gold`,
+      },
+    },
+    {
       resolve: `gatsby-plugin-manifest`,
       options: {
         name: `gatsby-starter-default`,

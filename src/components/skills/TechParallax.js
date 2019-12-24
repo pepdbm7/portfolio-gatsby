@@ -6,27 +6,10 @@ import { useSpring, useTrail, animated as a } from "react-spring"
 import styled from "styled-components"
 
 //Utils
-import Wrapper from "../../utils/grid/wrapper"
-import Row from "../../utils/grid/row"
-import Column from "../../utils/grid/column"
-import useIntersect from "../../utils/useIntersect"
-
-//Assets
-import variables from "../../assets/styles/variables"
+import useIntersect from "../../utils/hooks/useIntersect"
 
 //styles:
 import { breakpoints } from "../../assets/styles/breakpoints"
-
-//images:
-// import html from "../../images/html_css.png"
-// import JS from "../../images/JavaScript-logo.jpg"
-// import react from "../../images/react.png"
-// import vue from "../../images/vue.png"
-// import Node from "../../images/node.png"
-// import mongodb from "../../images/mongodb.png"
-// import graphqlImg from "../../images/graphql.png"
-// import gatsby from "../../images/gatsby-icon.png"
-// import mysql from "../../images/mysql.jpg"
 
 const Container = styled.div`
   width: 65%;
@@ -124,10 +107,8 @@ const TechParallax = () => {
     config: { mass: 10, tension: 550, friction: 140 },
   }))
 
-  const randomNumber = Math.floor(Math.random() * 10)
-
   const [ref, entry] = useIntersect({
-    threshold: 0.3,
+    threshold: 0,
   })
 
   const trail = useTrail(images.edges.length, {

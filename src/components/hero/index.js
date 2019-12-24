@@ -1,11 +1,12 @@
-import React, { useState, useEffect } from "react"
-import styled from "styled-components"
-import { useSpring, animated as a } from "react-spring"
-import { Parallax } from "react-parallax"
-import useIntersect from "../../utils/useIntersect"
+import React, { useState, useEffect, useRef } from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import Image from "gatsby-image"
+import styled, { keyframes } from "styled-components"
+import { useSpring, useTrail, animated as a } from "react-spring"
+import useIntersect from "../../utils/hooks/useIntersect"
 
 //utils:
-import useWindowSize from "../../utils/useWindowSize"
+import useWindowSize from "../../utils/hooks/useWindowSize"
 
 //assets
 import { breakpoints } from "../../assets/styles/breakpoints"
@@ -13,101 +14,49 @@ import variables from "../../assets/styles/variables"
 
 //images:
 import arrowDown from "../../images/arrow_down.svg"
-import backgroundBlue from "../../images/bluesmoke.jpg"
-import gatsbyicon from "../../assets/technologies/gatsby-icon.png"
-import graphql from "../../assets/technologies/graphql.png"
+// import backgroundBlue from "../../images/bluesmoke.jpg"
+// import gatsbyicon from "../../assets/technologies/gatsby-icon.png"
+// import graphql from "../../assets/technologies/graphql.png"
 
-//components:
-// import HeroParallax from "./HeroParallax"
-
-const HomeContainer = styled.section`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  flex: 1;
-  height: 100vh;
-  width: 100%;
+const HeroContainer = styled(a.header)`
+  overflow: hidden;
+  background: #dfdf;
   position: relative;
-`
-
-const HomeBackground = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  height: 100vh;
   width: 100vw;
-  position: absolute;
-  top: 0;
-  left: 0;
+  height: 200vh;
+  color: white;
 
-  &:before {
-    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    top: 0;
-    z-index: 1;
-    height: 100vh;
-    width: 100vw;
-
-    background-color: royalblue;
-    background: url(${backgroundBlue});
-    // opacity: 0.6;
-  }
-
-  @media screen and (min-width: ${breakpoints.large}px) {
-    position: relative;
-
-    &:before {
-      // opacity: 0.5;
-    }
-  }
-
-  img {
-    object-fit: cover;
-    min-width: 100%;
-    min-height: 102%;
-  }
-`
-
-const HeroContent = styled.div`
-  width: 100%;
-  height: 100%;
   user-select: none;
   user-drag: none;
-  position: relative;
-  color: white;
 `
 
-const HomeHeader = styled.div`
+const LeftSide = styled(a.div)`
+  background: ${variables.secondary};
+  position: absolute;
+
+  width: 100vw;
+  height: 120vh;
+  top: -10vw;
+  z-index: 9;
+`
+
+const ContentLeft = styled(a.div)`
+  height: 100%;
   display: flex;
   flex-direction: column;
-  text-align: center;
-  margin: 40px auto;
-  position: relative;
-  z-index: 10;
+  justify-content: center;
+  align-items: center;
+  transition: 1s all ease;
 
-  @media screen and (min-width: ${breakpoints.large}px) {
-    height: initial;
-  }
+  ${({ offset }) => offset.interpolate(o => `width: (${50 + o * 0.1}%`)};
 `
 
 const HomeTitle = styled(a.h1)`
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  top: 160px;
   font-size: 57px;
   text-align: center;
   letter-spacing: -1.02px;
   line-height: 64px;
   margin: 0 auto 20px;
-
-  span {
-    font-weight: normal;
-  }
 
   @media screen and (min-width: ${breakpoints.large}px) {
     font-size: 69px;
@@ -118,21 +67,45 @@ const HomeTitle = styled(a.h1)`
   }
 `
 
+const rubberBandKeyFrame = keyframes`
+0% {
+  transform: scale(1);
+}
+30% {
+  color: gold;
+  transform: scaleX(1.5) scaleY(0.75);
+}
+40% {
+  color: white;
+  transform: scaleX(0.75) scaleY(1.5);
+}
+60% {
+  color: tomato;
+
+  transform: scaleX(1.15) scaleY(0.85);
+}
+100% {
+  transform: scale(1);
+}
+`
+
+const TitleLetter = styled(a.span)`
+  color: white;
+  animation-duration: 2.5s;
+  animation-fill-mode: both;
+  animation-iteration-count: infinite;
+
+  &:hover {
+    animation: ${rubberBandKeyFrame} 2s ease-in-out;
+  }
+`
+
 const Stripe = styled(a.div)`
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  top: 250px;
   height: 2px;
-  width: 30rem;
   background: linear-gradient(to right, tomato 0%, gold 100%);
 `
 
 const HomeSubtitle = styled(a.h2)`
-  position: absolute;
-  left: 50%;
-  transform: translate(-50%, 0);
-  top: 280px;
   font-size: 23px;
   text-align: center;
   letter-spacing: 0px;
@@ -145,6 +118,30 @@ const HomeSubtitle = styled(a.h2)`
     line-height: 39px;
     max-width: 60%;
     margin-top: 20px;
+  }
+`
+
+const RightSide = styled(a.div)`
+  background: red;
+  position: absolute;
+  left: 50%;
+  width: 50vw;
+  height: 120vh;
+  top: -10vw;
+  z-index: 10;
+`
+
+const HomeHeader = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  margin: 40px auto;
+  color: white;
+  position: relative;
+  z-index: 10;
+
+  @media screen and (min-width: ${breakpoints.large}px) {
+    height: initial;
   }
 `
 
@@ -174,9 +171,11 @@ const HeroLinkDown = styled.a`
     position: absolute;
     width: 15px;
     height: 10px;
+    left: 36px;
+    bottom: 20px;
     background-repeat: no-repeat;
     background-image: url(${arrowDown});
-    animation: flip-flop 0.8s infinite;
+    animation: flip-flop 1s infinite;
   }
 
   @keyframes flip-flop {
@@ -184,7 +183,7 @@ const HeroLinkDown = styled.a`
       transform: translate(0, 0);
     }
     50% {
-      transform: translate(0, 10px);
+      transform: translate(0, 15px);
     }
   }
 
@@ -196,55 +195,38 @@ const HeroLinkDown = styled.a`
   }
 `
 
-const ScrollContainer = styled(a.div)`
-  @media screen and (min-width: ${breakpoints.large}px) {
-    height: 200vh;
-    margin-bottom: 1px;
-  }
-`
-const Fixed = styled(a.div)`
-  position: fixed;
-  z-index: -1;
-  @media screen and (min-width: ${breakpoints.large}px) {
-    width: 100%;
-    top: 0;
-  }
-`
-
 const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
+  const { bgImg } = useStaticQuery(graphql`
+    query {
+      bgImg: file(absolutePath: { regex: "/bluesmoke.jpg/" }) {
+        id
+        name
+        childImageSharp {
+          fluid {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
   const widthWindow = useWindowSize()
-
-  const [width, setWidth] = useState(null)
-  const [offset, setOffset] = useState(0)
-  const [isVisible, setIsVisible] = useState(true)
-
-  const parallaxShift = () => setOffset(window.pageYOffset)
-
-  const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devulve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
-  //entry es el objeto con la información de la posición del elemento
-  const [ref, entry] = useIntersect({
-    threshold: buildThresholdArray(),
-  })
-
-  //convert intersectionRatio in two decimals
-  const ratio = (Math.round(entry.intersectionRatio * 100) / 100) * 2
-  console.log({ ratio })
-  console.log({ offset })
-  console.log(ref.current)
-
-  const { o } = useSpring({
-    from: { o: 0 },
-    o: ratio,
-  })
-
   useEffect(() => {
     setWidth(widthWindow.width)
   }, [widthWindow])
 
-  useEffect(() => {
-    !ratio ? setIsVisible(false) : setIsVisible(true)
-  }, [ratio])
+  const [width, setWidth] = useState(null)
+
+  const ref = useRef()
+
+  //Parallax effects:
+  const [{ offset }, set] = useSpring(() => ({ offset: 0 }))
+
+  const parallaxShift = () => {
+    const posY = ref && ref.current & ref.current.getBoundingClientRect().top
+    const offset = window.pageYOffset - posY
+    set({ offset })
+    console.log(offset)
+  }
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -255,56 +237,63 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
     return () => window.removeEventListener("scroll", parallaxShift)
   }, [])
 
-  return width >= breakpoints.large ? (
-    <ScrollContainer
+  const transitionLeft = offset.interpolate(o => `translateY(${o * 0.4}px)`)
+  const transitionRight = offset.interpolate(
+    o => `translate(${o}px, ${o * 0.4}px)`
+  )
+  const sectionOpacity = offset.interpolate(o => `${1 - o / 3000}`)
+
+  return (
+    <HeroContainer
       ref={ref}
       id={"hero"}
       style={{
-        visibility: o.interpolate(o => (o === 0 ? "hidden" : "visible")),
-        opacity: o.interpolate([1, 0], [1, 0]),
+        opacity: sectionOpacity,
       }}
     >
-      <HeroContent>
-        <HomeTitle style={{ top: isVisible && 240 + offset / 0.95 }}>
-          {title1} <span>{title2}</span>
-        </HomeTitle>
-        <Stripe style={{ top: isVisible && 365 + offset / 0.93 }} />
-        <HomeSubtitle style={{ top: isVisible && 385 + offset / 0.88 }}>
-          {subtitle}
-        </HomeSubtitle>
-        <ImageLeft
-          src={graphql}
-          style={{ bottom: isVisible && `${50 + offset / 95}vh` }}
-        />
-        <ImageRight
-          src={gatsbyicon}
-          style={{ bottom: isVisible && `${-5 + offset / 230}vh` }}
-        />
-      </HeroContent>
-      <Fixed>
-        <HomeContainer>
-          <HomeBackground style={{ backgroundPositionY: offset * 5 }} />
-          <HeroLinkDown href={link}>{/*linkText*/}</HeroLinkDown>
-        </HomeContainer>
-      </Fixed>
-    </ScrollContainer>
-  ) : (
+      <LeftSide
+        style={{
+          transform: transitionLeft,
+        }}
+      >
+        <ContentLeft offset={offset}>
+          <HomeTitle style={{}}>
+            {title1} <span>{title2}</span>
+          </HomeTitle>
+          <Stripe
+            style={{
+              width: `100%`,
+            }}
+          />
+          <HomeSubtitle style={{}}>{subtitle}</HomeSubtitle>
+        </ContentLeft>
+      </LeftSide>
+      <RightSide
+        style={{
+          transform: transitionRight,
+        }}
+      ></RightSide>
+      {/* ): (
     <ScrollContainer id={"home"}>
-      <HomeContainer>
-        <HomeBackground />
+       <HomeContainer>
+        <HomeBackground
+          fluid={bgImg.childImageSharp.fluid}
+          sizes="(width: 100vw)"
+          alt={bgImg.name}
+        />
         <HeroContent>
           <HomeHeader>
             <HomeTitle>
               {title1} <span>{title2}</span>
             </HomeTitle>
             <HomeSubtitle>{subtitle}</HomeSubtitle>
-            {/*<HeroParallax />*/}
           </HomeHeader>
         </HeroContent>
 
         <HeroLinkDown href={link}>{linkText}</HeroLinkDown>
-      </HomeContainer>
-    </ScrollContainer>
+      </HomeContainer> 
+    </ScrollContainer>*/}
+    </HeroContainer>
   )
 }
 

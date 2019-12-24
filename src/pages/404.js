@@ -13,14 +13,13 @@ import NavBar from "../components/navBar"
 const Container = styled.div`
   position: absolute;
   margin: -8px;
-  height: 100vh;
+  height: 300vh;
   width: 100vw;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   background: darkgrey;
-  background-image: url(${abstract});
   background-size: cover;
   user-select: none;
 `

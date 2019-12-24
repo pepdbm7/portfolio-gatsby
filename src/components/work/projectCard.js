@@ -7,7 +7,7 @@ import variables from "../../assets/styles/variables"
 
 //Utils
 import Column from "../../utils/grid/column"
-import useIntersect from "../../utils/useIntersect"
+import useIntersect from "../../utils/hooks/useIntersect"
 
 const DecorationLayyer = styled(a.div)`
   display: flex;
@@ -163,7 +163,7 @@ const ProjectCard = ({ project, id }) => {
   })
 
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devulve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
+  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
   //entry es el objeto con la información de la posición del elemento
   const [ref, entry] = useIntersect({
     //threshold es la cantidad de elemento visible para que se dispare el evento

@@ -6,7 +6,7 @@ import styled from "styled-components"
 import Wrapper from "../../utils/grid/wrapper"
 import Row from "../../utils/grid/row"
 import Column from "../../utils/grid/column"
-import useIntersect from "../../utils/useIntersect"
+import useIntersect from "../../utils/hooks/useIntersect"
 
 //Assets
 import variables from "../../assets/styles/variables"
@@ -44,7 +44,7 @@ const Work = ({ data: { id, title, projects } }) => {
   })
 
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devulve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
+  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
   //entry es el objeto con la información de la posición del elemento
   const [ref, entry] = useIntersect({
     //threshold es la cantidad de elemento visible para que se dispare el evento

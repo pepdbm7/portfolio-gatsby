@@ -6,7 +6,7 @@ import styled from "styled-components"
 import Wrapper from "../../utils/grid/wrapper"
 import Row from "../../utils/grid/row"
 import Column from "../../utils/grid/column"
-import useIntersect from "../../utils/useIntersect"
+import useIntersect from "../../utils/hooks/useIntersect"
 
 //Assets
 import variables from "../../assets/styles/variables"
@@ -16,6 +16,7 @@ import { breakpoints } from "../../assets/styles/breakpoints"
 
 //components:
 import TechParallax from "./TechParallax"
+import Wave from "../wave"
 
 const Container = styled.section`
   background: white;
@@ -75,7 +76,7 @@ const Skills = ({ data: { id, title, description } }) => {
   })
 
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devulve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
+  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
   //entry es el objeto con la información de la posición del elemento
   const [ref, entry] = useIntersect({
     //threshold es la cantidad de elemento visible para que se dispare el evento
@@ -101,8 +102,8 @@ const Skills = ({ data: { id, title, description } }) => {
       transform: `translate(0px, 100px)`,
     },
     to: {
-      opacity: ratio > 0.25 ? 1 : 0,
-      transform: ratio > 0.25 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+      opacity: ratio > 0.15 ? 1 : 0,
+      transform: ratio > 0.15 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
     },
   })
 
@@ -128,6 +129,7 @@ const Skills = ({ data: { id, title, description } }) => {
           </Column>
         </Row>
       </Wrapper>
+      <Wave />
     </Container>
   )
 }
