@@ -22,7 +22,7 @@ const data = {
     },
   ],
   hero: {
-    title1: "Hi, I'm Pep",
+    title1: "Hi, I'm",
     title2: "Pep",
     subtitle: "Web App Development",
     link: "#about",

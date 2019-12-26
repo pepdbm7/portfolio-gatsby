@@ -13,7 +13,7 @@ import variables from "../../assets/styles/variables"
 
 const HeroContainer = styled(a.header)`
   overflow: hidden;
-  background: #dfdf;
+  background: linear-gradient(to top, tomato 0%, red 100%);
   color: white;
   position: relative;
   width: 100vw;
@@ -24,7 +24,7 @@ const HeroContainer = styled(a.header)`
 `
 
 const RightSide = styled(a.div)`
-  background: red;
+  background: linear-gradient(to left, tomato 0%, gold 100%);
   position: relative;
   // left: 50%;
   width: 100vw;

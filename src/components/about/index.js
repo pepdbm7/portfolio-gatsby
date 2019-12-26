@@ -31,7 +31,8 @@ const Section = styled(a.section)`
   width: 100%;
   height: 200vh;
   z-index: 1;
-  background: lightblue;
+  background: deepskyblue;
+  background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
 `
 
 const ParallaxDiv = styled(a.div)`

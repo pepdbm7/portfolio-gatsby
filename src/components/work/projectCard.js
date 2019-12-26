@@ -18,6 +18,7 @@ const DecorationLayyer = styled(a.div)`
   overflow: hidden;
   width: 100%;
   box-shadow: 0px 2px 11px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
   margin: 20px auto;
   ::before {
     content: " ";
