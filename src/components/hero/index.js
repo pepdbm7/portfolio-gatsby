@@ -23,43 +23,65 @@ const HeroContainer = styled(a.header)`
   background: #dfdf;
   position: relative;
   width: 100vw;
-  height: 200vh;
+  height: 250vh;
   color: white;
 
   user-select: none;
   user-drag: none;
 `
 
-const LeftSide = styled(a.div)`
-  background: ${variables.secondary};
-  position: absolute;
-
+const RightSide = styled(a.div)`
+  background: red;
+  position: relative;
+  // left: 50%;
   width: 100vw;
   height: 120vh;
   top: -10vw;
-  z-index: 9;
+  z-index: 10;
+`
+
+const Picture = styled(Image)`
+  position: absolute;
+  left: 60%;
+  top: 20%;
+  width: 400px;
+`
+
+const LeftSide = styled(a.div)`
+  background: ${variables.secondary};
+  position: absolute;
+  left: 0;
+  top: 0;
+  min-width: 50vw;
+
+  // width: 100vw;
+  height: 120vh;
+  // top: -10vw;
+  // z-index: 9;
 `
 
 const ContentLeft = styled(a.div)`
   height: 100%;
+  width: fit-content;
+  margin: 0 auto;
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  transition: 1s all ease;
-
-  ${({ offset }) => offset.interpolate(o => `width: (${50 + o * 0.1}%`)};
+  transition: 0.4s all ease;
 `
 
-const HomeTitle = styled(a.h1)`
+const HomeTitle = styled.h1`
   font-size: 57px;
   text-align: center;
   letter-spacing: -1.02px;
   line-height: 64px;
   margin: 0 auto 20px;
+  transition: 0.4s all ease;
 
   @media screen and (min-width: ${breakpoints.large}px) {
     font-size: 69px;
+
     text-align: center;
     letter-spacing: -0.58px;
     line-height: 78px;
@@ -102,10 +124,12 @@ const TitleLetter = styled(a.span)`
 
 const Stripe = styled(a.div)`
   height: 2px;
+  width: 100%;
   background: linear-gradient(to right, tomato 0%, gold 100%);
+  transition: 0.6s all ease;
 `
 
-const HomeSubtitle = styled(a.h2)`
+const HomeSubtitle = styled.h2`
   font-size: 23px;
   text-align: center;
   letter-spacing: 0px;
@@ -121,79 +145,69 @@ const HomeSubtitle = styled(a.h2)`
   }
 `
 
-const RightSide = styled(a.div)`
-  background: red;
-  position: absolute;
-  left: 50%;
-  width: 50vw;
-  height: 120vh;
-  top: -10vw;
-  z-index: 10;
-`
+// const HomeHeader = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   text-align: center;
+//   margin: 40px auto;
+//   color: white;
+//   position: relative;
+//   z-index: 10;
 
-const HomeHeader = styled.div`
-  display: flex;
-  flex-direction: column;
-  text-align: center;
-  margin: 40px auto;
-  color: white;
-  position: relative;
-  z-index: 10;
+//   @media screen and (min-width: ${breakpoints.large}px) {
+//     height: initial;
+//   }
+// `
 
-  @media screen and (min-width: ${breakpoints.large}px) {
-    height: initial;
-  }
-`
+// const ImageLeft = styled.img`
+//   left: 7vw;
+//   position: absolute;
+//   width: 100px;
+// `
+// const ImageRight = styled.img`
+//   right: 5vw;
+//   position: absolute;
+//   width: 200px;
+// `
 
-const ImageLeft = styled.img`
-  left: 7vw;
-  position: absolute;
-  width: 100px;
-`
-const ImageRight = styled.img`
-  right: 5vw;
-  position: absolute;
-  width: 200px;
-`
+// const HeroLinkDown = styled.a`
+//   color: white;
+//   text-decoration: none;
+//   position: absolute;
+//   bottom: 10px;
+//   display: block;
+//   padding-bottom: 40px;
+//   z-index: 100;
+//   cursor: pointer;
 
-const HeroLinkDown = styled.a`
-  color: white;
-  text-decoration: none;
-  position: absolute;
-  bottom: 10px;
-  display: block;
-  padding-bottom: 40px;
-  z-index: 100;
-  cursor: pointer;
+//   ::after {
+//     content: "";
+//     position: absolute;
+//     width: 15px;
+//     height: 10px;
+//     left: 36px;
+//     bottom: 20px;
+//     background-repeat: no-repeat;
+//     background-image: url(${arrowDown});
+//     animation: flip-flop 1s infinite;
+//   }
 
-  ::after {
-    content: "";
-    position: absolute;
-    width: 15px;
-    height: 10px;
-    left: 36px;
-    bottom: 20px;
-    background-repeat: no-repeat;
-    background-image: url(${arrowDown});
-    animation: flip-flop 1s infinite;
-  }
+//   @keyframes flip-flop {
+//     0% {
+//       transform: translate(0, 0);
+//     }
+//     50% {
+//       transform: translate(0, 15px);
+//     }
+//   }
 
-  @keyframes flip-flop {
-    0% {
-      transform: translate(0, 0);
-    }
-    50% {
-      transform: translate(0, 15px);
-    }
-  }
+//   transition: all 0.4s ease;
+//   opacity: 1;
 
-  transition: all 0.4s ease;
-  opacity: 1;
-
-  :hover {
-    opacity: 0.6;
-  }
-`
+//   :hover {
+//     opacity: 0.6;
+//   }
+// `
 
 const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
   const { bgImg } = useStaticQuery(graphql`
@@ -209,27 +223,31 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
       }
     }
   `)
+
+  const ref = useRef()
+  const [width, setWidth] = useState(0)
+  // const [posY, setPosY] = useState(0)
+
   const widthWindow = useWindowSize()
+
   useEffect(() => {
     setWidth(widthWindow.width)
   }, [widthWindow])
-
-  const [width, setWidth] = useState(null)
-
-  const ref = useRef()
 
   //Parallax effects:
   const [{ offset }, set] = useSpring(() => ({ offset: 0 }))
 
   const parallaxShift = () => {
-    const posY = ref && ref.current & ref.current.getBoundingClientRect().top
+    const posY = ref.current.getBoundingClientRect().top
     const offset = window.pageYOffset - posY
     set({ offset })
-    console.log(offset)
   }
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
+    if (
+      typeof window !== "undefined" &&
+      !!ref.current.getBoundingClientRect().bottom
+    ) {
       window.addEventListener("scroll", () => {
         parallaxShift()
       })
@@ -237,11 +255,20 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
     return () => window.removeEventListener("scroll", parallaxShift)
   }, [])
 
-  const transitionLeft = offset.interpolate(o => `translateY(${o * 0.4}px)`)
-  const transitionRight = offset.interpolate(
-    o => `translate(${o}px, ${o * 0.4}px)`
+  const sectionOpacity = offset.interpolate(o => `${1 - o / 7000}`)
+
+  const transitionRight = offset.interpolate(o => `translateY(${o / 2.5}px)`)
+
+  const transitionImage = offset.interpolate(o => `translateY(${o * 4}px)`)
+
+  const leftWidth = offset.interpolate(o => `${100 - o / 4}vw`)
+
+  const contentScale = offset.interpolate(o =>
+    o < 100 ? `scale(1.3)` : `scale(1)`
   )
-  const sectionOpacity = offset.interpolate(o => `${1 - o / 3000}`)
+  const stripeMargins = offset.interpolate(o =>
+    o < 100 ? "30px auto" : `10px auto`
+  )
 
   return (
     <HeroContainer
@@ -251,28 +278,32 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
         opacity: sectionOpacity,
       }}
     >
-      <LeftSide
-        style={{
-          transform: transitionLeft,
-        }}
-      >
-        <ContentLeft offset={offset}>
-          <HomeTitle style={{}}>
-            {title1} <span>{title2}</span>
-          </HomeTitle>
-          <Stripe
-            style={{
-              width: `100%`,
-            }}
-          />
-          <HomeSubtitle style={{}}>{subtitle}</HomeSubtitle>
-        </ContentLeft>
-      </LeftSide>
       <RightSide
         style={{
           transform: transitionRight,
         }}
-      ></RightSide>
+      >
+        <Picture
+          style={{ transform: transitionImage }}
+          fluid={bgImg.childImageSharp.fluid}
+          alt={bgImg.name}
+        />
+
+        <LeftSide
+          style={{
+            width: leftWidth,
+          }}
+        >
+          <ContentLeft style={{ transform: contentScale }}>
+            <HomeTitle style={{}}>
+              {title1} <span>{title2}</span>
+            </HomeTitle>
+            <Stripe style={{ margin: stripeMargins }} />
+            <HomeSubtitle style={{}}>{subtitle}</HomeSubtitle>
+          </ContentLeft>
+        </LeftSide>
+      </RightSide>
+
       {/* ): (
     <ScrollContainer id={"home"}>
        <HomeContainer>
