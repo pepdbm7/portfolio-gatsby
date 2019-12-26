@@ -248,7 +248,7 @@ const About = ({ data: { id, title, description, button } }) => {
       })
     }
     return () => window.removeEventListener("scroll", parallaxShift)
-  }, [])
+  })
 
   const sectionOpacity = offset.interpolate(o => `${2 - o / 3000}`)
   const transitionContainer = offset.interpolate(

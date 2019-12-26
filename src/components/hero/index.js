@@ -1,9 +1,8 @@
 import React, { useState, useEffect, useRef } from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
-import styled, { keyframes } from "styled-components"
-import { useSpring, useTrail, animated as a } from "react-spring"
-import useIntersect from "../../utils/hooks/useIntersect"
+// import { useStaticQuery, graphql } from "gatsby"
+// import Image from "gatsby-image"
+import styled from "styled-components"
+import { useSpring, animated as a } from "react-spring"
 
 //utils:
 import useWindowSize from "../../utils/hooks/useWindowSize"
@@ -11,12 +10,6 @@ import useWindowSize from "../../utils/hooks/useWindowSize"
 //assets
 import { breakpoints } from "../../assets/styles/breakpoints"
 import variables from "../../assets/styles/variables"
-
-//images:
-import arrowDown from "../../images/arrow_down.svg"
-// import backgroundBlue from "../../images/bluesmoke.jpg"
-// import gatsbyicon from "../../assets/technologies/gatsby-icon.png"
-// import graphql from "../../assets/technologies/graphql.png"
 
 const HeroContainer = styled(a.header)`
   overflow: hidden;
@@ -40,12 +33,12 @@ const RightSide = styled(a.div)`
   z-index: 10;
 `
 
-const Picture = styled(Image)`
-  position: absolute;
-  left: 60%;
-  top: 20%;
-  width: 400px;
-`
+// const Picture = styled(Image)`
+//   position: absolute;
+//   left: 60%;
+//   top: 20%;
+//   width: 400px;
+// `
 
 const LeftSide = styled(a.div)`
   background: ${variables.secondary};
@@ -89,38 +82,38 @@ const HomeTitle = styled.h1`
   }
 `
 
-const rubberBandKeyFrame = keyframes`
-0% {
-  transform: scale(1);
-}
-30% {
-  color: gold;
-  transform: scaleX(1.5) scaleY(0.75);
-}
-40% {
-  color: white;
-  transform: scaleX(0.75) scaleY(1.5);
-}
-60% {
-  color: tomato;
+// const rubberBandKeyFrame = keyframes`
+// 0% {
+//   transform: scale(1);
+// }
+// 30% {
+//   color: gold;
+//   transform: scaleX(1.5) scaleY(0.75);
+// }
+// 40% {
+//   color: white;
+//   transform: scaleX(0.75) scaleY(1.5);
+// }
+// 60% {
+//   color: tomato;
 
-  transform: scaleX(1.15) scaleY(0.85);
-}
-100% {
-  transform: scale(1);
-}
-`
+//   transform: scaleX(1.15) scaleY(0.85);
+// }
+// 100% {
+//   transform: scale(1);
+// }
+// `
 
-const TitleLetter = styled(a.span)`
-  color: white;
-  animation-duration: 2.5s;
-  animation-fill-mode: both;
-  animation-iteration-count: infinite;
+// const TitleLetter = styled(a.span)`
+//   color: white;
+//   animation-duration: 2.5s;
+//   animation-fill-mode: both;
+//   animation-iteration-count: infinite;
 
-  &:hover {
-    animation: ${rubberBandKeyFrame} 2s ease-in-out;
-  }
-`
+//   &:hover {
+//     animation: ${rubberBandKeyFrame} 2s ease-in-out;
+//   }
+// `
 
 const Stripe = styled(a.div)`
   height: 2px;
@@ -225,7 +218,7 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
   // `)
 
   const ref = useRef()
-  const [width, setWidth] = useState(0)
+  const [, setWidth] = useState(0)
   // const [posY, setPosY] = useState(0)
 
   const widthWindow = useWindowSize()
@@ -253,13 +246,13 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
       })
     }
     return () => window.removeEventListener("scroll", parallaxShift)
-  }, [])
+  })
 
   const sectionOpacity = offset.interpolate(o => `${1 - o / 7000}`)
 
   const transitionRight = offset.interpolate(o => `translateY(${o / 2.5}px)`)
 
-  const transitionImage = offset.interpolate(o => `translateY(${o * 4}px)`)
+  // const transitionImage = offset.interpolate(o => `translateY(${o * 4}px)`)
 
   const leftWidth = offset.interpolate(o => `${100 - o / 4}vw`)
 

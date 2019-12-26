@@ -22,9 +22,9 @@ const data = {
     },
   ],
   hero: {
-    title1: "gatsby",
-    title2: "project",
-    subtitle: "This is a personal project",
+    title1: "Hi, I'm Pep",
+    title2: "Pep",
+    subtitle: "Web App Development",
     link: "#about",
     linkText: "More",
   },

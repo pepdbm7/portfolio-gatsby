@@ -1,6 +1,5 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import styled from "styled-components"
 
 //icons:
 import twitter from "../../images/social/ico_twitter.svg"

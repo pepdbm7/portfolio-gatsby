@@ -10,7 +10,7 @@ import "./index.scss"
 import data from "../../data"
 
 //Components
-import NavBar from "../navBar"
+import NavBar from "../navbar"
 import Footer from "../footer"
 
 const GlobalStyle = createGlobalStyle`

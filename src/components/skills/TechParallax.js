@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
-import { useSpring, useTrail, animated as a } from "react-spring"
+import { useTrail, animated as a } from "react-spring"
 
 import styled from "styled-components"
 
@@ -108,17 +108,11 @@ const TechParallax = () => {
   })
 
   return (
-    <Container
-      ref={ref}
-      // onMouseMove={({ clientX: x, clientY: y }) => set({ xy: calc(x, y) })}
-    >
+    <Container ref={ref}>
       <LogostListContainer>
         {images.edges &&
           trail.map((props, index) => (
-            <LogoContainer
-              key={`LogoContainer-${images.edges[index].node.id}`}
-              // style={{ transform: props.xy.interpolate(trans1) }}
-            >
+            <LogoContainer key={`LogoContainer-${images.edges[index].node.id}`}>
               <a.div style={props}>
                 <LogoImage
                   fluid={images.edges[index].node.childImageSharp.fluid}
