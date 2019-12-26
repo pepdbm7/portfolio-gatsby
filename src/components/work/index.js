@@ -9,7 +9,7 @@ import Column from "../../utils/grid/column"
 import useIntersect from "../../utils/hooks/useIntersect"
 
 //Assets
-import variables from "../../assets/styles/variables"
+// import variables from "../../assets/styles/variables"
 
 //styles:
 import { breakpoints } from "../../assets/styles/breakpoints"

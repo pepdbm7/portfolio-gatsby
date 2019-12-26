@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react"
+import { useStaticQuery, graphql } from "gatsby"
+import Image from "gatsby-image"
 import styled from "styled-components"
-import { TweenMax, Back } from "gsap"
+import { gsap } from "gsap"
 
 //Utils
 import Wrapper from "../../utils/grid/wrapper"
@@ -11,7 +13,6 @@ import useWindowSize from "../../utils/hooks/useWindowSize"
 //Assets
 import variables from "../../assets/styles/variables"
 import { breakpoints } from "../../assets/styles/breakpoints"
-import logo from "../../images/abstract1.jpg"
 
 //Components
 import Burger from "./burgerIcon.js"
@@ -46,11 +47,6 @@ const NavBarContainer = styled.div`
 `
 
 const SPLogo = styled.a`
-  display: flex;
-  background: url(${logo}) no-repeat center center;
-  background-size: contain;
-  z-index: 1000;
-
   width: ${({ isTop }) => (isTop ? "60px" : "40px")};
   height: ${({ isTop }) => (isTop ? "60px" : "40px")};
 
@@ -58,6 +54,10 @@ const SPLogo = styled.a`
 
   opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
   visibility: ${({ isOpen }) => (isOpen ? "hidden" : "visible")};
+
+  img {
+    border-radius: 50%;
+  }
 
   @media screen and (min-width: ${breakpoints.large}px) {
     width: ${({ isTop }) => (isTop ? "70px" : "50px")};
@@ -155,6 +155,17 @@ const CollapsedItemsContainer = styled.div`
 
 //component:
 const NavBar = ({ data }) => {
+  const graphqlData = useStaticQuery(graphql`
+    query NavbarQuery {
+      avatar: file(absolutePath: { regex: "/profile.jpg/" }) {
+        childImageSharp {
+          fluid(maxWidth: 120) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
   const size = useWindowSize()
 
   const [width, setWidth] = useState(null)
@@ -170,20 +181,24 @@ const NavBar = ({ data }) => {
   const isTopOnScroll = () => setIsTop(!window.pageYOffset)
 
   useEffect(() => {
-    if (viewNavItems) {
-      TweenMax.to("#menu", 0.3, {
-        autoAlpha: 1,
-      })
+    const menu = document.querySelector("#menu")
+    const navItems = document.querySelector(".navItem")
+    if (menu !== null && navItems !== null) {
+      if (viewNavItems) {
+        gsap.to(menu, 0.3, {
+          autoAlpha: 1,
+        })
 
-      TweenMax.to(".navItem", 0.5, {
-        autoAlpha: 1,
-        delay: 0.1,
-        ease: Back.easeOut,
-      })
-    } else {
-      TweenMax.to("#menu, .navItem", 0, {
-        autoAlpha: 0,
-      })
+        gsap.to(navItems, 0.5, {
+          delay: 0.1,
+          autoAlpha: 1,
+          ease: "elastic",
+        })
+      } else {
+        gsap.to((menu, navItems), 0, {
+          autoAlpha: 0,
+        })
+      }
     }
 
     setWidth(size.width)
@@ -211,7 +226,12 @@ const NavBar = ({ data }) => {
                 isOpen={viewNavItems}
                 href={"#hero"}
                 onClick={() => setViewNavItems(false)}
-              />
+              >
+                <Image
+                  fluid={graphqlData.avatar.childImageSharp.fluid}
+                  alt={"profile"}
+                />
+              </SPLogo>
               <Burger isOpen={viewNavItems} handleClick={handleBurgerClick} />
             </Column>
           </Row>
@@ -245,7 +265,12 @@ const NavBar = ({ data }) => {
       <Wrapper>
         <Row>
           <Column xs={12}>
-            <SPLogo isTop={isTop ? true : false} href={"#hero"} />
+            <SPLogo isTop={isTop ? true : false} href={"#hero"}>
+              <Image
+                fluid={graphqlData.avatar.childImageSharp.fluid}
+                alt={"profile"}
+              />
+            </SPLogo>
             <SectionsLinksBar>
               {data &&
                 data.map((section, i) => (

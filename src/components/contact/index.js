@@ -15,9 +15,6 @@ import variables from "../../assets/styles/variables"
 import { breakpoints } from "../../assets/styles/breakpoints"
 
 const Container = styled.section`
-  background: white;
-  position: relative;
-  z-index: 0;
   color: white;
   background: ${variables.secondary};
   min-height: 90vh;
@@ -27,7 +24,6 @@ const Title = styled(a.h2)`
   text-align: center;
   width: 100%;
   margin: 100px auto 60px;
-  position: relative;
   z-index: 0;
   line-height: 39px;
 

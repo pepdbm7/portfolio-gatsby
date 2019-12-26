@@ -70,14 +70,6 @@ const LogoImage = styled(Image)`
   height: inherit;
 `
 
-const calc = (x, y) => [x - window.innerWidth / 2, y - window.innerHeight / 2]
-const trans1 = (x, y) => `translate3d(${x / 15}px,${y / 15}px,0)`
-const trans2 = (x, y) => `translate3d(${x / 10}px,${y / 10}px,0)`
-const trans3 = (x, y) => `translate3d(${x / 11}px,${y / 11}px, 0)`
-const trans4 = (x, y) => `translate3d(${x / 10}px,${y / 9}px,0)`
-const trans5 = (x, y) => `translate3d(${x / 12}px,${y / 10}px,0)`
-const trans6 = (x, y) => `translate3d(${x / 9}px,${y / 12}px,0)`
-
 const TechParallax = () => {
   const { images } = useStaticQuery(graphql`
     query {
@@ -101,11 +93,6 @@ const TechParallax = () => {
       }
     }
   `)
-
-  const [props, set] = useSpring(() => ({
-    xy: [0, 0],
-    config: { mass: 10, tension: 550, friction: 140 },
-  }))
 
   const [ref, entry] = useIntersect({
     threshold: 0,

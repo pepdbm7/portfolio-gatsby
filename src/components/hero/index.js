@@ -21,10 +21,10 @@ import arrowDown from "../../images/arrow_down.svg"
 const HeroContainer = styled(a.header)`
   overflow: hidden;
   background: #dfdf;
+  color: white;
   position: relative;
   width: 100vw;
   height: 250vh;
-  color: white;
 
   user-select: none;
   user-drag: none;
@@ -210,19 +210,19 @@ const HomeSubtitle = styled.h2`
 // `
 
 const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
-  const { bgImg } = useStaticQuery(graphql`
-    query {
-      bgImg: file(absolutePath: { regex: "/bluesmoke.jpg/" }) {
-        id
-        name
-        childImageSharp {
-          fluid {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `)
+  // const { bgImg } = useStaticQuery(graphql`
+  //   query {
+  //     bgImg: file(absolutePath: { regex: "/bluesmoke.jpg/" }) {
+  //       id
+  //       name
+  //       childImageSharp {
+  //         fluid {
+  //           ...GatsbyImageSharpFluid
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
 
   const ref = useRef()
   const [width, setWidth] = useState(0)
@@ -283,11 +283,11 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
           transform: transitionRight,
         }}
       >
-        <Picture
+        {/* <Picture
           style={{ transform: transitionImage }}
           fluid={bgImg.childImageSharp.fluid}
           alt={bgImg.name}
-        />
+        /> */}
 
         <LeftSide
           style={{

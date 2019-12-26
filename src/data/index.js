@@ -1,8 +1,3 @@
-import PlanbeImg from "../images/planbe_screenshot.png"
-import MeetupImg from "../images/meetup_screenshot.png"
-import GnomeFinderImg from "../images/gnomefinder_screenshot.png"
-import PinterHooksImg from "../images/pinterhooks.png"
-
 const data = {
   navbar: [
     {
@@ -51,7 +46,7 @@ const data = {
     title: "Work",
     projects: [
       {
-        image: PlanbeImg,
+        name: "planbe",
         title: "PlanBe",
         subtitle: "E-commerce",
         description: [
@@ -66,7 +61,7 @@ const data = {
         demoUrl: "",
       },
       {
-        image: MeetupImg,
+        name: "meetup",
         title: "MeetUp",
         subtitle: "Social Network with MEVN Stack",
         description: [
@@ -83,7 +78,7 @@ const data = {
         demoUrl: "",
       },
       {
-        image: GnomeFinderImg,
+        name: "gnomefinder",
         title: "Gnome Finder",
         subtitle: "React/Redux job application",
         description: [
@@ -96,7 +91,7 @@ const data = {
         demoUrl: "",
       },
       {
-        image: PinterHooksImg,
+        name: "pinterhooks",
         title: "PinterHooks",
         subtitle: "React and Redux app",
         description: [

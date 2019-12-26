@@ -6,10 +6,6 @@ import styled from "styled-components"
 //components:
 import SEO from "../components/seo"
 
-//images:
-import abstract from "../images/abstract2.jpg"
-import NavBar from "../components/navBar"
-
 const Container = styled.div`
   position: absolute;
   margin: -8px;
@@ -24,7 +20,7 @@ const Container = styled.div`
   user-select: none;
 `
 
-const Title = styled.h1``
+const Title = styled.h2``
 
 const GoHome = styled(Link)`
   text-decoration: none;

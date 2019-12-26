@@ -16,13 +16,12 @@ import { breakpoints } from "../../assets/styles/breakpoints"
 
 //components:
 import TechParallax from "./TechParallax"
-import Wave from "../wave"
+// import Wave from "../wave"
 
 const Container = styled.section`
-  background: white;
-  position: relative;
   color: white;
   background: ${variables.secondary};
+  position: relative;
   padding: 0 0 100px;
   min-height: 150vh;
   z-index: 2;
@@ -51,24 +50,24 @@ const Info = styled(a.div)`
     }
 `
 
-const Background = styled.div`
-  margin: 10vh auto;
-  position: absolute;
-  left: 50%;
-  margin-left: -40vh;
-  top: 50%;
-  margin-top: -40vh;
-  width: 80vh;
-  height: 80vh;
-  border-radius: 50%;
+// const Background = styled.div`
+//   margin: 10vh auto;
+//   position: absolute;
+//   left: 50%;
+//   margin-left: -40vh;
+//   top: 50%;
+//   margin-top: -40vh;
+//   width: 80vh;
+//   height: 80vh;
+//   border-radius: 50%;
 
-  background: ${variables.primary};
-  background: radial-gradient(
-    circle,
-    ${variables.primaryDark} 0%,
-    ${variables.primaryLight} 100%
-  );
-`
+//   background: ${variables.primary};
+//   background: radial-gradient(
+//     circle,
+//     ${variables.primaryDark} 0%,
+//     ${variables.primaryLight} 100%
+//   );
+// `
 
 const Skills = ({ data: { id, title, description } }) => {
   const { format } = new Intl.NumberFormat("en-US", {
@@ -109,7 +108,7 @@ const Skills = ({ data: { id, title, description } }) => {
 
   return (
     <Container id={id} ref={ref}>
-      <Background />
+      {/* <Background /> */}
       <Wrapper>
         <Row>
           <Column xs={12}>
@@ -129,7 +128,7 @@ const Skills = ({ data: { id, title, description } }) => {
           </Column>
         </Row>
       </Wrapper>
-      <Wave />
+      {/* <Wave /> */}
     </Container>
   )
 }

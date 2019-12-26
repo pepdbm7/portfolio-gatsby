@@ -1,6 +1,8 @@
 import React from "react"
-import { useSpring, animated as a } from "react-spring"
+import { useStaticQuery, graphql } from "gatsby"
+import Image from "gatsby-image"
 import styled from "styled-components"
+import { useSpring, animated as a } from "react-spring"
 
 //Assets
 import variables from "../../assets/styles/variables"
@@ -127,7 +129,7 @@ const ProjectTitle = styled.h3`
   color: white;
 `
 
-const ProjectImage = styled.img`
+const ProjectImage = styled(Image)`
   width: 80%;
   height: 80%;
   overflow: hidden;
@@ -158,6 +160,39 @@ const DescriptionPoint = styled.li`
 `
 
 const ProjectCard = ({ project, id }) => {
+  const images = useStaticQuery(graphql`
+    query {
+      planbe: file(absolutePath: { regex: "/planbe.png/" }) {
+        childImageSharp {
+          fluid(maxWidth: 450) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      meetup: file(absolutePath: { regex: "/meetup.png/" }) {
+        childImageSharp {
+          fluid(maxWidth: 450) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      gnomefinder: file(absolutePath: { regex: "/gnomefinder.png/" }) {
+        childImageSharp {
+          fluid(maxWidth: 450) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+      pinterhooks: file(absolutePath: { regex: "/pinterhooks.png/" }) {
+        childImageSharp {
+          fluid(maxWidth: 450) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
+
   const { format } = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 2,
   })
@@ -191,7 +226,10 @@ const ProjectCard = ({ project, id }) => {
             <ProjectTitle className={"bodyNormal"}>
               {project.title}
             </ProjectTitle>
-            <ProjectImage src={project.image} alt="project image" />
+            <ProjectImage
+              fluid={images[project.name].childImageSharp.fluid}
+              alt="project image"
+            />
           </CardHeader>
           <Divider />
           <ProjectDescription>
