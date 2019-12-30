@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from "react"
-// import { useStaticQuery, graphql } from "gatsby"
-// import Image from "gatsby-image"
+import { useStaticQuery, graphql } from "gatsby"
+import Image from "gatsby-image"
 import styled from "styled-components"
 import { useSpring, animated as a } from "react-spring"
 
@@ -11,9 +11,17 @@ import useWindowSize from "../../utils/hooks/useWindowSize"
 import { breakpoints } from "../../assets/styles/breakpoints"
 import variables from "../../assets/styles/variables"
 
+//image:
+// import mountainback from "../../images/mountainback.jpg"
+
 const HeroContainer = styled(a.header)`
   overflow: hidden;
-  background: linear-gradient(to top, tomato 0%, red 100%);
+  // background: linear-gradient(
+    to top,
+    ${variables.primary} 0%,
+    ${variables.primaryDark} 100%
+  );
+  background: ${variables.secondary};
   color: white;
   position: relative;
   width: 100vw;
@@ -31,26 +39,33 @@ const RightSide = styled(a.div)`
   height: 120vh;
   top: -10vw;
   z-index: 10;
+
+  img {
+    right: 50%;
+    top: 50%;
+  }
+`
+const PictureContainer = styled.div`
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate3d(0, -50%, 0);
+  width: 50%;
 `
 
-// const Picture = styled(Image)`
-//   position: absolute;
-//   left: 60%;
-//   top: 20%;
-//   width: 400px;
-// `
+const Picture = styled(Image)`
+  border-radius: 50%;
+  margin: auto 10%;
+`
 
 const LeftSide = styled(a.div)`
   background: ${variables.secondary};
+  border: 1px solid black;
   position: absolute;
   left: 0;
   top: 0;
   min-width: 50vw;
-
-  // width: 100vw;
   height: 120vh;
-  // top: -10vw;
-  // z-index: 9;
 `
 
 const ContentLeft = styled(a.div)`
@@ -82,39 +97,6 @@ const HomeTitle = styled.h1`
   }
 `
 
-// const rubberBandKeyFrame = keyframes`
-// 0% {
-//   transform: scale(1);
-// }
-// 30% {
-//   color: gold;
-//   transform: scaleX(1.5) scaleY(0.75);
-// }
-// 40% {
-//   color: white;
-//   transform: scaleX(0.75) scaleY(1.5);
-// }
-// 60% {
-//   color: tomato;
-
-//   transform: scaleX(1.15) scaleY(0.85);
-// }
-// 100% {
-//   transform: scale(1);
-// }
-// `
-
-// const TitleLetter = styled(a.span)`
-//   color: white;
-//   animation-duration: 2.5s;
-//   animation-fill-mode: both;
-//   animation-iteration-count: infinite;
-
-//   &:hover {
-//     animation: ${rubberBandKeyFrame} 2s ease-in-out;
-//   }
-// `
-
 const Stripe = styled(a.div)`
   height: 2px;
   width: 100%;
@@ -138,88 +120,21 @@ const HomeSubtitle = styled.h2`
   }
 `
 
-// const HomeHeader = styled.div`
-//   display: flex;
-//   flex-direction: column;
-//   text-align: center;
-//   margin: 40px auto;
-//   color: white;
-//   position: relative;
-//   z-index: 10;
-
-//   @media screen and (min-width: ${breakpoints.large}px) {
-//     height: initial;
-//   }
-// `
-
-// const ImageLeft = styled.img`
-//   left: 7vw;
-//   position: absolute;
-//   width: 100px;
-// `
-// const ImageRight = styled.img`
-//   right: 5vw;
-//   position: absolute;
-//   width: 200px;
-// `
-
-// const HeroLinkDown = styled.a`
-//   color: white;
-//   text-decoration: none;
-//   position: absolute;
-//   bottom: 10px;
-//   display: block;
-//   padding-bottom: 40px;
-//   z-index: 100;
-//   cursor: pointer;
-
-//   ::after {
-//     content: "";
-//     position: absolute;
-//     width: 15px;
-//     height: 10px;
-//     left: 36px;
-//     bottom: 20px;
-//     background-repeat: no-repeat;
-//     background-image: url(${arrowDown});
-//     animation: flip-flop 1s infinite;
-//   }
-
-//   @keyframes flip-flop {
-//     0% {
-//       transform: translate(0, 0);
-//     }
-//     50% {
-//       transform: translate(0, 15px);
-//     }
-//   }
-
-//   transition: all 0.4s ease;
-//   opacity: 1;
-
-//   :hover {
-//     opacity: 0.6;
-//   }
-// `
-
 const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
-  // const { bgImg } = useStaticQuery(graphql`
-  //   query {
-  //     bgImg: file(absolutePath: { regex: "/bluesmoke.jpg/" }) {
-  //       id
-  //       name
-  //       childImageSharp {
-  //         fluid {
-  //           ...GatsbyImageSharpFluid
-  //         }
-  //       }
-  //     }
-  //   }
-  // `)
+  const { avatar } = useStaticQuery(graphql`
+    query {
+      avatar: file(absolutePath: { regex: "/profile.jpg/" }) {
+        childImageSharp {
+          fluid(maxWidth: 120) {
+            ...GatsbyImageSharpFluid
+          }
+        }
+      }
+    }
+  `)
 
   const ref = useRef()
   const [, setWidth] = useState(0)
-  // const [posY, setPosY] = useState(0)
 
   const widthWindow = useWindowSize()
 
@@ -234,25 +149,34 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
     const posY = ref.current.getBoundingClientRect().top
     const offset = window.pageYOffset - posY
     set({ offset })
+    // console.log("estoy observando hero!!")
   }
 
   useEffect(() => {
-    if (
-      typeof window !== "undefined" &&
-      !!ref.current.getBoundingClientRect().bottom
-    ) {
-      window.addEventListener("scroll", () => {
-        parallaxShift()
-      })
-    }
-    return () => window.removeEventListener("scroll", parallaxShift)
+    let observer = new IntersectionObserver(entries => {
+      let [{ isIntersecting }] = entries
+      if (isIntersecting) {
+        window.addEventListener("scroll", parallaxShift, {
+          capture: false,
+          passive: true,
+        })
+      } else {
+        window.removeEventListener("scroll", parallaxShift, {
+          capture: false,
+          passive: true,
+        })
+      }
+    })
+    observer.observe(ref.current)
   })
 
   const sectionOpacity = offset.interpolate(o => `${1 - o / 7000}`)
 
-  const transitionRight = offset.interpolate(o => `translateY(${o / 2.5}px)`)
+  const transitionRight = offset.interpolate(
+    o => `translate3d(0, ${o / 1.8}px, 0)`
+  )
 
-  // const transitionImage = offset.interpolate(o => `translateY(${o * 4}px)`)
+  const transitionImage = offset.interpolate(o => `translateY(${o * 4}px)`)
 
   const leftWidth = offset.interpolate(o => `${100 - o / 4}vw`)
 
@@ -276,12 +200,14 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
           transform: transitionRight,
         }}
       >
-        {/* <Picture
-          style={{ transform: transitionImage }}
-          fluid={bgImg.childImageSharp.fluid}
-          alt={bgImg.name}
-        /> */}
-
+        {/* <img src={mountainback} /> */}
+        <PictureContainer>
+          <Picture
+            style={{ transform: transitionImage }}
+            fluid={avatar.childImageSharp.fluid}
+            alt={avatar.name}
+          />
+        </PictureContainer>
         <LeftSide
           style={{
             width: leftWidth,

@@ -31,15 +31,27 @@ const data = {
   about: {
     id: "about",
     title: "About",
-    description:
-      "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum ",
+    description: [
+      "I am a web developer from Barcelona. I have worked for various companies and clients and as a hobby to keep improving with side projects. Although I have studies and experience as a Full Stack developer nowadays I am more focused in front-end and Interactive Design, using my technical knowledge along with my creativity.",
+      "I am a big fan of playing basketball, beach volleyball and other outdoor activities and traveling. I am a family person, therefore my preference is working remotely.",
+      "I am looking for ambitious challenging projects",
+    ],
+
     button: "Download CV",
   },
   skills: {
     id: "skills",
     title: "Skills",
-    description:
-      "loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum loremipsum ",
+    description: [
+      "Cross Functional Team oriented",
+      "Responsive smooth interactive Design",
+      "Cross Browser Testing & Debugging",
+      "Content Management (Wordpress)",
+      "SEO and performance focused",
+      "Ecommerces and payment platforms",
+      "Agile Development, Monday, Kanban",
+      "Some of the Technologies I work with:",
+    ],
   },
   work: {
     id: "work",

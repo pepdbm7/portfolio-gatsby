@@ -1,5 +1,5 @@
 import React from "react"
-import { useSpring, animated as a } from "react-spring"
+import { useSpring, useTrail, animated as a } from "react-spring"
 import styled from "styled-components"
 
 //Utils
@@ -11,19 +11,22 @@ import useIntersect from "../../utils/hooks/useIntersect"
 //Assets
 import variables from "../../assets/styles/variables"
 
+//images:
+import TagIcon from "../../images/tag_icon.svg"
+
 //styles:
 import { breakpoints } from "../../assets/styles/breakpoints"
 
 //components:
 import TechParallax from "./TechParallax"
-// import Wave from "../wave"
+import Wave from "../wave"
 
 const Container = styled.section`
   color: white;
   background: ${variables.secondary};
   position: relative;
   padding: 0 0 100px;
-  min-height: 150vh;
+  min-height: 100vh;
   z-index: 2;
 `
 
@@ -39,9 +42,22 @@ const Title = styled(a.h2)`
   }
 `
 
-const Info = styled(a.div)`
+const Info = styled(a.ul)`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
   padding: 0 20%;
-  z-index: 2;
+  li {
+    list-style: none;
+    padding: 0 0 35px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    img {
+      height: 90%;
+    }
+  }
 
 
   @media screen and (min-width: ${breakpoints.tablet}px) {
@@ -49,25 +65,6 @@ const Info = styled(a.div)`
       max-width: 600px;
     }
 `
-
-// const Background = styled.div`
-//   margin: 10vh auto;
-//   position: absolute;
-//   left: 50%;
-//   margin-left: -40vh;
-//   top: 50%;
-//   margin-top: -40vh;
-//   width: 80vh;
-//   height: 80vh;
-//   border-radius: 50%;
-
-//   background: ${variables.primary};
-//   background: radial-gradient(
-//     circle,
-//     ${variables.primaryDark} 0%,
-//     ${variables.primaryLight} 100%
-//   );
-// `
 
 const Skills = ({ data: { id, title, description } }) => {
   const { format } = new Intl.NumberFormat("en-US", {
@@ -95,7 +92,7 @@ const Skills = ({ data: { id, title, description } }) => {
     },
   })
 
-  const infoProps = useSpring({
+  const descriptionTrail = useTrail(description.length, {
     from: {
       opacity: 0,
       transform: `translate(0px, 100px)`,
@@ -108,7 +105,6 @@ const Skills = ({ data: { id, title, description } }) => {
 
   return (
     <Container id={id} ref={ref}>
-      {/* <Background /> */}
       <Wrapper>
         <Row>
           <Column xs={12}>
@@ -119,7 +115,15 @@ const Skills = ({ data: { id, title, description } }) => {
         </Row>
         <Row>
           <Column xs={12}>
-            <Info style={infoProps}>{description}</Info>
+            <Info>
+              {description &&
+                descriptionTrail.map((props, index) => (
+                  <a.li style={props} key={index}>
+                    <img src={TagIcon} alt="tag icon" /> {description[index]}{" "}
+                    <img src={TagIcon} alt="tag icon" />
+                  </a.li>
+                ))}
+            </Info>
           </Column>
         </Row>
         <Row>
@@ -128,7 +132,7 @@ const Skills = ({ data: { id, title, description } }) => {
           </Column>
         </Row>
       </Wrapper>
-      {/* <Wave /> */}
+      <Wave />
     </Container>
   )
 }

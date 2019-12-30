@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef } from "react"
-import { useSpring, animated as a } from "react-spring"
+import { useSpring, useTrail, animated as a } from "react-spring"
 import styled from "styled-components"
 
 //Utils
@@ -15,14 +15,14 @@ import variables from "../../assets/styles/variables"
 import { breakpoints } from "../../assets/styles/breakpoints"
 
 //images:
-import downloadIcon from "../../images/download_icon.svg"
+// import downloadIcon from "../../images/download_icon.svg"
 
 //utils:
 import useWindowSize from "../../utils/hooks/useWindowSize"
 
 //components:
 import Social from "./Social"
-import { Buble1, Buble2, Buble3, Buble4 } from "../bubles"
+// import { Buble1, Buble2, Buble3, Buble4 } from "../bubles"
 // import Particles from "./particles"
 
 const Section = styled(a.section)`
@@ -33,17 +33,29 @@ const Section = styled(a.section)`
   z-index: 1;
   background: deepskyblue;
   background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
+
+  @media screen and (min-width: ${breakpoints.desktop}px) {
+    height: 250vh;
+  }
 `
 
 const ParallaxDiv = styled(a.div)`
   background: tomato;
+  background: linear-gradient(
+    to right,
+    tomato 0%,
+    ${variables.primaryDark} 100%
+  );
+
   position: absolute;
   width: 100%;
-  height: 100vh;
+  min-height: 100vh;
+  height: fit-content;
   display: flex;
   text-align: center;
   flex-direction: column;
   align-items: center;
+  padding: 100px 0;
   color: white;
   z-index: 3;
 `
@@ -64,8 +76,9 @@ const Content = styled.div`
   z-index: 1000;
 `
 
-const Description = styled(a.div)`
+const Description = styled.div`
   display: flex;
+  flex-direction: column;
   padding: 0 20%;
   margin: @media screen and (min-width: ${breakpoints.tablet}px) {
     p {
@@ -88,73 +101,54 @@ const SocialContainer = styled(a.div)`
     margin: 100px auto;
     a {
       &:hover {
-        transform: translateY(-5px);
+        transform: translate3d(0, -5px, 0);
         color: #ff0000;
       }
     }
   }
 `
 
-const DownloadButtonContainer = styled(a.a)`
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: center;
-  opacity: 1;
-  background: ${variables.primary};
-  color: white;
-  margin: 40px auto 40px;
-  border-radius: 30px;
-  cursor: pointer;
-  text-decoration: none;
+// const DownloadButtonContainer = styled(a.a)`
+//   display: flex;
+//   flex-wrap: nowrap;
+//   justify-content: center;
+//   opacity: 1;
+//   background: ${variables.primary};
+//   color: white;
+//   margin: 40px auto 40px;
+//   border-radius: 30px;
+//   cursor: pointer;
+//   text-decoration: none;
 
-  transition: 0.25s all ease;
-  box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
+//   transition: 0.25s all ease;
+//   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
 
-  @media screen and (min-width: ${breakpoints.tablet}px) {
-    margin: 0 auto 100px ;
-    margin: 
-    line-height: 24px;
-  }
-`
+//   @media screen and (min-width: ${breakpoints.tablet}px) {
+//     margin: 0 auto 100px ;
+//     margin:
+//     line-height: 24px;
+//   }
+// `
 
-const LeftButton = styled.div`
-  height: inherit;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  text-align: center;
-  font-weight: bold;
+// const LeftButton = styled.div`
+//   height: inherit;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
+//   text-align: center;
+//   font-weight: bold;
 
-  padding: 16px 20px;
-`
+//   padding: 16px 20px;
+// `
 
-const DonwloadIconBox = styled.div`
-  border-left: 1px solid whitesmoke;
-  display: flex;
-  align-items: center;
-  justify-content: center;
+// const DonwloadIconBox = styled.div`
+//   border-left: 1px solid whitesmoke;
+//   display: flex;
+//   align-items: center;
+//   justify-content: center;
 
-  padding: 20px;
-`
-
-//Responsive:
-
-const SectionResponsive = styled.section`
-  display: flex;
-  height: fit-content;
-  padding: 100px 0;
-  color: black;
-  text-align: center;
-  overflow: hidden;
-
-  @media screen and (min-width: ${breakpoints.tablet}px) {
-    overflow: inherit;
-  }
-`
-
-const TitleResponsive = styled(a.h2)`
-  margin: 0 auto 60px;
-`
+//   padding: 20px;
+// `
 
 const About = ({ data: { id, title, description, button } }) => {
   const widthWindow = useWindowSize()
@@ -183,177 +177,174 @@ const About = ({ data: { id, title, description, button } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate(0, 100px)`,
+      transform: `translate3d(0, 100px,0)`,
     },
     to: {
       opacity: ratio > 0.35 ? 1 : 0,
-      transform: ratio > 0.35 ? `translate(0, 0)` : `translate(0, 100px)`,
+      transform:
+        ratio > 0.35 ? `translate3d(0, 0,0)` : `translate3d(0, 100px,0)`,
     },
   })
 
-  const descriptionProps = useSpring({
-    from: {
-      opacity: 0,
-      transform: `translate(-130px, 0)`,
-    },
+  const descriptionTrail = useTrail(description.length, {
+    from: { opacity: 0, transform: "translate3d(0,-40px,0)" },
     to: {
       opacity: ratio > 0.45 ? 1 : 0,
-      transform: ratio > 0.45 ? `translate(0, 0)` : `translate(-130px, 0)`,
+      transform:
+        ratio > 0.45 ? "translate3d(0,0px,0)" : "translate3d(0,-40px,0)",
     },
   })
 
   const socialProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate(130px, 0)`,
+      transform: `translate3d(-130px, 0, 0)`,
     },
     to: {
       opacity: ratio > 0.55 ? 1 : 0,
-      transform: ratio > 0.55 ? `translate(0, 0)` : `translate(130px, 0)`,
+      transform:
+        ratio > 0.55 ? `translate3d(0, 0,0)` : `translate3d(-130px, 0,0)`,
     },
   })
 
-  const buttonProps = useSpring({
-    from: { opacity: 0, transform: `translate(0, -100px)` },
-    to: {
-      opacity: ratio > 0.6 ? 1 : 0,
-      transform: ratio > 0.6 ? `translate(0, 0)` : `translate(0, -100px)`,
-    },
-  })
-
-  //   const mobileTitleProps = useSpring({
-  //     from: {
-  //       opacity: 0,
-  //     },
-  //     to: {
-  //       opacity: ratio > 0.1 ? 1 : 0,
-  //       transform: ratio > 0.1 ? `translate(0, 0)` : `translate(0, 100px)`,
-  //     },
-  //   })
+  // const buttonProps = useSpring({
+  //   from: { opacity: 0, transform: `translate3d(0, -100px,0)` },
+  //   to: {
+  //     opacity: ratio > 0.6 ? 1 : 0,
+  //     transform:
+  //       ratio > 0.6 ? `translate3d(0, 0,0)` : `translate3d(0, -100px,0)`,
+  //   },
+  // })
 
   //Parallax effects:
-
   const [{ offset }, setOffset] = useSpring(() => ({ offset: 0 }))
 
   const parallaxShift = () => {
     const posY = ref && ref.current && ref.current.getBoundingClientRect().top
     const offset = window.pageYOffset - posY
     setOffset({ offset })
-    // console.log(posY)
+    // console.log("estoy observando about!!")
   }
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
-      window.addEventListener("scroll", () => {
-        parallaxShift()
-      })
-    }
-    return () => window.removeEventListener("scroll", parallaxShift)
+    let observer = new IntersectionObserver(entries => {
+      let [{ isIntersecting }] = entries
+      if (isIntersecting) {
+        window.addEventListener("scroll", parallaxShift)
+      } else {
+        window.removeEventListener("scroll", parallaxShift)
+      }
+    })
+    observer.observe(ref.current)
   })
 
   const sectionOpacity = offset.interpolate(o => `${2 - o / 3000}`)
-  const transitionContainer = offset.interpolate(
-    o => `translateY(${o * 0.2}px)`
-  )
+  const transitionContainer = offset.interpolate(o => `translateY(${o / 9}px)`)
 
-  const isResponsive = width < breakpoints.tablet
+  // const isResponsive = width < breakpoints.tablet
 
-  return width && typeof width === "number" ? (
-    !isResponsive ? (
-      <Section
-        ref={ref}
-        id={id}
-        style={{
-          opacity: sectionOpacity,
-        }}
-      >
-        <Buble1 top="20%" left="50%" />
+  return (
+    <Section
+      ref={ref}
+      id={id}
+      style={{
+        opacity: sectionOpacity,
+      }}
+    >
+      {/* <Buble1 top="20%" left="50%" />
         <Buble2 top="60%" left="20%" />
         <Buble3 top="80%" left="15%" />
-        <Buble4 top="40%" left="85%" />
+        <Buble4 top="40%" left="85%" /> */}
 
-        <ParallaxDiv
-          ref={parallaxdivRef}
-          style={{
-            transform: transitionContainer,
-          }}
-        >
-          <Title
-            style={titleProps}
-            className={"headingMedium"}
-            dangerouslySetInnerHTML={{ __html: title }}
-          />
-          <Wrapper>
-            <Row>
-              <Column xs={12}>
-                <Content>
-                  <Description style={descriptionProps}>
-                    <p
-                      className={"bodyNormal"}
-                      dangerouslySetInnerHTML={{ __html: description }}
-                    />
-                  </Description>
-
-                  <SocialContainer style={socialProps}>
-                    <Social />
-                  </SocialContainer>
-
-                  <DownloadButtonContainer
-                    style={buttonProps}
-                    href={"#"}
-                    target="_blank"
-                    download="cv"
-                    rel="noopener noreferrer"
-                  >
-                    <LeftButton>{button}</LeftButton>
-                    <DonwloadIconBox>
-                      <img src={downloadIcon} alt="download icon" />
-                    </DonwloadIconBox>
-                  </DownloadButtonContainer>
-                </Content>
-              </Column>
-            </Row>
-          </Wrapper>
-        </ParallaxDiv>
-      </Section>
-    ) : (
-      <SectionResponsive id={id} ref={ref}>
+      <ParallaxDiv
+        ref={parallaxdivRef}
+        style={{
+          transform: transitionContainer,
+        }}
+      >
+        <Title
+          style={titleProps}
+          className={"headingMedium"}
+          dangerouslySetInnerHTML={{ __html: title }}
+        />
         <Wrapper>
           <Row>
-            <Column xs={12} sm={8} align="center">
-              <TitleResponsive className={"headingMedium"}>
-                {title}
-              </TitleResponsive>
-            </Column>
-
             <Column xs={12}>
-              <p className="bodyNormal">{description}</p>
-            </Column>
+              <Content>
+                <Description>
+                  {description &&
+                    descriptionTrail.map((props, i) => (
+                      <a.p
+                        key={i}
+                        style={props}
+                        className={"bodyNormal"}
+                        dangerouslySetInnerHTML={{
+                          __html: description[i],
+                        }}
+                      />
+                    ))}
+                </Description>
 
-            <Column xs={12}>
-              <Social />
-            </Column>
+                <SocialContainer style={socialProps}>
+                  <Social />
+                </SocialContainer>
 
-            <Column xs={12}>
-              <DownloadButtonContainer
-                className="bodySmall"
-                href={"#"}
-                target="_blank"
-                download="cv"
-                rel="noopener noreferrer"
-              >
-                <LeftButton>{button}</LeftButton>
-                <DonwloadIconBox>
-                  <img src={downloadIcon} alt="download icon" />
-                </DonwloadIconBox>
-              </DownloadButtonContainer>
+                {/* <DownloadButtonContainer
+                  style={buttonProps}
+                  href={"#"}
+                  target="_blank"
+                  download="cv"
+                  rel="noopener noreferrer"
+                >
+                  <LeftButton>{button}</LeftButton>
+                  <DonwloadIconBox>
+                    <img src={downloadIcon} alt="download icon" />
+                  </DonwloadIconBox>
+                </DownloadButtonContainer> */}
+              </Content>
             </Column>
           </Row>
         </Wrapper>
-      </SectionResponsive>
-    )
-  ) : (
-    <div>loading...</div>
+      </ParallaxDiv>
+    </Section>
+    // ) : (
+    //   <SectionResponsive id={id} ref={ref}>
+    //     <Wrapper>
+    //       <Row>
+    //         <Column xs={12} sm={8} align="center">
+    //           <TitleResponsive className={"headingMedium"}>
+    //             {title}
+    //           </TitleResponsive>
+    //         </Column>
+
+    //         <Column xs={12}>
+    //           <p className="bodyNormal">{description}</p>
+    //         </Column>
+
+    //         <Column xs={12}>
+    //           <Social />
+    //         </Column>
+
+    //         <Column xs={12}>
+    //           <DownloadButtonContainer
+    //             className="bodySmall"
+    //             href={"#"}
+    //             target="_blank"
+    //             download="cv"
+    //             rel="noopener noreferrer"
+    //           >
+    //             <LeftButton>{button}</LeftButton>
+    //             <DonwloadIconBox>
+    //               <img src={downloadIcon} alt="download icon" />
+    //             </DonwloadIconBox>
+    //           </DownloadButtonContainer>
+    //         </Column>
+    //       </Row>
+    //     </Wrapper>
+    //   </SectionResponsive>
+    // )
+    // ) : (
+    //   <div>loading...</div>
   )
 }
 

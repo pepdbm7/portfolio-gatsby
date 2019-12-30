@@ -9,16 +9,20 @@ import styled from "styled-components"
 import useIntersect from "../../utils/hooks/useIntersect"
 
 //styles:
-import { breakpoints } from "../../assets/styles/breakpoints"
+import devices from "../../assets/styles/breakpoints"
 
 const Container = styled.div`
   width: 65%;
-  height: 50vh;
-  margin: 100px auto;
+  min-height: 50vh;
+  margin: 20px auto 120px;
   display: flex;
   align-items: center;
   justify-content: center;
   z-index: 1;
+
+  @media ${devices.tablet} {
+    margin: 100px auto 120px;
+  }
 `
 
 const LogostListContainer = styled.div`
@@ -35,25 +39,20 @@ const LogostListContainer = styled.div`
   z-index: 3;
 `
 
-const LogoContainer = styled(a.div)`
-  width: 20%;
+const LogoContainer = styled.div`
+  width: 50%;
   padding: 0 10px;
   box-sizing: border-box;
   height: 60px;
-  margin-top: 80px;
+  margin-top: 50px;
 
   display: flex;
   justify-content: center;
   align-items: center;
 
-  @media ${breakpoints.tablet} {
+  @media ${devices.tablet} {
     width: 33%;
-    margin-top: 50px;
-  }
-
-  @media ${breakpoints.phone} {
-    width: 45%;
-    margin-top: 40px;
+    margin-top: 80px;
   }
 
   .gatsby-image-wrapper,

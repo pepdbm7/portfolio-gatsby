@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react"
-import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
+// import { useStaticQuery, graphql } from "gatsby"
+// import Image from "gatsby-image"
 import styled from "styled-components"
-import { gsap } from "gsap"
+import { useSpring, useTrail, animated as a } from "react-spring"
 
 //Utils
 import Wrapper from "../../utils/grid/wrapper"
@@ -47,18 +47,29 @@ const NavBarContainer = styled.div`
 `
 
 const SPLogo = styled.a`
-  width: ${({ isTop }) => (isTop ? "60px" : "40px")};
-  height: ${({ isTop }) => (isTop ? "60px" : "40px")};
+  width: 70px;
 
   transition: 0.2s;
 
   opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
   visibility: ${({ isOpen }) => (isOpen ? "hidden" : "visible")};
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: ${({ isTop }) => (isTop ? "16px" : "20px")};
+  color: cornflowerblue;
+  text-decoration: none;
+  font-family: fantasy;
+  font-style: oblique;
+  text-decoration: none;
 
+  .gatsby-image-wrapper,
   img {
-    border-radius: 50%;
+    width: inherit;
+    height: inherit;
+    user-select: none;
+    user-drag: none;
   }
-
   @media screen and (min-width: ${breakpoints.large}px) {
     width: ${({ isTop }) => (isTop ? "70px" : "50px")};
     height: ${({ isTop }) => (isTop ? "50px" : "40px")};
@@ -104,29 +115,25 @@ const SectionsLinksBar = styled.div`
   }
 `
 
-const CollapsedMenu = styled.div`
+const CollapsedMenu = styled(a.div)`
   display: flex;
   margin: auto 0;
   flex-direction: column;
   color: white;
   background-color: ${variables.secondaryDark};
   padding: 0;
-  position: fixed;
   width: 100%;
   height: 100vh;
   box-sizing: border-box;
-  z-index: 999;
 
   overflow: hidden;
-
+  position: fixed;
   top: 0;
+  left: 0;
+  pointer-events: ${({ isOpen }) => !isOpen && "none"};
+  visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
 
-  @media screen and (min-width: ${breakpoints.large}px) {
-    top: 110px;
-  }
-
-  opacity: 0;
-  visibility: hidden;
+  z-index: 999;
 
   a {
     text-decoration: none;
@@ -141,9 +148,6 @@ const CollapsedMenu = styled.div`
     font-weight: bold;
 
     position: relative;
-
-    opacity: 1;
-    transition: all 0.4s ease;
   }
 `
 
@@ -155,17 +159,18 @@ const CollapsedItemsContainer = styled.div`
 
 //component:
 const NavBar = ({ data }) => {
-  const graphqlData = useStaticQuery(graphql`
-    query NavbarQuery {
-      avatar: file(absolutePath: { regex: "/profile.jpg/" }) {
-        childImageSharp {
-          fluid(maxWidth: 120) {
-            ...GatsbyImageSharpFluid
-          }
-        }
-      }
-    }
-  `)
+  // const graphqlData = useStaticQuery(graphql`
+  //   query NavbarQuery {
+  //     brandLogo: file(absolutePath: { regex: "/logo_pepdev.png/" }) {
+  //       childImageSharp {
+  //         fluid(maxWidth: 120) {
+  //           ...GatsbyImageSharpFluid
+  //         }
+  //       }
+  //     }
+  //   }
+  // `)
+
   const size = useWindowSize()
 
   const [width, setWidth] = useState(null)
@@ -181,28 +186,12 @@ const NavBar = ({ data }) => {
   const isTopOnScroll = () => setIsTop(!window.pageYOffset)
 
   useEffect(() => {
-    const menu = document.querySelector("#menu")
-    const navItems = document.querySelector(".navItem")
-    if (menu !== null && navItems !== null) {
-      if (viewNavItems) {
-        gsap.to(menu, 0.3, {
-          autoAlpha: 1,
-        })
-
-        gsap.to(navItems, 0.5, {
-          delay: 0.1,
-          autoAlpha: 1,
-          ease: "elastic",
-        })
-      } else {
-        gsap.to((menu, navItems), 0, {
-          autoAlpha: 0,
-        })
-      }
-    }
-
     setWidth(size.width)
-  }, [viewNavItems, size])
+  }, [size])
+
+  useEffect(() => {
+    console.log({ viewNavItems })
+  }, [viewNavItems])
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -214,6 +203,22 @@ const NavBar = ({ data }) => {
     return () => window.removeEventListener("scroll", isTopOnScroll)
   }, [])
 
+  const collapsedProps = useSpring({
+    from: { opacity: 0 },
+    to: { opacity: viewNavItems ? 1 : 0 },
+  })
+
+  const trail = useTrail(data.length, {
+    delay: 300,
+    from: { opacity: 0, transform: "translate3d(0,-40px,0)" },
+    to: {
+      opacity: viewNavItems ? 1 : 0,
+      transform: viewNavItems
+        ? "translate3d(0,0px,0)"
+        : "translate3d(0,-40px,0)",
+    },
+  })
+
   //collapsed menu:
   return width < breakpoints.large ? (
     <Navigator>
@@ -222,15 +227,16 @@ const NavBar = ({ data }) => {
           <Row>
             <Column xs={12}>
               <SPLogo
-                isTop={isTop ? true : false}
+                isTop={isTop}
                 isOpen={viewNavItems}
                 href={"#hero"}
                 onClick={() => setViewNavItems(false)}
               >
-                <Image
-                  fluid={graphqlData.avatar.childImageSharp.fluid}
+                PepDev
+                {/* <Image
+                  fluid={graphqlData.brandLogo.childImageSharp.fluid}
                   alt={"profile"}
-                />
+                /> */}
               </SPLogo>
               <Burger isOpen={viewNavItems} handleClick={handleBurgerClick} />
             </Column>
@@ -238,38 +244,40 @@ const NavBar = ({ data }) => {
         </Wrapper>
       </NavBarContainer>
 
-      <CollapsedMenu id="menu">
+      {/* <FadeIn condition={viewNavItems}> */}
+      <CollapsedMenu isOpen={viewNavItems} style={{ collapsedProps }}>
         <Wrapper>
           <Row>
             <Column xs={12}>
               <CollapsedItemsContainer>
                 {data &&
-                  data.map((section, i) => (
-                    <a
+                  trail.map((props, i) => (
+                    <a.a
                       key={i}
                       onClick={handleBurgerClick}
-                      href={section.anchor}
-                      className="navItem"
+                      href={data[i].anchor}
+                      style={props}
                     >
-                      {section.name}
-                    </a>
+                      {data[i].name}
+                    </a.a>
                   ))}
               </CollapsedItemsContainer>
             </Column>
           </Row>
         </Wrapper>
       </CollapsedMenu>
+      {/* </FadeIn> */}
     </Navigator>
   ) : (
     <NavBarContainer isTop={isTop}>
       <Wrapper>
         <Row>
           <Column xs={12}>
-            <SPLogo isTop={isTop ? true : false} href={"#hero"}>
-              <Image
+            <SPLogo isTop={isTop} href={"#hero"}>
+              {/* <Image
                 fluid={graphqlData.avatar.childImageSharp.fluid}
                 alt={"profile"}
-              />
+              /> */}
             </SPLogo>
             <SectionsLinksBar>
               {data &&

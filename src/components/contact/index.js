@@ -92,11 +92,12 @@ const Contact = ({ data: { id, title, description } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate(0px, 100px)`,
+      transform: `translate3d(0px, 100px, 0)`,
     },
     to: {
       opacity: ratio > 0.1 ? 1 : 0,
-      transform: ratio > 0.1 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+      transform:
+        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
     },
   })
 
