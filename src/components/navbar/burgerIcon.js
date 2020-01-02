@@ -1,5 +1,6 @@
 import React from "react"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 
 const BurgerContainer = styled.div`
   display: flex;
@@ -50,12 +51,17 @@ const BottomLine = styled.div`
   width: ${({ isOpen }) => (isOpen ? "24px" : "100%")};
 `
 
-const Burger = ({ isOpenBurger, handleClick }) => (
+const Burger = ({ isOpen, handleClick }) => (
   <BurgerContainer onClick={handleClick}>
-    <TopLine isOpen={isOpenBurger} />
-    <MiddleLine isOpen={isOpenBurger} />
-    <BottomLine isOpen={isOpenBurger} />
+    <TopLine isOpen={isOpen} />
+    <MiddleLine isOpen={isOpen} />
+    <BottomLine isOpen={isOpen} />
   </BurgerContainer>
 )
+
+Burger.propTypes = {
+  isOpen: PropTypes.bool,
+  handleClick: PropTypes.func.isRequired,
+}
 
 export default Burger

@@ -10,12 +10,11 @@ import About from "../components/about"
 import Skills from "../components/skills"
 import Work from "../components/work"
 import Contact from "../components/contact"
-import Footer from "../components/footer"
 
 import data from "../data"
 
 const IndexPage = () => {
-  const { navbar, hero, about, skills, work, contact, footer } = data
+  const { navbar, hero, about, skills, work, contact } = data
 
   return (
     <Layout>
@@ -34,7 +33,6 @@ const IndexPage = () => {
       <Skills data={skills} />
       <Work data={work} />
       <Contact data={contact} />
-      <Footer data={footer} />
     </Layout>
   )
 }

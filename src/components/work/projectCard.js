@@ -2,6 +2,8 @@ import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 import styled from "styled-components"
+import PropTypes from "prop-types"
+
 import { useSpring, animated as a } from "react-spring"
 
 //Assets
@@ -211,11 +213,14 @@ const ProjectCard = ({ project, id }) => {
   const cardsProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate(0px, 100px)`,
+      transform: `translate3d(0px, 100px, 0) scale(0.4)`,
     },
     to: {
-      opacity: ratio > 0.5 ? 1 : 0,
-      transform: ratio >= 0.3 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+      opacity: ratio > 0.2 ? 1 : 0,
+      transform:
+        ratio > 0.2
+          ? `translate3d(0px, 0px, 0) scale(1)`
+          : `translate3d(0px, 100px, 0) scale(0.4)`,
     },
   })
 
@@ -247,6 +252,11 @@ const ProjectCard = ({ project, id }) => {
       </DecorationLayyer>
     </Column>
   )
+}
+
+ProjectCard.propTypes = {
+  project: PropTypes.object.isRequired,
+  id: PropTypes.number.isRequired,
 }
 
 export default ProjectCard

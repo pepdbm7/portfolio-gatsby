@@ -2,8 +2,8 @@ import React, { useState, useEffect, useContext } from "react"
 // import { useStaticQuery, graphql } from "gatsby"
 // import Image from "gatsby-image"
 import styled from "styled-components"
-import PropTypes from "prop-types"
-import { useSpring, useTrail, animated as a } from "react-spring"
+import PropTypes, { object } from "prop-types"
+import { useTrail, animated as a } from "react-spring"
 
 import { StoreContext } from "../store"
 
@@ -111,12 +111,14 @@ const CollapsedMenu = styled(a.div)`
   width: 100%;
   height: 100vh;
   box-sizing: border-box;
+  transition: 0.3s;
 
   overflow: hidden;
   position: fixed;
   top: 0;
   left: 0;
-  pointer-events: ${({ isOpen }) => !isOpen && "none"};
+  pointer-events: ${({ isOpen }) => (isOpen ? "" : "none")};
+  opacity: ${({ isOpen }) => (isOpen ? 1 : 0)};
   visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
 
   z-index: 999;
@@ -175,11 +177,6 @@ const NavBar = ({ data }) => {
     setWidth(size.width)
   }, [size])
 
-  const collapsedProps = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: viewNavItems ? 1 : 0 },
-  })
-
   const trail = useTrail(data.length, {
     delay: 400,
     from: { opacity: 0, transform: "translate3d(0,-40px,0)" },
@@ -216,8 +213,7 @@ const NavBar = ({ data }) => {
         </Wrapper>
       </NavBarContainer>
 
-      {/* <FadeIn condition={viewNavItems}> */}
-      <CollapsedMenu isOpen={viewNavItems} style={{ collapsedProps }}>
+      <CollapsedMenu isOpen={viewNavItems}>
         <Wrapper>
           <Row>
             <Column xs={12}>
@@ -266,13 +262,7 @@ const NavBar = ({ data }) => {
 }
 
 NavBar.propTypes = {
-  primary: PropTypes.bool,
-  secondary: PropTypes.bool,
-  href: PropTypes.string,
-  light: PropTypes.bool,
-  downloadButton: PropTypes.bool,
-  downloadName: PropTypes.string,
-  children: PropTypes.node,
+  data: PropTypes.arrayOf(object).isRequired,
 }
 
 export default NavBar

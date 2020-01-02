@@ -1,11 +1,14 @@
 import React from "react"
 import { createGlobalStyle } from "styled-components"
+import PropTypes from "prop-types"
 
 import variables from "../../assets/styles/variables"
 
 //Assets
 import "./index.scss"
 import StoreProvider from "../store"
+
+import Footer from "../footer"
 
 const GlobalStyle = createGlobalStyle`
 
@@ -34,15 +37,23 @@ const GlobalStyle = createGlobalStyle`
       overflow: hidden;
     }
 
+    ::-webkit-scrollbar {
+      display: none;
+  }
+
   }
 `
 
-const Layout = ({ children }) => {
-  return (
-    <StoreProvider>
-      <GlobalStyle />
-      {children}
-    </StoreProvider>
-  )
+const Layout = ({ children }) => (
+  <StoreProvider>
+    <GlobalStyle />
+    {children}
+    <Footer />
+  </StoreProvider>
+)
+
+Layout.propTypes = {
+  children: PropTypes.node,
 }
+
 export default Layout

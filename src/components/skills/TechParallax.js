@@ -19,10 +19,6 @@ const Container = styled.div`
   align-items: center;
   justify-content: center;
   z-index: 1;
-
-  @media ${devices.tablet} {
-    margin: 100px auto 120px;
-  }
 `
 
 const LogostListContainer = styled.div`
@@ -94,15 +90,15 @@ const TechParallax = () => {
   `)
 
   const [ref, entry] = useIntersect({
-    threshold: 0,
+    threshold: 0.1,
   })
 
   const trail = useTrail(images.edges.length, {
     opacity: entry.intersectionRatio ? 1 : 0,
-    transform: `scale(${entry.intersectionRatio ? 1 : 1.4})`,
+    transform: `scale(${entry.intersectionRatio ? 1 : 0.4})`,
     from: {
       opacity: 0,
-      transform: `scale(1.4)`,
+      transform: `scale(0.4)`,
     },
   })
 

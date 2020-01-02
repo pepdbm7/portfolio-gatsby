@@ -1,7 +1,6 @@
 import React from "react"
 import styled, { keyframes } from "styled-components"
 import PropTypes from "prop-types"
-import variables from "../assets/styles/variables"
 import { breakpoints } from "../assets/styles/breakpoints"
 
 const Wrapper = styled.div`

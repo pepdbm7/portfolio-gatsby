@@ -1,6 +1,7 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useEffect, useRef } from "react"
 import { useSpring, useTrail, animated as a } from "react-spring"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 
 //Utils
 import Wrapper from "../../utils/grid/wrapper"
@@ -14,16 +15,8 @@ import variables from "../../assets/styles/variables"
 //styles:
 import { breakpoints } from "../../assets/styles/breakpoints"
 
-//images:
-// import downloadIcon from "../../images/download_icon.svg"
-
-//utils:
-import useWindowSize from "../../utils/hooks/useWindowSize"
-
 //components:
 import Social from "./Social"
-// import { Buble1, Buble2, Buble3, Buble4 } from "../bubles"
-// import Particles from "./particles"
 
 const Section = styled(a.section)`
   overflow: hidden;
@@ -33,13 +26,9 @@ const Section = styled(a.section)`
   z-index: 1;
   background: deepskyblue;
   background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
-
-  @media screen and (min-width: ${breakpoints.desktop}px) {
-    height: 250vh;
-  }
 `
 
-const ParallaxDiv = styled(a.div)`
+const Container = styled(a.div)`
   background: tomato;
   background: linear-gradient(
     to right,
@@ -61,10 +50,8 @@ const ParallaxDiv = styled(a.div)`
 `
 
 const Title = styled(a.h2)`
-  @media screen and (min-width: ${breakpoints.tablet}px) {
-    margin: 160px auto 120px;
-    line-height: 39px;
-  }
+  margin: 35px auto 100px;
+  line-height: 39px;
 `
 const Content = styled.div`
   display: flex;
@@ -87,9 +74,10 @@ const Description = styled.div`
   }
 `
 
-const SocialContainer = styled(a.div)`
+const SocialContainer = styled.div`
   display: flex;
   justify-content: center;
+  margin: 65px auto 40px;
 
   img {
     width: 2em;
@@ -151,13 +139,6 @@ const SocialContainer = styled(a.div)`
 // `
 
 const About = ({ data: { id, title, description, social } }) => {
-  const widthWindow = useWindowSize()
-  useEffect(() => {
-    setWidth(widthWindow.width)
-  }, [widthWindow])
-
-  const [, setWidth] = useState(null)
-
   const ref = useRef()
 
   //Usesprings for content animations:
@@ -166,42 +147,32 @@ const About = ({ data: { id, title, description, social } }) => {
   })
 
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-
-  const [parallaxdivRef, entry] = useIntersect({
+  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
+  //entry es el objeto con la información de la posición del elemento
+  const [containerRef, entry] = useIntersect({
+    //threshold es la cantidad de elemento visible para que se dispare el evento
     threshold: buildThresholdArray(),
   })
 
   const ratio = format(entry.intersectionRatio)
+
   const titleProps = useSpring({
     from: {
       opacity: 0,
       transform: `translate3d(0, 100px,0)`,
     },
     to: {
-      opacity: ratio > 0.35 ? 1 : 0,
+      opacity: ratio > 0.3 ? 1 : 0,
       transform:
-        ratio > 0.35 ? `translate3d(0, 0,0)` : `translate3d(0, 100px,0)`,
+        ratio > 0.3 ? `translate3d(0, 0,0)` : `translate3d(0, 100px,0)`,
     },
   })
 
   const descriptionTrail = useTrail(description.length, {
-    from: { opacity: 0, transform: "translate3d(0,-40px,0)" },
+    from: { opacity: 0, transform: `scale(0.6)` },
     to: {
-      opacity: ratio > 0.45 ? 1 : 0,
-      transform:
-        ratio > 0.45 ? "translate3d(0,0px,0)" : "translate3d(0,-40px,0)",
-    },
-  })
-
-  const socialProps = useSpring({
-    from: {
-      opacity: 0,
-      transform: `translate3d(-130px, 0, 0)`,
-    },
-    to: {
-      opacity: ratio > 0.45 ? 1 : 0,
-      transform:
-        ratio > 0.45 ? `translate3d(0, 0,0)` : `translate3d(-130px, 0,0)`,
+      opacity: ratio > 0.5 ? 1 : 0,
+      transform: ratio > 0.5 ? `scale(1)` : `scale(0.6)`,
     },
   })
 
@@ -212,7 +183,6 @@ const About = ({ data: { id, title, description, social } }) => {
     const posY = ref && ref.current && ref.current.getBoundingClientRect().top
     const offset = window.pageYOffset - posY
     setOffset({ offset })
-    // console.log("estoy observando about!!")
   }
 
   useEffect(() => {
@@ -230,8 +200,6 @@ const About = ({ data: { id, title, description, social } }) => {
   const sectionOpacity = offset.interpolate(o => `${2 - o / 3000}`)
   const transitionContainer = offset.interpolate(o => `translateY(${o / 9}px)`)
 
-  // const isResponsive = width < breakpoints.tablet
-
   return (
     <Section
       ref={ref}
@@ -240,13 +208,8 @@ const About = ({ data: { id, title, description, social } }) => {
         opacity: sectionOpacity,
       }}
     >
-      {/* <Buble1 top="20%" left="50%" />
-        <Buble2 top="60%" left="20%" />
-        <Buble3 top="80%" left="15%" />
-        <Buble4 top="40%" left="85%" /> */}
-
-      <ParallaxDiv
-        ref={parallaxdivRef}
+      <Container
+        ref={containerRef}
         style={{
           transform: transitionContainer,
         }}
@@ -274,8 +237,8 @@ const About = ({ data: { id, title, description, social } }) => {
                     ))}
                 </Description>
 
-                <SocialContainer style={socialProps}>
-                  <Social social={social} />
+                <SocialContainer>
+                  <Social social={social} ratio={ratio} />
                 </SocialContainer>
 
                 {/* <DownloadButtonContainer
@@ -294,47 +257,13 @@ const About = ({ data: { id, title, description, social } }) => {
             </Column>
           </Row>
         </Wrapper>
-      </ParallaxDiv>
+      </Container>
     </Section>
-    // ) : (
-    //   <SectionResponsive id={id} ref={ref}>
-    //     <Wrapper>
-    //       <Row>
-    //         <Column xs={12} sm={8} align="center">
-    //           <TitleResponsive className={"headingMedium"}>
-    //             {title}
-    //           </TitleResponsive>
-    //         </Column>
-
-    //         <Column xs={12}>
-    //           <p className="bodyNormal">{description}</p>
-    //         </Column>
-
-    //         <Column xs={12}>
-    //           <Social />
-    //         </Column>
-
-    //         <Column xs={12}>
-    //           <DownloadButtonContainer
-    //             className="bodySmall"
-    //             href={"#"}
-    //             target="_blank"
-    //             download="cv"
-    //             rel="noopener noreferrer"
-    //           >
-    //             <LeftButton>{button}</LeftButton>
-    //             <DonwloadIconBox>
-    //               <img src={downloadIcon} alt="download icon" />
-    //             </DonwloadIconBox>
-    //           </DownloadButtonContainer>
-    //         </Column>
-    //       </Row>
-    //     </Wrapper>
-    //   </SectionResponsive>
-    // )
-    // ) : (
-    //   <div>loading...</div>
   )
+}
+
+About.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 export default About

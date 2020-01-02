@@ -24,5 +24,5 @@ export default {
 
   //Fonts
 
-  helvetica: "DIN, Helvetica Neue, Arial, sans-serif",
+  helvetica: "Helvetica Neue, Arial, sans-serif",
 }

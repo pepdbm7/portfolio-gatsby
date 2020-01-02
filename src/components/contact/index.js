@@ -1,6 +1,7 @@
 import React from "react"
 import { useSpring, animated as a } from "react-spring"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 
 //Utils
 import Wrapper from "../../utils/grid/wrapper"
@@ -16,14 +17,14 @@ import { breakpoints } from "../../assets/styles/breakpoints"
 
 const Container = styled.section`
   color: white;
+  font-family: ${variables.helvetica};
   background: ${variables.secondary};
-  min-height: 90vh;
 `
 
 const Title = styled(a.h2)`
   text-align: center;
   width: 100%;
-  margin: 100px auto 60px;
+  margin: 130px auto 60px;
   z-index: 0;
   line-height: 39px;
 
@@ -32,14 +33,15 @@ const Title = styled(a.h2)`
   }
 `
 
-const Intro = styled.p`
+const Intro = styled(a.p)`
   width: fit-content;
   margin: 20px auto;
   width: 85%;
+  font-weight: 700;
 `
 
-const ContactForm = styled.form`
-  margin: 10px auto 100px;
+const ContactForm = styled(a.form)`
+  margin: 60px auto 130px;
 
   input,
   textarea,
@@ -48,9 +50,12 @@ const ContactForm = styled.form`
     margin: 8px 0;
     border: 1px solid royalblue;
     background: white;
+    font-family: inherit;
   }
-  #name {
-    margin: 8px 5px 8px 0;
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    #name {
+      margin: 8px 5px 8px 0;
+    }
   }
 
   button {
@@ -101,6 +106,28 @@ const Contact = ({ data: { id, title, description } }) => {
     },
   })
 
+  const introProps = useSpring({
+    from: {
+      opacity: 0,
+      transform: `scale(0.8)`,
+    },
+    to: {
+      opacity: ratio > 0.4 ? 1 : 0,
+      transform: ratio > 0.4 ? `scale(1)` : `scale(0.8)`,
+    },
+  })
+
+  const formProps = useSpring({
+    from: {
+      opacity: 0,
+      transform: `scale(0.8)`,
+    },
+    to: {
+      opacity: ratio > 0.6 ? 1 : 0,
+      transform: ratio > 0.6 ? `scale(1)` : `scale(0.8)`,
+    },
+  })
+
   return (
     <Container id={id} ref={ref}>
       <Wrapper>
@@ -112,7 +139,7 @@ const Contact = ({ data: { id, title, description } }) => {
           </Column>
 
           <Column xs={12}>
-            <Intro>{description}</Intro>
+            <Intro style={{ introProps }}>{description}</Intro>
           </Column>
 
           <ContactForm
@@ -120,6 +147,7 @@ const Contact = ({ data: { id, title, description } }) => {
             method="post"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
+            style={{ formProps }}
           >
             {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
             <input type="hidden" name="form-name" value="contact" />
@@ -152,6 +180,10 @@ const Contact = ({ data: { id, title, description } }) => {
       </Wrapper>
     </Container>
   )
+}
+
+Contact.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 export default Contact

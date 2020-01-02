@@ -3,6 +3,7 @@ import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 import styled from "styled-components"
 import { useSpring, animated as a } from "react-spring"
+import PropTypes from "prop-types"
 
 //utils:
 import useWindowSize from "../../utils/hooks/useWindowSize"
@@ -12,9 +13,6 @@ import { breakpoints } from "../../assets/styles/breakpoints"
 import variables from "../../assets/styles/variables"
 
 import { StoreContext } from "../store"
-
-//image:
-// import mountainback from "../../images/mountainback.jpg"
 
 const HeroContainer = styled(a.header)`
   overflow: hidden;
@@ -120,6 +118,14 @@ const HomeSubtitle = styled.h2`
     max-width: 60%;
     margin-top: 20px;
   }
+  color: gold;
+  background: linear-gradient(gold 35%, transparent 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+
+  :before {
+    content: "";
+  }
 `
 
 const Hero = ({ data: { title1, title2, subtitle } }) => {
@@ -219,37 +225,20 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
           }}
         >
           <ContentLeft style={{ transform: contentScale }}>
-            <HomeTitle style={{}}>
-              {title1} <span>{title2}</span>
-            </HomeTitle>
-            <Stripe style={{ margin: stripeMargins }} />
-            <HomeSubtitle style={{}}>{subtitle}</HomeSubtitle>
-          </ContentLeft>
-        </LeftSide>
-      </RightSide>
-
-      {/* ): (
-    <ScrollContainer id={"home"}>
-       <HomeContainer>
-        <HomeBackground
-          fluid={bgImg.childImageSharp.fluid}
-          sizes="(width: 100vw)"
-          alt={bgImg.name}
-        />
-        <HeroContent>
-          <HomeHeader>
             <HomeTitle>
               {title1} <span>{title2}</span>
             </HomeTitle>
+            <Stripe style={{ margin: stripeMargins }} />
             <HomeSubtitle>{subtitle}</HomeSubtitle>
-          </HomeHeader>
-        </HeroContent>
-
-        <HeroLinkDown href={link}>{linkText}</HeroLinkDown>
-      </HomeContainer> 
-    </ScrollContainer>*/}
+          </ContentLeft>
+        </LeftSide>
+      </RightSide>
     </HeroContainer>
   )
+}
+
+Hero.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 export default Hero

@@ -1,6 +1,7 @@
 import React from "react"
 import { useSpring, animated as a } from "react-spring"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 
 //Utils
 import Wrapper from "../../utils/grid/wrapper"
@@ -56,11 +57,12 @@ const Work = ({ data: { id, title, projects } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate(0px, 100px)`,
+      transform: `translate3d(0px, 100px, 0)`,
     },
     to: {
       opacity: ratio > 0.1 ? 1 : 0,
-      transform: ratio > 0.1 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+      transform:
+        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
     },
   })
 
@@ -85,6 +87,10 @@ const Work = ({ data: { id, title, projects } }) => {
       </Wrapper>
     </Container>
   )
+}
+
+Work.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 export default Work

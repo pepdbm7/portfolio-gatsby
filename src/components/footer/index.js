@@ -1,40 +1,24 @@
 import React from "react"
 import styled from "styled-components"
 
-//Utils
-import Wrapper from "../../utils/grid/wrapper"
-import Row from "../../utils/grid/row"
-import Column from "../../utils/grid/column"
-
-//Assets
-// import variables from "../../assets/styles/variables"
-
 const FooterSection = styled.footer`
   background: black;
   position: relative;
-  z-index: 10;
-
   color: white;
   font-weight: bold;
+  min-height: 60px;
+  display: flex;
+  align-items: center;
 
   p {
     margin: 0 auto;
-    padding: 20px 0;
   }
 `
 
-const Footer = ({ data }) => {
-  return (
-    <FooterSection>
-      <Wrapper>
-        <Row>
-          <Column xs={12} className="bodySmall">
-            <p>{data}</p>
-          </Column>
-        </Row>
-      </Wrapper>
-    </FooterSection>
-  )
-}
+const Footer = () => (
+  <FooterSection>
+    <p className="bodySmall">2020 PepDev</p>
+  </FooterSection>
+)
 
 export default Footer

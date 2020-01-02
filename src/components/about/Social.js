@@ -1,44 +1,40 @@
 import React from "react"
+import PropTypes, { object } from "prop-types"
+import { useTrail, animated as a } from "react-spring"
 
-//icons:
-import twitter from "../../images/social/ico_twitter.svg"
-import instagram from "../../images/social/ico_instagram.svg"
-import linkedin from "../../images/social/ico_linkedin.svg"
-import github from "../../images/social/ico_github.svg"
+const Social = ({ social, ratio }) => {
+  const socialTrail = useTrail(social.length, {
+    from: {
+      opacity: 0,
+      transform: `scale(0.4)`,
+    },
+    to: {
+      opacity: ratio > 0.55 ? 1 : 0,
+      transform: `scale(${ratio ? 1 : 0.4})`,
+    },
+  })
 
-const Social = ({ social }) => {
   return (
-    <React.Fragment>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://twitter.com/${social.twitter}`}
-      >
-        <img src={twitter} alt="Twitter" title="Twitter" />
-      </a>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://instagram.com/${social.instagram}`}
-      >
-        <img src={instagram} alt="Instagram" title="Instagram" />
-      </a>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://www.linkedin.com/in/${social.linkedin}`}
-      >
-        <img src={linkedin} alt="LinkedIn" title="LinkedIn" />
-      </a>
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href={`https://github.com/${social.github}`}
-      >
-        <img src={github} alt="Github" title="Github" />
-      </a>
-    </React.Fragment>
+    <>
+      {social &&
+        socialTrail.map((props, i) => (
+          <a.a
+            key={"social-icon" + i}
+            style={props}
+            target="_blank"
+            rel="noopener noreferrer"
+            href={social[i].href}
+          >
+            <img src={social[i].src} alt={social[i].alt} />
+          </a.a>
+        ))}
+    </>
   )
+}
+
+Social.propTypes = {
+  social: PropTypes.arrayOf(object).isRequired,
+  ratio: PropTypes.string,
 }
 
 export default Social

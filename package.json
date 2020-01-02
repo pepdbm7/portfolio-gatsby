@@ -1,10 +1,15 @@
 {
-  "name": "gatsby-starter-default",
+  "name": "pepdev-portfolio",
   "private": true,
-  "description": "A simple starter to get up and developing quickly with Gatsby",
+  "description": "Personal Portfolio of PepDev",
   "version": "0.1.0",
-  "author": "Kyle Mathews <mathews.kyle@gmail.com>",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/pepdbm7/portfolio-gatsby"
+  },
+  "author": "Pepdev <pepdbm7@gmail.com>",
   "dependencies": {
+    
     "babel-plugin-styled-components": "^1.10.6",
     "gatsby": "^2.18.8",
     "gatsby-image": "^2.2.34",
@@ -22,16 +27,18 @@
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-helmet": "^5.2.1",
-    "react-parallax": "^3.0.0",
     "react-spring": "^8.0.27",
-    "reactjs-popup": "^1.5.0",
     "styled-components": "^4.4.1"
   },
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "@hot-loader/react-dom": "^16.11.0"
   },
   "keywords": [
-    "gatsby"
+    "pepdev",
+    "portfolio",
+    "webdevelopment",
+    "webdesign"
   ],
   "license": "MIT",
   "scripts": {
@@ -42,10 +49,6 @@
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/gatsbyjs/gatsby-starter-default"
   },
   "bugs": {
     "url": "https://github.com/gatsbyjs/gatsby/issues"

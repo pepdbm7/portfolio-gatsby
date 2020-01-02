@@ -1,3 +1,9 @@
+//icons:
+import twitter from "../images/social/ico_twitter.svg"
+import instagram from "../images/social/ico_instagram.svg"
+import linkedin from "../images/social/ico_linkedin.svg"
+import github from "../images/social/ico_github.svg"
+
 const data = {
   navbar: [
     {
@@ -34,12 +40,28 @@ const data = {
       "I am a big fan of playing basketball, beach volleyball and other outdoor activities and traveling. I am a family person, therefore my preference is working remotely.",
       "I am looking for ambitious challenging projects",
     ],
-    social: {
-      twitter: "pepdbm89",
-      linkedin: "josepdelbano",
-      instagram: "pdbm77",
-      github: "pepdbm7",
-    },
+    social: [
+      {
+        alt: "twitterIcon",
+        href: "https://twitter.com/pepdbm89",
+        src: `${twitter}`,
+      },
+      {
+        alt: "IgIcon",
+        href: "https://instagram.com/pdbm77",
+        src: `${instagram}`,
+      },
+      {
+        alt: "linkedInIcon",
+        href: "`https://www.linkedin.com/in/josepdelbano",
+        src: `${linkedin}`,
+      },
+      {
+        alt: "githubIcon",
+        href: "https://github.com/pepdbm7",
+        src: `${github}`,
+      },
+    ],
   },
   skills: {
     id: "skills",
@@ -125,7 +147,6 @@ const data = {
     description:
       "Do you have any ambitious project in mind? Let's build it together! ...or ask me whatever you feel like",
   },
-  footer: "2020 PepDev",
 }
 
 export default data

@@ -1,6 +1,7 @@
 import React from "react"
 import { useSpring, useTrail, animated as a } from "react-spring"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 
 //Utils
 import Wrapper from "../../utils/grid/wrapper"
@@ -84,22 +85,26 @@ const Skills = ({ data: { id, title, description } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate(0px, 100px)`,
+      transform: `translate3d(0px, 100px, 0)`,
     },
     to: {
       opacity: ratio > 0.1 ? 1 : 0,
-      transform: ratio > 0.1 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+      transform:
+        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
     },
   })
 
   const descriptionTrail = useTrail(description.length, {
     from: {
       opacity: 0,
-      transform: `translate(0px, 100px)`,
+      transform: `translate3d(0px, 100px, 0) scale(0.6)`,
     },
     to: {
-      opacity: ratio > 0.15 ? 1 : 0,
-      transform: ratio > 0.15 ? `translate(0px, 0px)` : `translate(0px, 100px)`,
+      opacity: ratio > 0.2 ? 1 : 0,
+      transform:
+        ratio > 0.2
+          ? `translate3d(0px, 0px, 0) scale(1)`
+          : `translate3d(0px, 100px, 0) scale(0.6)`,
     },
   })
 
@@ -135,6 +140,10 @@ const Skills = ({ data: { id, title, description } }) => {
       <Wave />
     </Container>
   )
+}
+
+Skills.propTypes = {
+  data: PropTypes.object.isRequired,
 }
 
 export default Skills
