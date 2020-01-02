@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react"
+import React, { useState, useEffect, useRef, useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 import styled from "styled-components"
@@ -10,6 +10,8 @@ import useWindowSize from "../../utils/hooks/useWindowSize"
 //assets
 import { breakpoints } from "../../assets/styles/breakpoints"
 import variables from "../../assets/styles/variables"
+
+import { StoreContext } from "../store"
 
 //image:
 // import mountainback from "../../images/mountainback.jpg"
@@ -120,12 +122,12 @@ const HomeSubtitle = styled.h2`
   }
 `
 
-const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
+const Hero = ({ data: { title1, title2, subtitle } }) => {
   const { avatar } = useStaticQuery(graphql`
     query {
       avatar: file(absolutePath: { regex: "/profile.jpg/" }) {
         childImageSharp {
-          fluid(maxWidth: 120) {
+          fluid(maxWidth: 400, quality: 90) {
             ...GatsbyImageSharpFluid
           }
         }
@@ -135,6 +137,9 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
 
   const ref = useRef()
   const [, setWidth] = useState(0)
+  const {
+    isTop: [, setIsTop],
+  } = useContext(StoreContext)
 
   const widthWindow = useWindowSize()
 
@@ -149,7 +154,7 @@ const Hero = ({ data: { title1, title2, subtitle, link, linkText } }) => {
     const posY = ref.current.getBoundingClientRect().top
     const offset = window.pageYOffset - posY
     set({ offset })
-    // console.log("estoy observando hero!!")
+    setIsTop(posY === 0)
   }
 
   useEffect(() => {

@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from "react"
+import React, { useState, useEffect, useContext } from "react"
 // import { useStaticQuery, graphql } from "gatsby"
 // import Image from "gatsby-image"
 import styled from "styled-components"
+import PropTypes from "prop-types"
 import { useSpring, useTrail, animated as a } from "react-spring"
+
+import { StoreContext } from "../store"
 
 //Utils
 import Wrapper from "../../utils/grid/wrapper"
@@ -81,36 +84,19 @@ const SectionsLinksBar = styled.div`
   margin: 0 0 0 auto;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
 
   a {
-    position: relative;
     text-decoration: none;
     color: white;
     opacity: 1;
+    margin-left: 40px;
 
     font-weight: bold;
 
     transition: all 0.4s ease;
 
-    & + a {
-      margin-left: 40px;
-    }
-
-    &:after {
-      position: absolute;
-      bottom: -1px;
-      left: 0;
-      content: "";
-      width: 100%;
-      height: 1px;
-      background: #444;
-      transform: scale(0, 1);
-      transform-origin: left top;
-      transition: transform 0.3s;
-    }
-    &:hover:after {
-      transform: scale(1, 1);
+    &:hover {
+      transform: scale(1.2);
     }
   }
 `
@@ -173,35 +159,21 @@ const NavBar = ({ data }) => {
 
   const size = useWindowSize()
 
+  const {
+    isTop: [isTop],
+  } = useContext(StoreContext)
+
   const [width, setWidth] = useState(null)
   const [viewNavItems, setViewNavItems] = useState(false)
-  const [isTop, setIsTop] = useState(true)
 
   const handleBurgerClick = () => {
-    !window.pageYOffset && setIsTop(true)
     setViewNavItems(!viewNavItems)
     document.getElementsByTagName("body")[0].classList.toggle("scrollDisabled")
   }
 
-  const isTopOnScroll = () => setIsTop(!window.pageYOffset)
-
   useEffect(() => {
     setWidth(size.width)
   }, [size])
-
-  useEffect(() => {
-    console.log({ viewNavItems })
-  }, [viewNavItems])
-
-  useEffect(() => {
-    if (typeof window !== "undefined") {
-      setIsTop(true)
-      window.addEventListener("scroll", () => {
-        isTopOnScroll()
-      })
-    }
-    return () => window.removeEventListener("scroll", isTopOnScroll)
-  }, [])
 
   const collapsedProps = useSpring({
     from: { opacity: 0 },
@@ -209,7 +181,7 @@ const NavBar = ({ data }) => {
   })
 
   const trail = useTrail(data.length, {
-    delay: 300,
+    delay: 400,
     from: { opacity: 0, transform: "translate3d(0,-40px,0)" },
     to: {
       opacity: viewNavItems ? 1 : 0,
@@ -266,7 +238,6 @@ const NavBar = ({ data }) => {
           </Row>
         </Wrapper>
       </CollapsedMenu>
-      {/* </FadeIn> */}
     </Navigator>
   ) : (
     <NavBarContainer isTop={isTop}>
@@ -292,6 +263,16 @@ const NavBar = ({ data }) => {
       </Wrapper>
     </NavBarContainer>
   )
+}
+
+NavBar.propTypes = {
+  primary: PropTypes.bool,
+  secondary: PropTypes.bool,
+  href: PropTypes.string,
+  light: PropTypes.bool,
+  downloadButton: PropTypes.bool,
+  downloadName: PropTypes.string,
+  children: PropTypes.node,
 }
 
 export default NavBar

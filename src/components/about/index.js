@@ -29,7 +29,7 @@ const Section = styled(a.section)`
   overflow: hidden;
   position: relative;
   width: 100%;
-  height: 200vh;
+  height: 250vh;
   z-index: 1;
   background: deepskyblue;
   background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
@@ -150,15 +150,13 @@ const SocialContainer = styled(a.div)`
 //   padding: 20px;
 // `
 
-const About = ({ data: { id, title, description, button } }) => {
+const About = ({ data: { id, title, description, social } }) => {
   const widthWindow = useWindowSize()
   useEffect(() => {
     setWidth(widthWindow.width)
   }, [widthWindow])
 
-  const [width, setWidth] = useState(null)
-
-  //PARALLAX effect:
+  const [, setWidth] = useState(null)
 
   const ref = useRef()
 
@@ -201,20 +199,11 @@ const About = ({ data: { id, title, description, button } }) => {
       transform: `translate3d(-130px, 0, 0)`,
     },
     to: {
-      opacity: ratio > 0.55 ? 1 : 0,
+      opacity: ratio > 0.45 ? 1 : 0,
       transform:
-        ratio > 0.55 ? `translate3d(0, 0,0)` : `translate3d(-130px, 0,0)`,
+        ratio > 0.45 ? `translate3d(0, 0,0)` : `translate3d(-130px, 0,0)`,
     },
   })
-
-  // const buttonProps = useSpring({
-  //   from: { opacity: 0, transform: `translate3d(0, -100px,0)` },
-  //   to: {
-  //     opacity: ratio > 0.6 ? 1 : 0,
-  //     transform:
-  //       ratio > 0.6 ? `translate3d(0, 0,0)` : `translate3d(0, -100px,0)`,
-  //   },
-  // })
 
   //Parallax effects:
   const [{ offset }, setOffset] = useSpring(() => ({ offset: 0 }))
@@ -286,7 +275,7 @@ const About = ({ data: { id, title, description, button } }) => {
                 </Description>
 
                 <SocialContainer style={socialProps}>
-                  <Social />
+                  <Social social={social} />
                 </SocialContainer>
 
                 {/* <DownloadButtonContainer

@@ -25,8 +25,6 @@ const data = {
     title1: "Hi, I'm",
     title2: "Pep",
     subtitle: "Web App Development",
-    link: "#about",
-    linkText: "More",
   },
   about: {
     id: "about",
@@ -36,8 +34,12 @@ const data = {
       "I am a big fan of playing basketball, beach volleyball and other outdoor activities and traveling. I am a family person, therefore my preference is working remotely.",
       "I am looking for ambitious challenging projects",
     ],
-
-    button: "Download CV",
+    social: {
+      twitter: "pepdbm89",
+      linkedin: "josepdelbano",
+      instagram: "pdbm77",
+      github: "pepdbm7",
+    },
   },
   skills: {
     id: "skills",
@@ -123,7 +125,7 @@ const data = {
     description:
       "Do you have any ambitious project in mind? Let's build it together! ...or ask me whatever you feel like",
   },
-  footer: "2019 PepDev",
+  footer: "2020 PepDev",
 }
 
 export default data

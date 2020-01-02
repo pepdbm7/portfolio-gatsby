@@ -5,13 +5,7 @@ import variables from "../../assets/styles/variables"
 
 //Assets
 import "./index.scss"
-
-//Data
-import data from "../../data"
-
-//Components
-import NavBar from "../navbar"
-import Footer from "../footer"
+import StoreProvider from "../store"
 
 const GlobalStyle = createGlobalStyle`
 
@@ -44,19 +38,11 @@ const GlobalStyle = createGlobalStyle`
 `
 
 const Layout = ({ children }) => {
-  const { navbar, footer } = data
-
   return (
-    <React.Fragment>
+    <StoreProvider>
       <GlobalStyle />
-
-      <NavBar data={navbar} />
-
       {children}
-
-      <Footer data={footer} />
-    </React.Fragment>
+    </StoreProvider>
   )
 }
-
 export default Layout
