@@ -31,7 +31,6 @@ const NavBarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
-
   position: fixed;
   background: ${({ isOpen, isTop }) =>
     isOpen || isTop ? "transparent" : "black"};
@@ -51,9 +50,7 @@ const NavBarContainer = styled.div`
 
 const SPLogo = styled.a`
   width: 70px;
-
-  transition: 0.2s;
-
+  transition: 0.4s all ease;
   opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
   visibility: ${({ isOpen }) => (isOpen ? "hidden" : "visible")};
   display: flex;
@@ -61,6 +58,12 @@ const SPLogo = styled.a`
   align-items: center;
   font-size: ${({ isTop }) => (isTop ? "16px" : "20px")};
   color: cornflowerblue;
+  background: ${({ isHero }) =>
+    isHero
+      ? `linear-gradient(to right, tomato 30%, gold 100%)`
+      : `linear-gradient(to right, SlateBlue 0%, lightblue 100%)`};
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
   text-decoration: none;
   font-family: fantasy;
   font-style: oblique;
@@ -76,6 +79,10 @@ const SPLogo = styled.a`
   @media screen and (min-width: ${breakpoints.large}px) {
     width: ${({ isTop }) => (isTop ? "70px" : "50px")};
     height: ${({ isTop }) => (isTop ? "50px" : "40px")};
+  }
+
+  &:hover {
+    transform: translate3d(0, -3px, 0);
   }
 `
 
@@ -163,6 +170,7 @@ const NavBar = ({ data }) => {
 
   const {
     isTop: [isTop],
+    isHero: [isHero],
   } = useContext(StoreContext)
 
   const [width, setWidth] = useState(null)
@@ -189,7 +197,7 @@ const NavBar = ({ data }) => {
   })
 
   //collapsed menu:
-  return width < breakpoints.large ? (
+  return width < breakpoints.desktop ? (
     <Navigator>
       <NavBarContainer isTop={isTop} isPhone isOpen={viewNavItems}>
         <Wrapper>
@@ -197,6 +205,7 @@ const NavBar = ({ data }) => {
             <Column xs={12}>
               <SPLogo
                 isTop={isTop}
+                isHero={isHero}
                 isOpen={viewNavItems}
                 href={"#hero"}
                 onClick={() => setViewNavItems(false)}
@@ -240,11 +249,14 @@ const NavBar = ({ data }) => {
       <Wrapper>
         <Row>
           <Column xs={12}>
-            <SPLogo isTop={isTop} href={"#hero"}>
-              {/* <Image
-                fluid={graphqlData.avatar.childImageSharp.fluid}
-                alt={"profile"}
-              /> */}
+            <SPLogo
+              isTop={isTop}
+              href={"#hero"}
+              isHero={isHero}
+              isOpen={viewNavItems}
+              onClick={() => setViewNavItems(false)}
+            >
+              PepDev
             </SPLogo>
             <SectionsLinksBar>
               {data &&

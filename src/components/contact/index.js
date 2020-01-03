@@ -83,15 +83,10 @@ const Contact = ({ data: { id, title, description } }) => {
   const { format } = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 2,
   })
-
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
-  //entry es el objeto con la información de la posición del elemento
   const [ref, entry] = useIntersect({
-    //threshold es la cantidad de elemento visible para que se dispare el evento
     threshold: buildThresholdArray(),
   })
-
   const ratio = format(entry.intersectionRatio)
 
   const titleProps = useSpring({

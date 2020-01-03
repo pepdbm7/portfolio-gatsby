@@ -73,10 +73,7 @@ const Skills = ({ data: { id, title, description } }) => {
   })
 
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
-  //entry es el objeto con la información de la posición del elemento
   const [ref, entry] = useIntersect({
-    //threshold es la cantidad de elemento visible para que se dispare el evento
     threshold: buildThresholdArray(),
   })
 
@@ -92,6 +89,7 @@ const Skills = ({ data: { id, title, description } }) => {
       transform:
         ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
     },
+    config: { duration: 1000 },
   })
 
   const descriptionTrail = useTrail(description.length, {
@@ -106,6 +104,7 @@ const Skills = ({ data: { id, title, description } }) => {
           ? `translate3d(0px, 0px, 0) scale(1)`
           : `translate3d(0px, 100px, 0) scale(0.6)`,
     },
+    config: { duration: 1500 },
   })
 
   return (

@@ -201,10 +201,7 @@ const ProjectCard = ({ project, id }) => {
   })
 
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
-  //entry es el objeto con la información de la posición del elemento
   const [ref, entry] = useIntersect({
-    //threshold es la cantidad de elemento visible para que se dispare el evento
     threshold: buildThresholdArray(),
   })
 
@@ -222,6 +219,7 @@ const ProjectCard = ({ project, id }) => {
           ? `translate3d(0px, 0px, 0) scale(1)`
           : `translate3d(0px, 100px, 0) scale(0.4)`,
     },
+    config: { duration: 1000 },
   })
 
   return (

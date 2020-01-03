@@ -16,25 +16,21 @@ import { StoreContext } from "../store"
 
 const HeroContainer = styled(a.header)`
   overflow: hidden;
-  // background: linear-gradient(
-    to top,
-    ${variables.primary} 0%,
-    ${variables.primaryDark} 100%
-  );
-  background: ${variables.secondary};
+  background: ${variables.secondaryDark};
   color: white;
   position: relative;
   width: 100vw;
   height: 250vh;
+  pointer-events: none;
 
-  user-select: none;
-  user-drag: none;
+  @media screen and (min-width: ${breakpoints.tablet}px) {
+    height: 155vh;
+  }
 `
 
 const RightSide = styled(a.div)`
   background: linear-gradient(to left, tomato 0%, gold 100%);
   position: relative;
-  // left: 50%;
   width: 100vw;
   height: 120vh;
   top: -10vw;
@@ -60,7 +56,7 @@ const Picture = styled(Image)`
 
 const LeftSide = styled(a.div)`
   background: ${variables.secondary};
-  border: 1px solid black;
+  background: linear-gradient(to right, ${variables.secondary} 0%, black 100%);
   position: absolute;
   left: 0;
   top: 0;
@@ -80,17 +76,19 @@ const ContentLeft = styled(a.div)`
 `
 
 const HomeTitle = styled.h1`
-  font-size: 57px;
+  font-size: 50px;
   text-align: center;
   letter-spacing: -1.02px;
   line-height: 64px;
-  margin: 0 auto 20px;
+  margin: 0 auto;
   transition: 0.4s all ease;
+  background: linear-gradient(to right, tomato 30%, gold 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 
-  @media screen and (min-width: ${breakpoints.large}px) {
+  @media screen and (min-width: ${breakpoints.phone}px) {
     font-size: 69px;
 
-    text-align: center;
     letter-spacing: -0.58px;
     line-height: 78px;
     font-weight: bold;
@@ -99,7 +97,7 @@ const HomeTitle = styled.h1`
 
 const Stripe = styled(a.div)`
   height: 2px;
-  width: 100%;
+  width: 90%;
   background: linear-gradient(to right, tomato 0%, gold 100%);
   transition: 0.6s all ease;
 `
@@ -119,13 +117,9 @@ const HomeSubtitle = styled.h2`
     margin-top: 20px;
   }
   color: gold;
-  background: linear-gradient(gold 35%, transparent 90%);
+  background: linear-gradient(gold 30%, tomato 95%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-
-  :before {
-    content: "";
-  }
 `
 
 const Hero = ({ data: { title1, title2, subtitle } }) => {
@@ -145,6 +139,7 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
   const [, setWidth] = useState(0)
   const {
     isTop: [, setIsTop],
+    isHero: [, setIsHero],
   } = useContext(StoreContext)
 
   const widthWindow = useWindowSize()
@@ -167,11 +162,13 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
     let observer = new IntersectionObserver(entries => {
       let [{ isIntersecting }] = entries
       if (isIntersecting) {
+        setIsHero(true)
         window.addEventListener("scroll", parallaxShift, {
           capture: false,
           passive: true,
         })
       } else {
+        setIsHero(false)
         window.removeEventListener("scroll", parallaxShift, {
           capture: false,
           passive: true,
@@ -187,7 +184,9 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
     o => `translate3d(0, ${o / 1.8}px, 0)`
   )
 
-  const transitionImage = offset.interpolate(o => `translateY(${o * 4}px)`)
+  const transitionImage = offset.interpolate(
+    o => `translate3d(0, ${o * 4}px, 0)`
+  )
 
   const leftWidth = offset.interpolate(o => `${100 - o / 4}vw`)
 
@@ -211,7 +210,6 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
           transform: transitionRight,
         }}
       >
-        {/* <img src={mountainback} /> */}
         <PictureContainer>
           <Picture
             style={{ transform: transitionImage }}

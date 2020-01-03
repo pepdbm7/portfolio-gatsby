@@ -89,17 +89,25 @@ const TechParallax = () => {
     }
   `)
 
-  const [ref, entry] = useIntersect({
-    threshold: 0.1,
+  const { format } = new Intl.NumberFormat("en-US", {
+    maximumFractionDigits: 2,
   })
+  const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
+  const [ref, entry] = useIntersect({
+    threshold: buildThresholdArray(),
+  })
+  const ratio = format(entry.intersectionRatio)
 
   const trail = useTrail(images.edges.length, {
-    opacity: entry.intersectionRatio ? 1 : 0,
-    transform: `scale(${entry.intersectionRatio ? 1 : 0.4})`,
     from: {
       opacity: 0,
       transform: `scale(0.4)`,
     },
+    to: {
+      opacity: ratio > 0.25 ? 1 : 0,
+      transform: `scale(${ratio > 0.25 ? 1 : 0.4})`,
+    },
+    config: { duration: 1500 },
   })
 
   return (

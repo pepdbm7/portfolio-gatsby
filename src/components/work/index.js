@@ -9,9 +9,6 @@ import Row from "../../utils/grid/row"
 import Column from "../../utils/grid/column"
 import useIntersect from "../../utils/hooks/useIntersect"
 
-//Assets
-// import variables from "../../assets/styles/variables"
-
 //styles:
 import { breakpoints } from "../../assets/styles/breakpoints"
 
@@ -45,10 +42,7 @@ const Work = ({ data: { id, title, projects } }) => {
   })
 
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
-  //entry es el objeto con la información de la posición del elemento
   const [ref, entry] = useIntersect({
-    //threshold es la cantidad de elemento visible para que se dispare el evento
     threshold: buildThresholdArray(),
   })
 
@@ -64,6 +58,7 @@ const Work = ({ data: { id, title, projects } }) => {
       transform:
         ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
     },
+    config: { duration: 1000 },
   })
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from "react"
+import React, { useEffect, useState, useRef } from "react"
 import { useSpring, useTrail, animated as a } from "react-spring"
 import styled from "styled-components"
 import PropTypes from "prop-types"
@@ -8,12 +8,13 @@ import Wrapper from "../../utils/grid/wrapper"
 import Row from "../../utils/grid/row"
 import Column from "../../utils/grid/column"
 import useIntersect from "../../utils/hooks/useIntersect"
+import useWindowSize from "../../utils/hooks/useWindowSize"
 
 //Assets
 import variables from "../../assets/styles/variables"
 
 //styles:
-import { breakpoints } from "../../assets/styles/breakpoints"
+import devices from "../../assets/styles/breakpoints"
 
 //components:
 import Social from "./Social"
@@ -24,21 +25,27 @@ const Section = styled(a.section)`
   width: 100%;
   height: 250vh;
   z-index: 1;
-  background: deepskyblue;
-  background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
-`
-
-const Container = styled(a.div)`
+  background: SlateBlue;
+  background: linear-gradient(to right, royalblue 0%, SlateBlue 100%);
   background: tomato;
   background: linear-gradient(
     to right,
     tomato 0%,
+    slateblue 50%,
     ${variables.primaryDark} 100%
   );
 
+  // @media ${devices.large} {
+  //   height: 250vh;
+  // }
+`
+
+const Container = styled(a.div)`
+  background: DeepSkyBlue;
+  background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
+
   position: absolute;
   width: 100%;
-  min-height: 100vh;
   height: fit-content;
   display: flex;
   text-align: center;
@@ -50,7 +57,7 @@ const Container = styled(a.div)`
 `
 
 const Title = styled(a.h2)`
-  margin: 35px auto 100px;
+  margin: 35px auto 75px;
   line-height: 39px;
 `
 const Content = styled.div`
@@ -67,7 +74,8 @@ const Description = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 20%;
-  margin: @media screen and (min-width: ${breakpoints.tablet}px) {
+
+  @media ${devices.tablet} {
     p {
       max-width: 600px;
     }
@@ -77,7 +85,7 @@ const Description = styled.div`
 const SocialContainer = styled.div`
   display: flex;
   justify-content: center;
-  margin: 65px auto 40px;
+  margin: 40px auto;
 
   img {
     width: 2em;
@@ -85,7 +93,7 @@ const SocialContainer = styled.div`
     margin: 0 10px;
   }
 
-  @media screen and (min-width: ${breakpoints.tablet}px) {
+  @media ${devices.tablet} {
     margin: 100px auto;
     a {
       &:hover {
@@ -111,7 +119,7 @@ const SocialContainer = styled.div`
 //   transition: 0.25s all ease;
 //   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.5);
 
-//   @media screen and (min-width: ${breakpoints.tablet}px) {
+//    @media ${devices.tablet} {
 //     margin: 0 auto 100px ;
 //     margin:
 //     line-height: 24px;
@@ -140,20 +148,21 @@ const SocialContainer = styled.div`
 
 const About = ({ data: { id, title, description, social } }) => {
   const ref = useRef()
+  const widthWindow = useWindowSize()
+  const [width, setWidth] = useState(0)
+
+  useEffect(() => {
+    setWidth(widthWindow.width)
+  }, [widthWindow])
 
   //Usesprings for content animations:
   const { format } = new Intl.NumberFormat("en-US", {
     maximumFractionDigits: 2,
   })
-
   const buildThresholdArray = () => Array.from(Array(100).keys(), i => i / 100)
-  //useIntersect devuelve ref y entry. ref es la referencia del elemento del cual queremos controlar su visualización en el viewport
-  //entry es el objeto con la información de la posición del elemento
   const [containerRef, entry] = useIntersect({
-    //threshold es la cantidad de elemento visible para que se dispare el evento
     threshold: buildThresholdArray(),
   })
-
   const ratio = format(entry.intersectionRatio)
 
   const titleProps = useSpring({
@@ -166,14 +175,16 @@ const About = ({ data: { id, title, description, social } }) => {
       transform:
         ratio > 0.3 ? `translate3d(0, 0,0)` : `translate3d(0, 100px,0)`,
     },
+    config: { duration: 1000 },
   })
 
   const descriptionTrail = useTrail(description.length, {
     from: { opacity: 0, transform: `scale(0.6)` },
     to: {
-      opacity: ratio > 0.5 ? 1 : 0,
-      transform: ratio > 0.5 ? `scale(1)` : `scale(0.6)`,
+      opacity: ratio > 0.35 ? 1 : 0,
+      transform: ratio > 0.35 ? `scale(1)` : `scale(0.8)`,
     },
+    config: { duration: 1000 },
   })
 
   //Parallax effects:
@@ -197,8 +208,12 @@ const About = ({ data: { id, title, description, social } }) => {
     observer.observe(ref.current)
   })
 
-  const sectionOpacity = offset.interpolate(o => `${2 - o / 3000}`)
-  const transitionContainer = offset.interpolate(o => `translateY(${o / 9}px)`)
+  const sectionOpacity = offset.interpolate(o => `${2 - o / 3500}`)
+  const transitionContainer = offset.interpolate(o => {
+    if (width < 750) return `translate3d(0, ${o / 9}px, 0)`
+    if (width > 750 && width < 1025) return `translate3d(0, ${o / 4.5}px, 0)`
+    if (width > 1024) return `translate3d(0, ${o / 5}px, 0)`
+  })
 
   return (
     <Section

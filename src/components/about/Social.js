@@ -9,9 +9,10 @@ const Social = ({ social, ratio }) => {
       transform: `scale(0.4)`,
     },
     to: {
-      opacity: ratio > 0.55 ? 1 : 0,
-      transform: `scale(${ratio ? 1 : 0.4})`,
+      opacity: ratio > 0.5 ? 1 : 0,
+      transform: `scale(${ratio > 0.5 ? 1 : 0.4})`,
     },
+    config: { duration: 1000 },
   })
 
   return (
