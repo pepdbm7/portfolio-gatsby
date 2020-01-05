@@ -49,7 +49,7 @@ const NavBarContainer = styled.div`
 `
 
 const SPLogo = styled.a`
-  width: 70px;
+  width: 80px;
   transition: 0.4s all ease;
   opacity: ${({ isOpen }) => (isOpen ? 0 : 1)};
   visibility: ${({ isOpen }) => (isOpen ? "hidden" : "visible")};
@@ -75,10 +75,6 @@ const SPLogo = styled.a`
     height: inherit;
     user-select: none;
     user-drag: none;
-  }
-  @media screen and (min-width: ${breakpoints.large}px) {
-    width: ${({ isTop }) => (isTop ? "70px" : "50px")};
-    height: ${({ isTop }) => (isTop ? "50px" : "40px")};
   }
 
   &:hover {

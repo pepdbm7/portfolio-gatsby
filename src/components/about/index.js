@@ -21,9 +21,9 @@ import Social from "./Social"
 
 const Section = styled(a.section)`
   overflow: hidden;
-  position: relative;
-  width: 100%;
-  height: 250vh;
+  display: flex;
+  width: 100vw;
+  min-height: 120vh;
   z-index: 1;
   background: SlateBlue;
   background: linear-gradient(to right, royalblue 0%, SlateBlue 100%);
@@ -34,17 +34,12 @@ const Section = styled(a.section)`
     slateblue 50%,
     ${variables.primaryDark} 100%
   );
-
-  // @media ${devices.large} {
-  //   height: 250vh;
-  // }
 `
 
 const Container = styled(a.div)`
   background: DeepSkyBlue;
   background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
 
-  position: absolute;
   width: 100%;
   height: fit-content;
   display: flex;
@@ -54,10 +49,15 @@ const Container = styled(a.div)`
   padding: 100px 0;
   color: white;
   z-index: 3;
+  margin: 0 0 20vh;
+
+  @media ${devices.desktop} {
+    margin: -10vh 0 25vh;
+  }
 `
 
 const Title = styled(a.h2)`
-  margin: 35px auto 75px;
+  margin: 35px auto 60px;
   line-height: 39px;
 `
 const Content = styled.div`
@@ -73,33 +73,11 @@ const Content = styled.div`
 const Description = styled.div`
   display: flex;
   flex-direction: column;
-  padding: 0 20%;
+  padding: 0 15%;
 
   @media ${devices.tablet} {
     p {
       max-width: 600px;
-    }
-  }
-`
-
-const SocialContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 40px auto;
-
-  img {
-    width: 2em;
-    height: 2em;
-    margin: 0 10px;
-  }
-
-  @media ${devices.tablet} {
-    margin: 100px auto;
-    a {
-      &:hover {
-        transform: translate3d(0, -5px, 0);
-        color: #ff0000;
-      }
     }
   }
 `
@@ -168,18 +146,18 @@ const About = ({ data: { id, title, description, social } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate3d(0, 100px,0)`,
+      transform: `translate3d(0, 50px,0)`,
     },
     to: {
-      opacity: ratio > 0.3 ? 1 : 0,
+      opacity: ratio > 0.15 ? 1 : 0,
       transform:
-        ratio > 0.3 ? `translate3d(0, 0,0)` : `translate3d(0, 100px,0)`,
+        ratio > 0.15 ? `translate3d(0, 0,0)` : `translate3d(0, 50px,0)`,
     },
     config: { duration: 1000 },
   })
 
   const descriptionTrail = useTrail(description.length, {
-    from: { opacity: 0, transform: `scale(0.6)` },
+    from: { opacity: 0, transform: `scale(0.8)` },
     to: {
       opacity: ratio > 0.35 ? 1 : 0,
       transform: ratio > 0.35 ? `scale(1)` : `scale(0.8)`,
@@ -208,11 +186,13 @@ const About = ({ data: { id, title, description, social } }) => {
     observer.observe(ref.current)
   })
 
-  const sectionOpacity = offset.interpolate(o => `${2 - o / 3500}`)
+  const sectionOpacity = offset.interpolate(o =>
+    width > 750 ? `${1.5 - o / 3500}` : `${1.6 - o / 3500}`
+  )
   const transitionContainer = offset.interpolate(o => {
-    if (width < 750) return `translate3d(0, ${o / 9}px, 0)`
-    if (width > 750 && width < 1025) return `translate3d(0, ${o / 4.5}px, 0)`
-    if (width > 1024) return `translate3d(0, ${o / 5}px, 0)`
+    if (width < 750) return `translate3d(0, ${o / 20}px, 0)`
+    if (width > 750 && width < 1025) return `translate3d(0, ${o / 6}px, 0)`
+    if (width > 1024) return `translate3d(0, ${o / 10}px, 0)`
   })
 
   return (
@@ -252,9 +232,7 @@ const About = ({ data: { id, title, description, social } }) => {
                     ))}
                 </Description>
 
-                <SocialContainer>
-                  <Social social={social} ratio={ratio} />
-                </SocialContainer>
+                <Social social={social} />
 
                 {/* <DownloadButtonContainer
                   style={buttonProps}

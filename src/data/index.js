@@ -74,7 +74,6 @@ const data = {
       "SEO and performance focused",
       "Ecommerces and payment platforms",
       "Agile Development, Monday, Kanban",
-      "Some of the Technologies I work with:",
     ],
   },
   work: {

@@ -51,12 +51,12 @@ const Work = ({ data: { id, title, projects } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate3d(0px, 100px, 0)`,
+      transform: `translate3d(0px, 50px, 0)`,
     },
     to: {
       opacity: ratio > 0.1 ? 1 : 0,
       transform:
-        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
+        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 50px, 0)`,
     },
     config: { duration: 1000 },
   })

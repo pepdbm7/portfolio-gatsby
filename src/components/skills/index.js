@@ -26,7 +26,7 @@ const Container = styled.section`
   color: white;
   background: ${variables.secondary};
   position: relative;
-  padding: 0 0 100px;
+  padding: 0 0 60px;
   min-height: 100vh;
   z-index: 2;
 `
@@ -47,7 +47,7 @@ const Info = styled(a.ul)`
   display: flex;
   flex-direction: column;
   width: 100%;
-  padding: 0 20%;
+  padding: 0 15%;
   li {
     list-style: none;
     padding: 0 0 35px;
@@ -82,12 +82,12 @@ const Skills = ({ data: { id, title, description } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate3d(0px, 100px, 0)`,
+      transform: `translate3d(0px, 50px, 0)`,
     },
     to: {
-      opacity: ratio > 0.1 ? 1 : 0,
+      opacity: ratio > 0.2 ? 1 : 0,
       transform:
-        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
+        ratio > 0.2 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 50px, 0)`,
     },
     config: { duration: 1000 },
   })
@@ -95,14 +95,11 @@ const Skills = ({ data: { id, title, description } }) => {
   const descriptionTrail = useTrail(description.length, {
     from: {
       opacity: 0,
-      transform: `translate3d(0px, 100px, 0) scale(0.6)`,
+      transform: `scale(0.8)`,
     },
     to: {
       opacity: ratio > 0.2 ? 1 : 0,
-      transform:
-        ratio > 0.2
-          ? `translate3d(0px, 0px, 0) scale(1)`
-          : `translate3d(0px, 100px, 0) scale(0.6)`,
+      transform: ratio > 0.2 ? `scale(1)` : `scale(0.8)`,
     },
     config: { duration: 1500 },
   })

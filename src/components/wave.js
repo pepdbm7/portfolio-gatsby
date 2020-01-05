@@ -44,22 +44,21 @@ const InnerWave = styled.div`
 `
 
 const WaveSVG1 = styled.svg`
-  height: 90px;
+  height: 50px;
   path {
-    fill: gold;
-    opacity: 0.7;
+    fill: tomato;
     width: 100%;
     animation: ${smoooooth} 20s linear infinite alternate;
   }
 `
 const WaveSVG2 = styled.svg`
-  height: 70px;
+  height: 30px;
   path {
-    fill: tomato;
-    opacity: 0.7;
-    width: 100%;
-    animation: ${smoooooth} 30s linear infinite alternate;
+    fill: cornflowerblue;
+    width: 120%;
+    animation: ${smoooooth} 10s linear infinite alternate;
   }
+  transform: scale(-1, 1);
 `
 
 const Wave = ({ orientation }) => (
@@ -95,7 +94,7 @@ const Wave = ({ orientation }) => (
             attributeName="d"
             values="M 27 10C 21 8 14 3 0 3L 0 0L 54 0L 54 14C 40 14 33 12 27 10Z;M 27 14C 12 14 5 7 0 7L 0 0L 54 0L 54 7C 49 7 42 14 27 14Z;M 27 10C 21 12 14 14 0 14L 0 0L 54 0L 54 3C 40 3 33 8 27 10Z;M 27 10C 21 12 14 14 0 14L 0 0L 54 0L 54 3C 40 3 33 8 27 10Z;M 27 14C 12 14 5 7 0 7L 0 0L 54 0L 54 7C 49 7 42 14 27 14Z;M 27 10C 21 8 14 3 0 3L 0 0L 54 0L 54 14C 40 14 33 12 27 10Z"
             repeatCount="indefinite"
-            dur="18s"
+            dur="10s"
           />
         </path>
       </WaveSVG2>

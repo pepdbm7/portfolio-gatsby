@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
 import styled from "styled-components"
@@ -139,7 +139,9 @@ const ProjectImage = styled(Image)`
   margin: 20px 0 30px;
   min-height: 170px;
   height: 25vw;
-  /* border-radius: 30px; */
+  img {
+    object-position: top !important;
+  }
 `
 
 const Divider = styled.hr`
@@ -210,16 +212,16 @@ const ProjectCard = ({ project, id }) => {
   const cardsProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate3d(0px, 100px, 0) scale(0.4)`,
+      transform: `translate3d(0px, 50px, 0) scale(0.8)`,
     },
     to: {
-      opacity: ratio > 0.2 ? 1 : 0,
+      opacity: ratio > 0 ? 1 : 0,
       transform:
-        ratio > 0.2
+        ratio > 0
           ? `translate3d(0px, 0px, 0) scale(1)`
-          : `translate3d(0px, 100px, 0) scale(0.4)`,
+          : `translate3d(0px, 50px, 0) scale(0.8)`,
     },
-    config: { duration: 1000 },
+    config: { duration: 800 },
   })
 
   return (

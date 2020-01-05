@@ -1,7 +1,7 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
 import Image from "gatsby-image"
-import { useTrail, animated as a } from "react-spring"
+import { useSpring, useTrail, animated as a } from "react-spring"
 
 import styled from "styled-components"
 
@@ -16,6 +16,7 @@ const Container = styled.div`
   min-height: 50vh;
   margin: 20px auto 120px;
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 1;
@@ -98,20 +99,36 @@ const TechParallax = () => {
   })
   const ratio = format(entry.intersectionRatio)
 
+  const titleProps = useSpring({
+    from: {
+      opacity: 0,
+      transform: `translate3d(0px, 50px, 0)`,
+    },
+    to: {
+      opacity: ratio > 0.1 ? 1 : 0,
+      transform:
+        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 50px, 0)`,
+    },
+    config: { duration: 1000 },
+  })
+
   const trail = useTrail(images.edges.length, {
     from: {
       opacity: 0,
       transform: `scale(0.4)`,
     },
     to: {
-      opacity: ratio > 0.25 ? 1 : 0,
-      transform: `scale(${ratio > 0.25 ? 1 : 0.4})`,
+      opacity: ratio > 0.2 ? 1 : 0,
+      transform: `scale(${ratio > 0.2 ? 1 : 0.4})`,
     },
     config: { duration: 1500 },
   })
 
   return (
     <Container ref={ref}>
+      <a.h3 style={titleProps} className={"headingMedium"}>
+        Technologies
+      </a.h3>
       <LogostListContainer>
         {images.edges &&
           trail.map((props, index) => (

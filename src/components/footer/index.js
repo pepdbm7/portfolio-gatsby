@@ -2,6 +2,7 @@ import React from "react"
 import styled from "styled-components"
 
 const FooterSection = styled.footer`
+  width: 100vw;
   background: black;
   position: relative;
   color: white;

@@ -19,29 +19,28 @@ const Container = styled.section`
   color: white;
   font-family: ${variables.helvetica};
   background: ${variables.secondary};
+  width: 100vw;
 `
 
 const Title = styled(a.h2)`
   text-align: center;
   width: 100%;
-  margin: 130px auto 60px;
+  margin: 100px auto 60px;
   z-index: 0;
   line-height: 39px;
 
   @media screen and (min-width: ${breakpoints.large}px) {
-    margin: 180px auto 80px;
+    margin: 100px auto 40px;
   }
 `
 
 const Intro = styled(a.p)`
-  width: fit-content;
   margin: 20px auto;
   width: 85%;
-  font-weight: 700;
 `
 
 const ContactForm = styled(a.form)`
-  margin: 60px auto 130px;
+  margin: 60px auto 100px;
 
   input,
   textarea,
@@ -92,12 +91,12 @@ const Contact = ({ data: { id, title, description } }) => {
   const titleProps = useSpring({
     from: {
       opacity: 0,
-      transform: `translate3d(0px, 100px, 0)`,
+      transform: `translate3d(0px, 50px, 0)`,
     },
     to: {
       opacity: ratio > 0.1 ? 1 : 0,
       transform:
-        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 100px, 0)`,
+        ratio > 0.1 ? `translate3d(0px, 0px, 0)` : `translate3d(0px, 50px, 0)`,
     },
   })
 
@@ -107,19 +106,17 @@ const Contact = ({ data: { id, title, description } }) => {
       transform: `scale(0.8)`,
     },
     to: {
-      opacity: ratio > 0.4 ? 1 : 0,
-      transform: ratio > 0.4 ? `scale(1)` : `scale(0.8)`,
+      opacity: ratio > 0.2 ? 1 : 0,
+      transform: ratio > 0.2 ? `scale(1)` : `scale(0.8)`,
     },
   })
 
   const formProps = useSpring({
     from: {
       opacity: 0,
-      transform: `scale(0.8)`,
     },
     to: {
-      opacity: ratio > 0.6 ? 1 : 0,
-      transform: ratio > 0.6 ? `scale(1)` : `scale(0.8)`,
+      opacity: ratio > 0.4 ? 1 : 0,
     },
   })
 
@@ -134,7 +131,7 @@ const Contact = ({ data: { id, title, description } }) => {
           </Column>
 
           <Column xs={12}>
-            <Intro style={{ introProps }}>{description}</Intro>
+            <Intro style={introProps}>{description}</Intro>
           </Column>
 
           <ContactForm
@@ -142,7 +139,7 @@ const Contact = ({ data: { id, title, description } }) => {
             method="post"
             data-netlify="true"
             data-netlify-honeypot="bot-field"
-            style={{ formProps }}
+            style={formProps}
           >
             {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
             <input type="hidden" name="form-name" value="contact" />

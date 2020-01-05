@@ -20,11 +20,11 @@ const HeroContainer = styled(a.header)`
   color: white;
   position: relative;
   width: 100vw;
-  height: 250vh;
+  height: 160vh;
   pointer-events: none;
 
   @media screen and (min-width: ${breakpoints.tablet}px) {
-    height: 155vh;
+    height: 120vh;
   }
 `
 
@@ -136,7 +136,7 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
   `)
 
   const ref = useRef()
-  const [, setWidth] = useState(0)
+  const [width, setWidth] = useState(0)
   const {
     isTop: [, setIsTop],
     isHero: [, setIsHero],
@@ -156,6 +156,7 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
     const offset = window.pageYOffset - posY
     set({ offset })
     setIsTop(posY === 0)
+    console.log({ offset }, { posY })
   }
 
   useEffect(() => {
@@ -180,8 +181,10 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
 
   const sectionOpacity = offset.interpolate(o => `${1 - o / 7000}`)
 
-  const transitionRight = offset.interpolate(
-    o => `translate3d(0, ${o / 1.8}px, 0)`
+  const transitionRight = offset.interpolate(o =>
+    width > 750
+      ? `translate3d(0, ${o / 1.8}px, 0)`
+      : `translate3d(0, ${o / 2.5}px, 0)`
   )
 
   const transitionImage = offset.interpolate(
@@ -196,6 +199,10 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
   const stripeMargins = offset.interpolate(o =>
     o < 100 ? "30px auto" : `10px auto`
   )
+
+  // useEffect(() => {
+  //   console.log({ width })
+  // }, [width])
 
   return (
     <HeroContainer
