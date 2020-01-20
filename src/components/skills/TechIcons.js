@@ -66,7 +66,7 @@ const LogoImage = styled(Image)`
   height: inherit;
 `
 
-const TechParallax = () => {
+const TechIcons = () => {
   const { images } = useStaticQuery(graphql`
     query {
       images: allFile(
@@ -146,4 +146,4 @@ const TechParallax = () => {
   )
 }
 
-export default TechParallax
+export default TechIcons

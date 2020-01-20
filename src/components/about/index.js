@@ -25,20 +25,23 @@ const Section = styled(a.section)`
   width: 100vw;
   min-height: 120vh;
   z-index: 1;
-  background: SlateBlue;
-  background: linear-gradient(to right, royalblue 0%, SlateBlue 100%);
-  background: tomato;
+
+  background: slateblue;
   background: linear-gradient(
     to right,
-    tomato 0%,
-    slateblue 50%,
-    ${variables.primaryDark} 100%
+    ${variables.primaryLight} 0%,
+    ${variables.primary} 100%
   );
 `
 
 const Container = styled(a.div)`
-  background: DeepSkyBlue;
-  background: linear-gradient(to right, SlateBlue 0%, DeepSkyBlue 100%);
+  background: ${variables.primaryDark};
+  background: linear-gradient(
+    to right,
+    SlateBlue 0%,
+    ${variables.primaryDark} 100%
+  );
+  box-shadow: ${variables.shadow};
 
   width: 100%;
   height: fit-content;
@@ -186,22 +189,24 @@ const About = ({ data: { id, title, description, social } }) => {
     observer.observe(ref.current)
   })
 
-  const sectionOpacity = offset.interpolate(o =>
-    width > 750 ? `${1.5 - o / 3500}` : `${1.6 - o / 3500}`
-  )
+  // const sectionOpacity = offset.interpolate(o =>
+  //   width > 750 ? `${1.5 - o / 3500}` : `${1.6 - o / 3500}`
+  // )
   const transitionContainer = offset.interpolate(o => {
     if (width < 750) return `translate3d(0, ${o / 20}px, 0)`
     if (width > 750 && width < 1025) return `translate3d(0, ${o / 6}px, 0)`
-    if (width > 1024) return `translate3d(0, ${o / 10}px, 0)`
+    if (width > 1023) return `translate3d(0, ${o / 4}px, 0)`
   })
 
   return (
     <Section
       ref={ref}
       id={id}
-      style={{
-        opacity: sectionOpacity,
-      }}
+      style={
+        {
+          // opacity: sectionOpacity,
+        }
+      }
     >
       <Container
         ref={containerRef}

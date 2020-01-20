@@ -46,7 +46,7 @@ const InnerWave = styled.div`
 const WaveSVG1 = styled.svg`
   height: 50px;
   path {
-    fill: tomato;
+    fill: royalblue;
     width: 100%;
     animation: ${smoooooth} 20s linear infinite alternate;
   }

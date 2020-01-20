@@ -16,13 +16,13 @@ import { StoreContext } from "../store"
 
 const HeroContainer = styled(a.header)`
   overflow: hidden;
-  background: ${variables.secondaryDark};
   color: white;
   position: relative;
   width: 100vw;
   height: 160vh;
   pointer-events: none;
-
+  box-shadow: ${variables.shadow};
+  background: ${variables.secondary};
   @media screen and (min-width: ${breakpoints.tablet}px) {
     height: 120vh;
   }
@@ -51,7 +51,9 @@ const PictureContainer = styled.div`
 
 const Picture = styled(Image)`
   border-radius: 50%;
+  border: 5px solid tomato;
   margin: auto 10%;
+  box-shadow: ${variables.shadow};
 `
 
 const LeftSide = styled(a.div)`
@@ -125,7 +127,7 @@ const HomeSubtitle = styled.h2`
 const Hero = ({ data: { title1, title2, subtitle } }) => {
   const { avatar } = useStaticQuery(graphql`
     query {
-      avatar: file(absolutePath: { regex: "/profile.jpg/" }) {
+      avatar: file(absolutePath: { regex: "/profile-cut.png/" }) {
         childImageSharp {
           fluid(maxWidth: 400, quality: 90) {
             ...GatsbyImageSharpFluid
@@ -156,7 +158,6 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
     const offset = window.pageYOffset - posY
     set({ offset })
     setIsTop(posY === 0)
-    console.log({ offset }, { posY })
   }
 
   useEffect(() => {
@@ -179,7 +180,7 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
     observer.observe(ref.current)
   })
 
-  const sectionOpacity = offset.interpolate(o => `${1 - o / 7000}`)
+  // const sectionOpacity = offset.interpolate(o => `${1 - o / 7000}`)
 
   const transitionRight = offset.interpolate(o =>
     width > 750
@@ -200,17 +201,15 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
     o < 100 ? "30px auto" : `10px auto`
   )
 
-  // useEffect(() => {
-  //   console.log({ width })
-  // }, [width])
-
   return (
     <HeroContainer
       ref={ref}
       id={"hero"}
-      style={{
-        opacity: sectionOpacity,
-      }}
+      style={
+        {
+          // opacity: sectionOpacity,
+        }
+      }
     >
       <RightSide
         style={{

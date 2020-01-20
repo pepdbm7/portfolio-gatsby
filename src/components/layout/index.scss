@@ -1,80 +1,84 @@
+//Font Families:
+@import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
+
 //FONT SIZES classes:
 //Displays
 
 .displayLarge {
-	font-size: 99px;
-	letter-spacing: -0.62px;
-	line-height: 111px;
+  font-size: 99px;
+  letter-spacing: -0.62px;
+  line-height: 111px;
 }
 
 .displayMedium {
-	font-size: 83px;
-	letter-spacing: -0.57px;
-	line-height: 93px;
+  font-size: 83px;
+  letter-spacing: -0.57px;
+  line-height: 93px;
 }
 
 .displaySmall {
-	font-size: 69px;
-	letter-spacing: -0.58px;
-	line-height: 78px;
+  font-size: 69px;
+  letter-spacing: -0.58px;
+  line-height: 78px;
 }
 
 .displayTiny {
-	font-size: 57px;
-	letter-spacing: -1.02px;
-	line-height: 64px;
+  font-size: 57px;
+  letter-spacing: -1.02px;
+  line-height: 64px;
 }
 
 //Headings
 
 .headingHeavy {
-	font-size: 48px;
-	line-height: 56px;
+  font-size: 48px;
+  line-height: 56px;
 }
 
 .headingLarge {
-	font-size: 40px;
-	line-height: 48px;
+  font-size: 40px;
+  line-height: 48px;
 }
 
 .headingMedium {
-	font-size: 33px;
-	line-height: 39px;
+  font-size: 33px;
+  line-height: 39px;
+  font-family: "Quicksand", sans-serif;
 }
 
 .headingSmall {
-	font-size: 28px;
-	line-height: 34px;
+  font-size: 28px;
+  line-height: 34px;
 }
 
 .headingTiny {
-	font-size: 23px;
-	line-height: 29px;
+  font-size: 23px;
+  line-height: 29px;
 }
 
 .headingExtraSmall {
-	font-size: 19px;
-	line-height: 23px;
+  font-size: 19px;
+  line-height: 23px;
 }
 
 //Body
 
 .lead {
-	font-size: 20px;
-	line-height: 30px;
+  font-size: 20px;
+  line-height: 30px;
 }
 
 .bodyNormal {
-	font-size: 16px;
-	line-height: 24px;
+  font-size: 16px;
+  line-height: 24px;
 }
 
 .bodySmall {
-	font-size: 14px;
-	line-height: 21px;
+  font-size: 14px;
+  line-height: 21px;
 }
 
 .bodyTiny {
-	font-size: 12px;
-	line-height: 18px;
+  font-size: 12px;
+  line-height: 18px;
 }
