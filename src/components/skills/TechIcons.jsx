@@ -1,70 +1,16 @@
 import React from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import Image from "gatsby-image"
 import { useSpring, useTrail, animated as a } from "react-spring"
 
-import styled from "styled-components"
+import {
+  IconsContainer,
+  LogostListContainer,
+  LogoContainer,
+  LogoImage,
+} from "./styled-components"
 
 //Utils
 import useIntersect from "../../utils/hooks/useIntersect"
-
-//styles:
-import devices from "../../assets/styles/breakpoints"
-
-const Container = styled.div`
-  width: 65%;
-  min-height: 50vh;
-  margin: 20px auto 120px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  z-index: 1;
-`
-
-const LogostListContainer = styled.div`
-  display: flex;
-  justify-content: flex-start;
-  align-items: flex-start;
-  flex-wrap: wrap;
-
-  width: -webkit-fill-available;
-  width: -moz-available;
-  width: fill-available;
-
-  margin: 0 -10px;
-  z-index: 3;
-`
-
-const LogoContainer = styled.div`
-  width: 50%;
-  padding: 0 10px;
-  box-sizing: border-box;
-  height: 60px;
-  margin-top: 50px;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  @media ${devices.tablet} {
-    width: 33%;
-    margin-top: 80px;
-  }
-
-  .gatsby-image-wrapper,
-  img {
-    width: 60px;
-    height: fit-content;
-    user-select: none;
-    user-drag: none;
-  }
-`
-
-const LogoImage = styled(Image)`
-  width: inherit;
-  height: inherit;
-`
 
 const TechIcons = () => {
   const { images } = useStaticQuery(graphql`
@@ -125,7 +71,7 @@ const TechIcons = () => {
   })
 
   return (
-    <Container ref={ref}>
+    <IconsContainer ref={ref}>
       <a.h3 style={titleProps} className={"headingMedium"}>
         Technologies
       </a.h3>
@@ -142,7 +88,7 @@ const TechIcons = () => {
             </LogoContainer>
           ))}
       </LogostListContainer>
-    </Container>
+    </IconsContainer>
   )
 }
 

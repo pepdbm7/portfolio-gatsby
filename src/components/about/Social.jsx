@@ -1,35 +1,10 @@
 import React from "react"
 import PropTypes, { object } from "prop-types"
-import styled from "styled-components"
+import { SocialContainer } from "./styled-components"
 import { useTrail, animated as a } from "react-spring"
 
 //utils:
 import useIntersect from "../../utils/hooks/useIntersect"
-
-//styles:
-import devices from "../../assets/styles/breakpoints"
-
-const SocialContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  margin: 40px auto;
-  margin: 60px auto 100px;
-
-  img {
-    width: 2em;
-    height: 2em;
-    margin: 0 10px;
-  }
-
-  @media ${devices.tablet} {
-    a {
-      &:hover {
-        transform: translate3d(0, -5px, 0);
-        color: #ff0000;
-      }
-    }
-  }
-`
 
 const Social = ({ social }) => {
   const { format } = new Intl.NumberFormat("en-US", {

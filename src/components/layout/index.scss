@@ -1,9 +1,8 @@
 //Font Families:
 @import url("https://fonts.googleapis.com/css?family=Quicksand&display=swap");
-
+@import url("https://fonts.googleapis.com/css?family=Varela+Round&display=swap");
 //FONT SIZES classes:
 //Displays
-
 .displayLarge {
   font-size: 99px;
   letter-spacing: -0.62px;
@@ -69,6 +68,7 @@
 }
 
 .bodyNormal {
+  font-family: "Varela Round", sans-serif;
   font-size: 16px;
   line-height: 24px;
 }
