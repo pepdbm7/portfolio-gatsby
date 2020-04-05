@@ -1,6 +1,5 @@
 import React from "react"
 import { Link } from "gatsby"
-import { Helmet } from "react-helmet"
 import styled from "styled-components"
 
 //components:
@@ -47,12 +46,9 @@ const GoHome = styled(Link)`
 
 const IndexPage = () => (
   <Container>
-    <Helmet>
-      <title>Pep del Baño | Portfolio</title>
-    </Helmet>
     <SEO title="404" />
     <Title>Sorry, this page doesn't exist</Title>
-    <GoHome to="/">Go Home</GoHome>
+    <GoHome to="/">Go Back</GoHome>
   </Container>
 )
 

@@ -11,6 +11,11 @@ const Container = styled.section`
   color: white;
   font-family: ${variables.helvetica};
   background: ${variables.secondary};
+  background: linear-gradient(
+    to top,
+    ${variables.secondary} 0%,
+    ${variables.secondaryDark}
+  );
   width: 100vw;
 `
 

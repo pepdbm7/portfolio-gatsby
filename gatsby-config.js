@@ -1,14 +1,13 @@
 module.exports = {
   siteMetadata: {
-    title: `PepDev, Web Developer`,
-    author: `Pep del Baño`,
+    title: `Pep, Web Developer Portfolio`,
     description: `Full Stack Developer | Javascript web development and making projects | Barcelona`,
-    social: {
-      twitter: `pepdbm7`,
-      instagram: `pepdbm7`,
-      linkedin: `pepdbm7`,
-      github: `pepdbm7`,
-    },
+    keywords:
+      "web, developer, development, react, portfolio, pepdbm7, freelance, websites, projects",
+    lang: "en",
+    author: `Pep del Baño`,
+    twitterUsername: `pepdbm89`,
+    image: `src/images/screenshot.png`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,

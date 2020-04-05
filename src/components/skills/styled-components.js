@@ -11,6 +11,11 @@ import { animated as a } from "react-spring"
 const Container = styled.section`
   color: white;
   background: ${variables.secondary};
+  background: linear-gradient(
+    to bottom,
+    ${variables.secondary} 0%,
+    ${variables.secondaryDark}
+  );
   position: relative;
   overflow: hidden;
   padding: 0 0 60px;

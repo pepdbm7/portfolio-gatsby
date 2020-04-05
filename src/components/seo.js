@@ -1,16 +1,15 @@
-/**
- * SEO component that queries for data with
- *  Gatsby's useStaticQuery React hook
- *
- * See: https://www.gatsbyjs.org/docs/use-static-query/
- */
-
 import React from "react"
+import { Helmet } from "react-helmet"
 import PropTypes from "prop-types"
-import Helmet from "react-helmet"
 import { useStaticQuery, graphql } from "gatsby"
 
-function SEO({ description, lang, meta, title }) {
+function SEO({
+  title = "",
+  description = "",
+  keywords = "",
+  lang = "en",
+  meta = [{}],
+}) {
   const { site } = useStaticQuery(
     graphql`
       query {
@@ -18,7 +17,11 @@ function SEO({ description, lang, meta, title }) {
           siteMetadata {
             title
             description
+            keywords
+            lang
             author
+            twitterUsername
+            image
           }
         }
       }
@@ -26,22 +29,26 @@ function SEO({ description, lang, meta, title }) {
   )
 
   const metaDescription = description || site.siteMetadata.description
+  const metaTitle = title || site.siteMetadata.title
 
   return (
     <Helmet
       htmlAttributes={{
-        lang,
+        lang: lang || site.siteMetadata.lang,
       }}
-      title={title}
-      titleTemplate={`%s | ${site.siteMetadata.title}`}
+      title={metaTitle}
       meta={[
         {
           name: `description`,
           content: metaDescription,
         },
         {
+          name: `keywords`,
+          content: keywords || site.siteMetadata.keywords,
+        },
+        {
           property: `og:title`,
-          content: title,
+          content: metaTitle,
         },
         {
           property: `og:description`,
@@ -52,38 +59,41 @@ function SEO({ description, lang, meta, title }) {
           content: `website`,
         },
         {
+          property: `og:url`,
+          content: `https://developep.com`,
+        },
+        {
+          property: `og:image`,
+          content: site.siteMetadata.image,
+        },
+        {
+          property: `og:creator`,
+          content: site.siteMetadata.author,
+        },
+        //twitter:
+        {
           name: `twitter:card`,
           content: `summary`,
         },
         {
           name: `twitter:creator`,
-          content: site.siteMetadata.author,
+          content: site.siteMetadata.twitterUsername,
         },
         {
-          name: `twitter:title`,
-          content: title,
+          name: `twitter:image`,
+          content: site.siteMetadata.image,
         },
-        {
-          name: `twitter:description`,
-          content: metaDescription,
-        },
-      ].concat(meta)}
+      ].concat(meta)} //it adds whatever other meta received by props
     />
   )
 }
 
-SEO.defaultProps = {
-  lang: `en`,
-  meta: [],
-  description:
-    "This is the portfolio of a full Stack Javascript Web Developer from Barcelona. Let me create you a professional website",
-}
-
 SEO.propTypes = {
+  title: PropTypes.string,
   description: PropTypes.string,
+  keywords: PropTypes.string,
   lang: PropTypes.string,
   meta: PropTypes.arrayOf(PropTypes.object),
-  title: PropTypes.string.isRequired,
 }
 
 export default SEO

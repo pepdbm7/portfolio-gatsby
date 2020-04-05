@@ -1,5 +1,4 @@
 import React from "react"
-import { Helmet } from "react-helmet"
 
 //components:
 import SEO from "../components/seo"
@@ -18,14 +17,7 @@ const IndexPage = () => {
 
   return (
     <Layout>
-      <Helmet>
-        <title>Pep del Baño | Portfolio</title>
-        <meta
-          name="description"
-          content="Passionate Full Stack Javascript Web Developer based in Barcelona"
-        />
-      </Helmet>
-      <SEO title="Pep portfolio" />
+      <SEO />
 
       <NavBar data={navbar} />
       <Hero data={hero} />
