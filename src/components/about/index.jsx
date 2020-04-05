@@ -16,12 +16,6 @@ import Column from "../../utils/grid/column"
 import useIntersect from "../../utils/hooks/useIntersect"
 import useWindowSize from "../../utils/hooks/useWindowSize"
 
-//Assets
-import variables from "../../assets/styles/variables"
-
-//styles:
-import devices from "../../assets/styles/breakpoints"
-
 //components:
 import Social from "./Social"
 

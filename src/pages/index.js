@@ -25,7 +25,7 @@ const IndexPage = () => {
           content="Passionate Full Stack Javascript Web Developer based in Barcelona"
         />
       </Helmet>
-      <SEO title="Home" />
+      <SEO title="Pep portfolio" />
 
       <NavBar data={navbar} />
       <Hero data={hero} />

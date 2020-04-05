@@ -1,12 +1,11 @@
 import styled from "styled-components"
-import Image from "gatsby-image"
-
-//Assets
-import variables from "../../assets/styles/variables"
-import devices, { breakpoints } from "../../assets/styles/breakpoints"
 
 // spring:
 import { animated as a } from "react-spring"
+
+//Assets
+import variables from "../../assets/styles/variables"
+import { breakpoints } from "../../assets/styles/breakpoints"
 
 const Navigator = styled.nav`
   display: flex;
@@ -92,17 +91,14 @@ const SectionsLinksBar = styled.div`
   }
 `
 
-const CollapsedMenu = styled(a.div)`
+const CollapsedMenu = styled.div`
   display: flex;
-  margin: auto 0;
-  flex-direction: column;
   color: white;
   background-color: ${variables.secondaryDark};
   padding: 0;
   width: 100%;
   height: 100vh;
-  box-sizing: border-box;
-  transition: 0.3s;
+  transition: 0.5s;
 
   overflow: hidden;
   position: fixed;
@@ -113,27 +109,34 @@ const CollapsedMenu = styled(a.div)`
   visibility: ${({ isOpen }) => (isOpen ? "visible" : "hidden")};
 
   z-index: 999;
+`
 
-  a {
-    text-decoration: none;
-    color: white;
-    cursor: pointer;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 60px;
-    padding: 0;
-    font-weight: bold;
-
-    position: relative;
-  }
+const CollapsedItemAnchor = styled(a.a)`
+  text-decoration: none;
+  color: white;
+  cursor: pointer;
+  margin: 0 auto;
+  font-size: 40px;
+  padding: 20px 0;
+  font-family: fantasy;
 `
 
 const CollapsedItemsContainer = styled.div`
-  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  width: 100vw;
+  height: 100vh;
   max-width: calc(100% - 60px);
-  margin: 80px auto;
+  margin: 0 auto;
+
+  a:first-child {
+    margin-top: 80px;
+  }
+
+  a:last-child {
+    margin-bottom: 80px;
+  }
 `
 
 const BurgerContainer = styled.div`
@@ -191,6 +194,7 @@ export {
   SectionsLinksBar,
   CollapsedMenu,
   CollapsedItemsContainer,
+  CollapsedItemAnchor,
   BurgerContainer,
   TopLine,
   MiddleLine,

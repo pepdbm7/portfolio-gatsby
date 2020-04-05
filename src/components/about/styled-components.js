@@ -1,9 +1,8 @@
 import styled from "styled-components"
-import Image from "gatsby-image"
 
 //Assets
 import variables from "../../assets/styles/variables"
-import devices, { breakpoints } from "../../assets/styles/breakpoints"
+import devices from "../../assets/styles/breakpoints"
 
 // spring:
 import { animated as a } from "react-spring"

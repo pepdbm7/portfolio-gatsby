@@ -49,10 +49,6 @@ const IndexPage = () => (
   <Container>
     <Helmet>
       <title>Pep del Baño | Portfolio</title>
-      <meta
-        name="description"
-        content="Passionate Full Stack Javascript Web Developer based in Barcelona"
-      />
     </Helmet>
     <SEO title="404" />
     <Title>Sorry, this page doesn't exist</Title>

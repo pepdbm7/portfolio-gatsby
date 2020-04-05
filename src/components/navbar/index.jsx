@@ -6,6 +6,7 @@ import {
   SectionsLinksBar,
   CollapsedMenu,
   CollapsedItemsContainer,
+  CollapsedItemAnchor,
 } from "./styled-components"
 
 import PropTypes, { object } from "prop-types"
@@ -48,12 +49,17 @@ const NavBar = ({ data }) => {
 
   const trail = useTrail(data.length, {
     delay: 400,
-    from: { opacity: 0, transform: "translate3d(0,-40px,0)" },
+    from: {
+      opacity: 0,
+      transform: "translate3d(0,-40px,0)",
+      letterSpacing: "20px",
+    },
     to: {
       opacity: viewNavItems ? 1 : 0,
       transform: viewNavItems
         ? "translate3d(0,0px,0)"
         : "translate3d(0,-40px,0)",
+      letterSpacing: viewNavItems ? "0" : "20px",
     },
   })
 
@@ -90,14 +96,14 @@ const NavBar = ({ data }) => {
               <CollapsedItemsContainer>
                 {data &&
                   trail.map((props, i) => (
-                    <a.a
+                    <CollapsedItemAnchor
                       key={i}
                       onClick={handleBurgerClick}
                       href={data[i].anchor}
                       style={props}
                     >
                       {data[i].name}
-                    </a.a>
+                    </CollapsedItemAnchor>
                   ))}
               </CollapsedItemsContainer>
             </Column>

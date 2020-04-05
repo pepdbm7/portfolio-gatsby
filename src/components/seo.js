@@ -75,7 +75,8 @@ function SEO({ description, lang, meta, title }) {
 SEO.defaultProps = {
   lang: `en`,
   meta: [],
-  description: ``,
+  description:
+    "This is the portfolio of a full Stack Javascript Web Developer from Barcelona. Let me create you a professional website",
 }
 
 SEO.propTypes = {

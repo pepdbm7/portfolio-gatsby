@@ -63,7 +63,6 @@ const Skills = ({ data: { id, title, description } }) => {
     const posY = ref && ref.current && ref.current.getBoundingClientRect().top
     const offset = window.pageYOffset - posY
     setOffset({ offset })
-    console.log({ offset })
   }
 
   useEffect(() => {

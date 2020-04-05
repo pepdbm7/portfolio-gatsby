@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from "react"
 import { useStaticQuery, graphql } from "gatsby"
-import { useSpring, animated as a } from "react-spring"
+import { useSpring } from "react-spring"
 import PropTypes from "prop-types"
 
 import {
