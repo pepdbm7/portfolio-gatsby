@@ -47,6 +47,7 @@ const Picture = styled(Image)`
   border-radius: 50%;
   border: 5px solid tomato;
   margin: auto 10%;
+  background:
   box-shadow: ${variables.shadow};
 `
 
@@ -71,7 +72,7 @@ const ContentLeft = styled(a.div)`
   transition: 0.4s all ease;
 `
 
-const HomeTitle = styled.h1`
+const HomeTitle = styled.span`
   font-size: 50px;
   text-align: center;
   letter-spacing: -1.02px;
@@ -98,18 +99,17 @@ const Stripe = styled(a.div)`
   transition: 0.6s all ease;
 `
 
-const HomeSubtitle = styled.h2`
+const HomeSubtitle = styled.h1`
   font-size: 23px;
   text-align: center;
   letter-spacing: 0px;
   line-height: 29px;
-  margin: 0 auto;
+  margin: 20px auto 0;
   @media screen and (min-width: ${breakpoints.large}px) {
     font-size: 33px;
     text-align: center;
     letter-spacing: 0px;
     line-height: 39px;
-    max-width: 60%;
     margin-top: 20px;
   }
   color: gold;

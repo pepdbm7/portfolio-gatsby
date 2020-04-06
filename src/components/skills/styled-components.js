@@ -22,7 +22,6 @@ const Container = styled.section`
   min-height: 100vh;
   z-index: 2;
   transition: 0.4s all ease;
-  box-shadow: ${variables.shadowLight};
 `
 
 const Circle = styled(a.div)`
@@ -77,7 +76,7 @@ const Info = styled(a.ul)`
 const IconsContainer = styled.div`
   width: 65%;
   min-height: 50vh;
-  margin: 20px auto 120px;
+  margin: 20px auto 190px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -129,6 +128,15 @@ const LogoImage = styled(Image)`
   height: inherit;
 `
 
+const DegradadoBottom = styled.div`
+  background: linear-gradient(
+    to bottom,
+    ${variables.primaryLight} 0%,
+    whitesmoke
+  );
+  height: 100px;
+`
+
 export {
   Container,
   Circle,
@@ -138,4 +146,5 @@ export {
   LogostListContainer,
   LogoContainer,
   LogoImage,
+  DegradadoBottom,
 }

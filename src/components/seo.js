@@ -39,8 +39,8 @@ function SEO({
       title={metaTitle}
       meta={[
         {
-          name: `description`,
-          content: metaDescription,
+          name: `image`,
+          content: site.siteMetadata.image,
         },
         {
           name: `keywords`,
@@ -55,16 +55,12 @@ function SEO({
           content: metaDescription,
         },
         {
-          property: `og:type`,
-          content: `website`,
-        },
-        {
-          property: `og:url`,
-          content: `https://developep.com`,
-        },
-        {
           property: `og:image`,
           content: site.siteMetadata.image,
+        },
+        {
+          property: `og:type`,
+          content: `website`,
         },
         {
           property: `og:creator`,
@@ -80,7 +76,19 @@ function SEO({
           content: site.siteMetadata.twitterUsername,
         },
         {
-          name: `twitter:image`,
+          property: `twitter:url`,
+          content: `https://developep.com`,
+        },
+        {
+          property: `twitter:title`,
+          content: metaTitle,
+        },
+        {
+          property: `twitter:description`,
+          content: metaDescription,
+        },
+        {
+          property: `twitter:image`,
           content: site.siteMetadata.image,
         },
       ].concat(meta)} //it adds whatever other meta received by props

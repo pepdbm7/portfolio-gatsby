@@ -118,7 +118,6 @@ const CollapsedItemAnchor = styled(a.a)`
   margin: 0 auto;
   font-size: 40px;
   padding: 20px 0;
-  font-family: fantasy;
 `
 
 const CollapsedItemsContainer = styled.div`

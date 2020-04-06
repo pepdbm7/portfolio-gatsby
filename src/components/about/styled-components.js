@@ -18,7 +18,7 @@ const Section = styled(a.section)`
   background: linear-gradient(
     to right,
     ${variables.primaryLight} 0%,
-    ${variables.primary} 100%
+    whitesmoke 100%
   );
 `
 
@@ -27,7 +27,7 @@ const Container = styled(a.div)`
   background: linear-gradient(
     to right,
     SlateBlue 0%,
-    ${variables.primaryDark} 100%
+    ${variables.primary} 100%
   );
   box-shadow: ${variables.shadow};
 

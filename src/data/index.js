@@ -28,15 +28,14 @@ const data = {
     },
   ],
   hero: {
-    title1: "Hi, I'm",
-    title2: "Pep",
-    subtitle: "Web App Development",
+    title: "Hi, I'm Pep",
+    subtitle: "Full Stack Developer",
   },
   about: {
     id: "about",
     title: "About",
     description: [
-      "I am a web developer from Barcelona. I have worked for various companies and clients and as a hobby to keep improving with side projects. Although I have studies and experience as a Full Stack developer nowadays I am more focused in front-end and Interactive Design, using my technical knowledge along with my creativity.",
+      "I am a web developer from Barcelona. I have worked for various companies and clients and as a hobby to keep improving with side projects. Although I have studies and experience as a Full Stack developer nowadays I am more focused in Front-End development and Interactive Design, using my technical knowledge along with my creativity.",
       "I am a big fan of playing basketball, beach volleyball and other outdoor activities and traveling. I am a family person, therefore my preference is working remotely.",
       "I am looking for ambitious challenging projects",
     ],
@@ -70,7 +69,6 @@ const data = {
       "Cross Functional Team oriented",
       "Responsive smooth interactive Design",
       "Cross Browser Testing & Debugging",
-      "Content Management (Wordpress)",
       "SEO and performance focused",
       "Ecommerces and payment platforms",
       "Agile Development, Monday, Kanban",
@@ -79,7 +77,7 @@ const data = {
   work: {
     id: "work",
     title: "Work",
-    description: `I have been doing projects mostly with ReactJS, both professional work and side projects. You can see below a couple of my personal projects, but to see the source code and to see the rest of my projects you can visit my <a href="https://github.com/pepdbm7" target="_blank" rel="noopener noreferrer">Github</a>.`,
+    description: `I have been doing projects mostly with React.js, both professional work and side projects. You can see below a couple of my personal projects, but to see the source code and to see the rest of my projects you can visit my <a href="https://github.com/pepdbm7" target="_blank" rel="noopener noreferrer">Github</a>.`,
     projects: [
       {
         name: "planbe",
@@ -117,10 +115,10 @@ const data = {
       {
         name: "spotify",
         title: "MusicLab 3D Cube",
-        subtitle: "React/Redux Front-End App",
+        subtitle: "React & Redux Front-End App",
         description: [
           "3D Cube as the layout",
-          "SPA, using react-router",
+          "SPA, routing using react-router",
           "Use of itunes API",
           "React Hooks",
           "Tested with Mocha&Chai",
@@ -130,7 +128,7 @@ const data = {
       {
         name: "gnomefinder",
         title: "Gnome Finder",
-        subtitle: "React/Redux Front-End App",
+        subtitle: "React & Redux Front-End App",
         description: [
           "SPA, using react-router",
           "Advanced search with many filters and sorting options",

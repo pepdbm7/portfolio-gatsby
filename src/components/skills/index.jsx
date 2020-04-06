@@ -7,7 +7,13 @@ import Row from "../../utils/grid/row"
 import Column from "../../utils/grid/column"
 import useIntersect from "../../utils/hooks/useIntersect"
 
-import { Container, Circle, Title, Info } from "./styled-components"
+import {
+  Container,
+  Circle,
+  Title,
+  Info,
+  DegradadoBottom,
+} from "./styled-components"
 
 import { useSpring, useTrail, animated as a } from "react-spring"
 
@@ -82,43 +88,47 @@ const Skills = ({ data: { id, title, description } }) => {
   )
 
   return (
-    <Container id={id} ref={ref}>
-      <div ref={containerRef}>
-        <Circle style={{ transform: transitionBall }} />
-        <Wrapper>
-          <Row>
-            <Column xs={12}>
-              <Title
-                data-text={title}
-                style={titleProps}
-                className={"headingMedium"}
-              >
-                {title}
-              </Title>
-            </Column>
-          </Row>
-          <Row>
-            <Column xs={12}>
-              <Info className="bodyNormal">
-                {description &&
-                  descriptionTrail.map((props, index) => (
-                    <a.li style={props} key={index}>
-                      <img src={TagIcon} alt="tag icon" /> {description[index]}{" "}
-                      <img src={TagIcon} alt="tag icon" />
-                    </a.li>
-                  ))}
-              </Info>
-            </Column>
-          </Row>
-          <Row>
-            <Column xs={12}>
-              <TechIcons />
-            </Column>
-          </Row>
-        </Wrapper>
-        <Wave />
-      </div>
-    </Container>
+    <>
+      <Container id={id} ref={ref}>
+        <div ref={containerRef}>
+          <Circle style={{ transform: transitionBall }} />
+          <Wrapper>
+            <Row>
+              <Column xs={12}>
+                <Title
+                  data-text={title}
+                  style={titleProps}
+                  className={"headingMedium"}
+                >
+                  {title}
+                </Title>
+              </Column>
+            </Row>
+            <Row>
+              <Column xs={12}>
+                <Info className="bodyNormal">
+                  {description &&
+                    descriptionTrail.map((props, index) => (
+                      <a.li style={props} key={index}>
+                        <img src={TagIcon} alt="tag icon" />{" "}
+                        {description[index]}{" "}
+                        <img src={TagIcon} alt="tag icon" />
+                      </a.li>
+                    ))}
+                </Info>
+              </Column>
+            </Row>
+            <Row>
+              <Column xs={12}>
+                <TechIcons />
+              </Column>
+            </Row>
+          </Wrapper>
+          <Wave />
+        </div>
+      </Container>
+      <DegradadoBottom />
+    </>
   )
 }
 

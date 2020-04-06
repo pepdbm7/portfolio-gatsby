@@ -62,7 +62,9 @@ const Contact = ({ data: { id, title, description } }) => {
           </Column>
 
           <Column xs={12}>
-            <Intro style={introProps}>{description}</Intro>
+            <Intro className="bodyNormal" style={introProps}>
+              {description}
+            </Intro>
           </Column>
 
           <ContactForm
@@ -73,20 +75,42 @@ const Contact = ({ data: { id, title, description } }) => {
             style={formProps}
           >
             {/* The `form-name` hidden field is required to support form submissions without JavaScript */}
-            <input type="hidden" name="form-name" value="contact" />
+            <input
+              type="hidden"
+              name="form-name"
+              value="contact"
+              className="bodyNormal"
+            />
             <Wrapper>
               <Row>
                 <Column xs={12} align="center" direction="column" sm={6}>
-                  <input name="name" id="name" placeholder="Name" required />
+                  <input
+                    className="bodyNormal"
+                    name="name"
+                    id="name"
+                    placeholder="Name"
+                    required
+                  />
                 </Column>
                 <Column xs={12} align="center" direction="column" sm={6}>
-                  <input name="email" id="email" placeholder="Email" />
+                  <input
+                    className="bodyNormal"
+                    name="email"
+                    id="email"
+                    placeholder="Email"
+                  />
                 </Column>
               </Row>
               <Row>
                 <Column xs={12} align="center" direction="column">
-                  <input name="subject" id="subject" placeholder="Subject" />
+                  <input
+                    className="bodyNormal"
+                    name="subject"
+                    id="subject"
+                    placeholder="Subject"
+                  />
                   <textarea
+                    className="bodyNormal"
                     required
                     name="message"
                     id="message"

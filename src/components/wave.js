@@ -8,6 +8,7 @@ const Wrapper = styled.div`
   width: 100%;
   height: fit-content;
   z-index: 1;
+  margin-top: 30px;
   ${({ orientation }) => orientation === "top" && "top: 0"};
   ${({ orientation }) =>
     orientation === "top" && "transform: matrix(1, 0, 0, -1, 0, 0)"};
@@ -44,19 +45,29 @@ const InnerWave = styled.div`
 `
 
 const WaveSVG1 = styled.svg`
-  height: 50px;
+  height: 120px;
   path {
-    fill: royalblue;
+    fill: tomato;
     width: 100%;
-    animation: ${smoooooth} 20s linear infinite alternate;
+    animation: ${smoooooth} 15s linear infinite alternate;
+  }
+  transform: scale(-1, 1);
+`
+
+const WaveSVG2 = styled.svg`
+  height: 80px;
+  path {
+    fill: #ff8532;
+    width: 100%;
+    animation: ${smoooooth} 8s linear infinite alternate;
   }
 `
-const WaveSVG2 = styled.svg`
+const WaveSVG3 = styled.svg`
   height: 30px;
   path {
     fill: cornflowerblue;
     width: 120%;
-    animation: ${smoooooth} 10s linear infinite alternate;
+    animation: ${smoooooth} 2s linear infinite alternate;
   }
   transform: scale(-1, 1);
 `
@@ -94,10 +105,28 @@ const Wave = ({ orientation }) => (
             attributeName="d"
             values="M 27 10C 21 8 14 3 0 3L 0 0L 54 0L 54 14C 40 14 33 12 27 10Z;M 27 14C 12 14 5 7 0 7L 0 0L 54 0L 54 7C 49 7 42 14 27 14Z;M 27 10C 21 12 14 14 0 14L 0 0L 54 0L 54 3C 40 3 33 8 27 10Z;M 27 10C 21 12 14 14 0 14L 0 0L 54 0L 54 3C 40 3 33 8 27 10Z;M 27 14C 12 14 5 7 0 7L 0 0L 54 0L 54 7C 49 7 42 14 27 14Z;M 27 10C 21 8 14 3 0 3L 0 0L 54 0L 54 14C 40 14 33 12 27 10Z"
             repeatCount="indefinite"
-            dur="10s"
+            dur="20s"
           />
         </path>
       </WaveSVG2>
+    </InnerWave>
+    <InnerWave>
+      <WaveSVG3
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 54 14"
+        preserveAspectRatio="none"
+        aria-hidden="true"
+        focusable="false"
+      >
+        <path>
+          <animate
+            attributeName="d"
+            values="M 27 10C 21 8 14 3 0 3L 0 0L 54 0L 54 14C 40 14 33 12 27 10Z;M 27 14C 12 14 5 7 0 7L 0 0L 54 0L 54 7C 49 7 42 14 27 14Z;M 27 10C 21 12 14 14 0 14L 0 0L 54 0L 54 3C 40 3 33 8 27 10Z;M 27 10C 21 12 14 14 0 14L 0 0L 54 0L 54 3C 40 3 33 8 27 10Z;M 27 14C 12 14 5 7 0 7L 0 0L 54 0L 54 7C 49 7 42 14 27 14Z;M 27 10C 21 8 14 3 0 3L 0 0L 54 0L 54 14C 40 14 33 12 27 10Z"
+            repeatCount="indefinite"
+            dur="7s"
+          />
+        </path>
+      </WaveSVG3>
     </InnerWave>
   </Wrapper>
 )

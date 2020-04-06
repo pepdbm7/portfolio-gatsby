@@ -1,9 +1,9 @@
 module.exports = {
   siteMetadata: {
-    title: `Pep, Web Developer Portfolio`,
-    description: `Full Stack Developer | Javascript web development and making projects | Barcelona`,
+    title: `Web Development and Design | Full Stack Web Developer | Freelance Portfolio`,
+    description: `Hire Professional Freelance & React Developer. Building animations and interactive experiences, high quality solutions, website maintenance & security. Contact me to make your website or web app`,
     keywords:
-      "web, developer, development, react, portfolio, pepdbm7, freelance, websites, projects",
+      "Web Developer Portfolio, Web Design, React Developer, Full Stack Developer, Front End Developer, Portfolio, Pep del Baño, MusicLab 3D Cube, MeetUp, PlanBe, gatsby website, awesome design, Web Application",
     lang: "en",
     author: `Pep del Baño`,
     twitterUsername: `pepdbm89`,

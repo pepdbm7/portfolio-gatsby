@@ -20,7 +20,7 @@ import useWindowSize from "../../utils/hooks/useWindowSize"
 
 import { StoreContext } from "../store"
 
-const Hero = ({ data: { title1, title2, subtitle } }) => {
+const Hero = ({ data: { title, subtitle } }) => {
   const { avatar } = useStaticQuery(graphql`
     query {
       avatar: file(absolutePath: { regex: "/profile-cut.png/" }) {
@@ -116,7 +116,7 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
           <Picture
             style={{ transform: transitionImage }}
             fluid={avatar.childImageSharp.fluid}
-            alt={avatar.name}
+            alt="pep"
           />
         </PictureContainer>
         <LeftSide
@@ -125,9 +125,7 @@ const Hero = ({ data: { title1, title2, subtitle } }) => {
           }}
         >
           <ContentLeft style={{ transform: contentScale }}>
-            <HomeTitle>
-              {title1} <span>{title2}</span>
-            </HomeTitle>
+            <HomeTitle>{title}</HomeTitle>
             <Stripe style={{ margin: stripeMargins }} />
             <HomeSubtitle>{subtitle}</HomeSubtitle>
           </ContentLeft>

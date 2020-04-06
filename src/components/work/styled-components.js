@@ -9,7 +9,7 @@ import { breakpoints } from "../../assets/styles/breakpoints"
 import { animated as a } from "react-spring"
 
 const Container = styled.section`
-  background: white;
+  background: whitesmoke;
   position: relative;
   z-index: 0;
   padding: 0 0 100px;
@@ -99,6 +99,7 @@ const DecorationLayer = styled(a.div)`
 const ProjectCardContainer = styled.div`
   display: flex;
   flex-direction: column;
+  background: white;
   text-align: center;
   flex-basis: 100%;
   width: 100%;
@@ -176,16 +177,16 @@ const ProjectTitle = styled.h3`
   font-size: 24px;
 `
 
-const ProjectSubTitle = styled.h2`
+const ProjectSubTitle = styled.h4`
   color: ${variables.primaryLight};
   font-size: 20px;
 `
 
 const ProjectImageContainer = styled.div`
-  width: 90%;
+  width: 80%;
   height: 200px;
-  margin: 20px 0 30px;
-  border-radius: 5px;
+  margin: 15px auto 30px;
+  box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.3);
 `
 
 const ProjectImage = styled(Image)`

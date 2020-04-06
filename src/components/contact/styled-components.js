@@ -27,30 +27,34 @@ const Title = styled(a.h2)`
   line-height: 39px;
 
   @media screen and (min-width: ${breakpoints.large}px) {
-    margin: 100px auto 40px;
+    margin: 170px auto 70px;
   }
 `
 
 const Intro = styled(a.p)`
-  margin: 20px auto;
+  margin: 0 auto;
   width: 85%;
 `
 
 const ContactForm = styled(a.form)`
-  margin: 60px auto 100px;
+  margin: 80px auto 170px;
 
   input,
   textarea,
   button {
     padding: 15px 8px;
-    margin: 8px 0;
+    margin: 20px 0;
     border: 1px solid royalblue;
+    border-radius: 5px;
     background: white;
     font-family: inherit;
+    background: transparent;
+    color: white;
+    font-size: 20px;
   }
   @media screen and (min-width: ${breakpoints.tablet}px) {
     #name {
-      margin: 8px 5px 8px 0;
+      margin: 20px 5px 20px 0;
     }
   }
 
@@ -62,9 +66,10 @@ const ContactForm = styled(a.form)`
     padding: 12px 30px;
     border-radius: 30px;
     user-select: none;
+    cursor: pointer;
     outline: 0;
     width: fit-content;
-    margin: 8px auto;
+    margin: 40px auto 10px;
 
     transition: 0.25s all ease;
 
