@@ -2,7 +2,7 @@ import React from "react"
 import { Helmet } from "react-helmet"
 import PropTypes from "prop-types"
 import { useStaticQuery, graphql } from "gatsby"
-import image from "../images/screenshot.jpg"
+import defaultImage from "../assets/images/screenshot.jpg"
 
 function SEO({
   title = "",
@@ -10,6 +10,7 @@ function SEO({
   keywords = "",
   lang = "en",
   meta = [{}],
+  image = "",
 }) {
   const { site } = useStaticQuery(
     graphql`
@@ -30,6 +31,7 @@ function SEO({
 
   const metaDescription = description || site.siteMetadata.description
   const metaTitle = title || site.siteMetadata.title
+  const img = image || `${defaultImage}`
 
   return (
     <Helmet
@@ -40,7 +42,7 @@ function SEO({
       meta={[
         {
           name: `image`,
-          content: image,
+          content: img,
         },
         {
           name: `keywords`,
@@ -56,7 +58,7 @@ function SEO({
         },
         {
           property: `og:image`,
-          content: image,
+          content: img,
         },
         {
           property: `og:type`,
@@ -93,7 +95,7 @@ function SEO({
         },
         {
           property: `twitter:image`,
-          content: image,
+          content: img,
         },
       ].concat(meta)} //it adds whatever other meta received by props
     />

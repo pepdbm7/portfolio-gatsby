@@ -52,7 +52,7 @@ const data = {
       },
       {
         alt: "linkedInIcon",
-        href: "`https://www.linkedin.com/in/josepdelbano",
+        href: "https://www.linkedin.com/in/josepdelbano",
         src: `${linkedin}`,
       },
       {
