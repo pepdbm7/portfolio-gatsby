@@ -7,7 +7,6 @@ module.exports = {
     lang: "en",
     author: `Pep del Baño`,
     twitterUsername: `pepdbm89`,
-    image: `src/images/screenshot.png`,
   },
   plugins: [
     `gatsby-plugin-react-helmet`,
