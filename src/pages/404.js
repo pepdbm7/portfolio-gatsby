@@ -1,25 +1,29 @@
 import React from "react"
 import { Link } from "gatsby"
 import styled from "styled-components"
+import variables from "../assets/styles/variables"
 
 //components:
 import SEO from "../components/seo"
 
 const Container = styled.div`
-  position: absolute;
+  box-sizing: border-box;
+  padding: 20px;
   margin: -8px;
-  height: 300vh;
+  height: 100vh;
   width: 100vw;
   display: flex;
-  flex-direction: column;
   justify-content: center;
   align-items: center;
-  background: darkgrey;
-  background-size: cover;
-  user-select: none;
+  background: ${variables.secondary};
 `
 
-const Title = styled.h2``
+const Title = styled.h2`
+  font-size: 50px;
+  font-family: sans-serif;
+  color: whitesmoke;
+  text-align: center;
+`
 
 const GoHome = styled(Link)`
   text-decoration: none;
@@ -47,7 +51,7 @@ const GoHome = styled(Link)`
 const IndexPage = () => (
   <Container>
     <SEO title="404" />
-    <Title>Sorry, this page doesn't exist</Title>
+    <Title>Sorry mate, this page doesn't exist...</Title>
     <GoHome to="/">Go Back</GoHome>
   </Container>
 )

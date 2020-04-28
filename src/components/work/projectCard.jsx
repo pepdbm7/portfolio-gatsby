@@ -47,7 +47,7 @@ const ProjectCard = ({ project, id }) => {
           }
         }
       }
-      gnomefinder: file(absolutePath: { regex: "/gnomefinder.png/" }) {
+      chat: file(absolutePath: { regex: "/chat.png/" }) {
         childImageSharp {
           fluid(maxWidth: 450) {
             ...GatsbyImageSharpFluid
